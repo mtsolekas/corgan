@@ -59,8 +59,8 @@ int read_schedule_file()
 
     fclose(fp);
 
-    sched[size-1] = '\0';
-    sched = realloc(sched, sizeof(char) * (size-1));
+    sched[size] = '\0';
+    sched = realloc(sched, sizeof(char) * (size));
     if (!sched) return -1;
 
     return 0;
