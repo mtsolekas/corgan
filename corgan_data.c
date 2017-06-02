@@ -3,10 +3,12 @@
 void init_data()
 {
     FILE *fp;
+    int path_size;
     char *config_dir;
     
+    path_size = sizeof(char) * 30;
     config_dir = strdup(getenv("HOME"));
-    config_dir = strcat(realloc(config_dir, 30), "/.config/corgan");
+    config_dir = strcat(realloc(config_dir, path_size), "/.config/corgan");
 
     CONTACTS_PATH = strcat(strdup(config_dir), "/contacts");
     SCHEDULE_PATH = strcat(strdup(config_dir), "/schedule");
@@ -23,6 +25,8 @@ void init_data()
         fp = fopen(SCHEDULE_PATH, "w");
         fclose(fp);
     }
+
+    read_schedule_file();
 }
 
 void free_data()
@@ -34,12 +38,42 @@ void free_data()
 int read_schedule_file()
 {
     FILE *fp;
+    int byte_size, size;
+    char c;
 
     fp = fopen(SCHEDULE_PATH, "r");
-    if(!fp) {
-        return -1;
+    if(!fp) return -1;
+
+    byte_size = sizeof(char) * 100;
+    sched = malloc(byte_size);
+    if (!sched) return -1;
+
+    for (size = 0; (c = getc(fp)) != EOF; ++size) {
+        if (size >= byte_size / sizeof(char)) {
+            byte_size += sizeof(char) * 100;
+            sched = realloc(sched, byte_size);
+            if (!sched) return -1;
+        }
+        sched[size] = c;
     }
 
+    fclose(fp);
+
+    sched[size-1] = '\0';
+    sched = realloc(sched, sizeof(char) * (size-1));
+    if (!sched) return -1;
+
+    return 0;
+}
+
+int write_schedule_file()
+{
+    FILE *fp;
+
+    fp = fopen(SCHEDULE_PATH, "w");
+    if (!fp) return -1;
+
+    fputs(sched, fp);
     fclose(fp);
 
     return 0;

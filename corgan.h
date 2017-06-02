@@ -5,7 +5,7 @@
 
 GtkBuilder *builder;
 
-GtkTextBuffer *schedule_buffer;
+GtkTextBuffer *sched_buf;
 
 GtkListStore *names_list;
 GtkComboBox *contacts_combo;

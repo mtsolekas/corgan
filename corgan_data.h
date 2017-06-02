@@ -11,7 +11,7 @@
 char *CONTACTS_PATH;
 char *SCHEDULE_PATH;
 
-char *schedule;
+char *sched;
 
 void init_data();
 void free_data();
