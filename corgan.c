@@ -3,33 +3,22 @@
 
 int main(int argc, char **argv)
 {
-    init_corgan(argc, argv);
-
-    free_corgan();
-
-    return EXIT_SUCCESS;
-}
-
-void init_corgan(int argc, char **argv)
-{
-    init_data();
+    if(init_data()) return EXIT_FAILURE;
 
     gtk_init(&argc, &argv);
 
     builder = gtk_builder_new_from_file("corgan.glade");
     gtk_builder_connect_signals(builder, NULL);
 
-    sched_buf = GTK_TEXT_BUFFER(
-                    gtk_builder_get_object(builder, "schedule_buffer"));
+    sched_buf = GTK_TEXT_BUFFER(gtk_builder_get_object(builder, "sched_buf"));
 
     gtk_text_buffer_set_text(sched_buf, sched, -1);
 
     gtk_main();
-}
 
-void free_corgan()
-{
     free_data();
+
+    return EXIT_SUCCESS;
 }
 
 void window_delete_event()
@@ -65,6 +54,8 @@ void save_button_clicked()
     if (strcmp(sched, new_sched)) {
         free(sched);
         sched = new_sched;
-        if (write_schedule_file()) exit(-1);
+        if (write_schedule_file()) {
+            puts("Error writing schedule file");
+        }
     }
 }

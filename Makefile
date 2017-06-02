@@ -25,5 +25,4 @@ corgan_data.o: corgan_data.c corgan_data.h
 	$(CC) $(CFLAGS) -c corgan_data.c
 
 clean:
-	-rm corgan
 	-rm *.[ao]

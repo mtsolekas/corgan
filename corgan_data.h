@@ -13,7 +13,7 @@ char *SCHEDULE_PATH;
 
 char *sched;
 
-void init_data();
+int init_data();
 void free_data();
 
 int read_contacts_file();

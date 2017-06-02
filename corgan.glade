@@ -8,7 +8,7 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkTextBuffer" id="schedule_buffer"/>
+  <object class="GtkTextBuffer" id="sched_buf"/>
   <object class="GtkWindow" id="window">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -238,7 +238,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="left_margin">6</property>
-                    <property name="buffer">schedule_buffer</property>
+                    <property name="buffer">sched_buf</property>
                   </object>
                 </child>
               </object>

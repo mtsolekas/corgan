@@ -1,6 +1,6 @@
 #include "corgan_data.h"
 
-void init_data()
+int init_data()
 {
     FILE *fp;
     int path_size;
@@ -26,7 +26,9 @@ void init_data()
         fclose(fp);
     }
 
-    read_schedule_file();
+    if(read_schedule_file()) return -1;
+
+    return 0;
 }
 
 void free_data()
