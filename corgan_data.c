@@ -27,6 +27,7 @@ int init_data()
     }
 
     if(read_schedule_file()) return -1;
+    if(read_contacts_file()) return -1;
 
     return 0;
 }
@@ -35,12 +36,89 @@ void free_data()
 {
     free(CONTACTS_PATH);
     free(SCHEDULE_PATH);
+
+    for (int i = 0; contacts[i]; ++i) {
+        free(contacts[i]);
+    }
+
+    free(contacts);
+    free(sched);
+}
+
+int text_entry_length(char *line)
+{
+    int i = 0;
+
+    while (line[i]) {
+        if (line[i] == '\n') {
+            line[i] = '\0';
+            return ++i;
+        }
+        ++i;
+    }
+
+    return i;
+}
+
+int read_contacts_file()
+{
+    FILE *fp;
+    char *line;
+    char *entry;
+    unsigned int size;
+
+    fp = fopen(CONTACTS_PATH, "r");
+    if(!fp) return -1;
+
+    size = sizeof(char*) * 100;
+    contacts = malloc(size);
+    if (!contacts) return -1;
+
+    line = malloc(sizeof(char) * 100);
+    if(!line) return -1;
+
+    for (int i = 0; (line = fgets(line, 100, fp)); ++i) {
+        entry = realloc(strdup(line), text_entry_length(line));
+        if (!entry) return -1;
+
+        if (i * sizeof(char*) >= size) {
+            size += sizeof(char) * 100;
+            contacts = realloc(contacts, size);
+            if (!contacts) return -1;
+        }
+
+        contacts[i] = strdup(entry);
+    }
+
+    free(entry);
+    free(line);
+
+    fclose(fp);
+
+    return 0;
+}
+
+int write_contacts_file()
+{
+    FILE *fp;
+
+    fp = fopen(CONTACTS_PATH, "w");
+    if (!fp) return -1;
+
+    for (int i = 0; contacts[i]; ++i) {
+        fputs(contacts[i], fp);
+        fputc('\n', fp);
+    }
+
+    fclose(fp);
+
+    return 0;
 }
 
 int read_schedule_file()
 {
     FILE *fp;
-    int byte_size, size;
+    unsigned int byte_size, size;
     char c;
 
     fp = fopen(SCHEDULE_PATH, "r");

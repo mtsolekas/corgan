@@ -5,7 +5,10 @@ endif
 CC = gcc
 
 LIBS = -I. `pkg-config --cflags gtk+-3.0` `pkg-config --libs gtk+-3.0`
-CFLAGS = -std=gnu11 -Wall -Wpedantic -rdynamic $(LIBS)
+
+WARNINGS = -Wall -Wextra -Wpedantic
+
+CFLAGS = -std=gnu11 -rdynamic $(WARNINGS) $(LIBS)
 
 ifeq ($(DEBUG), 1)
 CFLAGS += -g3
