@@ -17,7 +17,7 @@ char *sched;
 int init_data();
 void free_data();
 
-int text_entry_length(char *line);
+int entry_length(char *line);
 
 int read_contacts_file();
 int write_contacts_file();

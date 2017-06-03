@@ -45,7 +45,7 @@ void free_data()
     free(sched);
 }
 
-int text_entry_length(char *line)
+int entry_length(char *line)
 {
     int i = 0;
 
@@ -78,7 +78,7 @@ int read_contacts_file()
     if(!line) return -1;
 
     for (int i = 0; (line = fgets(line, 100, fp)); ++i) {
-        entry = realloc(strdup(line), text_entry_length(line));
+        entry = realloc(strdup(line), sizeof(char*) * entry_length(line));
         if (!entry) return -1;
 
         if (i * sizeof(char*) >= size) {

@@ -11,6 +11,8 @@ GtkListStore *names_list;
 GtkComboBox *contacts_combo;
 GtkEntry *name_entry, *email_entry, *phone_entry;
 
+int get_active_index();
+
 void window_delete_event();
 void combo_changed();
 void new_button_clicked();
