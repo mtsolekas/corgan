@@ -50,6 +50,7 @@ int main(int argc, char **argv)
     phone_entry = GTK_ENTRY(gobj);
 
     gtk_combo_box_set_active(contacts_combo, 0);
+    contacts_changed = 0;
 
     gtk_main();
 
@@ -112,7 +113,7 @@ void save_button_clicked()
     char *new_sched;
 
     GtkTreeIter tree_iter;
-    int index, contact_changed;
+    int index;
     char *new_name, *new_email, *new_phone;
 
     gtk_text_buffer_get_start_iter(sched_buf, &start);
@@ -125,7 +126,6 @@ void save_button_clicked()
         write_schedule_file();
     }
 
-    contact_changed = 0;
     index = get_active_index();
 
     new_name = strdup(gtk_entry_get_text(name_entry));
@@ -134,7 +134,7 @@ void save_button_clicked()
 
     if (strcmp(contacts[index+1], new_email)) {
         contacts[index+1] = new_email;
-        contact_changed = 1;
+        contacts_changed = 1;
     }
     else {
         free(new_email);
@@ -142,7 +142,7 @@ void save_button_clicked()
 
     if (strcmp(contacts[index+2], new_phone)) {
         contacts[index+2] = new_phone;
-        contact_changed = 1;
+        contacts_changed = 1;
     }
     else {
         free(new_phone);
@@ -150,7 +150,7 @@ void save_button_clicked()
 
     if (strcmp(contacts[index], new_name)) {
         contacts[index] = new_name;
-        contact_changed = 1;
+        contacts_changed = 1;
 
         gtk_combo_box_get_active_iter(contacts_combo, &tree_iter);
         gtk_list_store_set(names_list, &tree_iter, 0, contacts[index], -1);
@@ -159,7 +159,8 @@ void save_button_clicked()
         free(new_name);
     }
 
-    if (contact_changed) {
+    if (contacts_changed) {
         write_contacts_file();
+        contacts_changed = 0;
     }
 }
