@@ -64,7 +64,7 @@ int get_active_index()
     GtkTreeIter iter;
     GtkTreeModel *model;
 
-    if (!gtk_combo_box_get_active_iter(contacts_combo, &iter)) return -1;
+    gtk_combo_box_get_active_iter(contacts_combo, &iter);
     model = gtk_combo_box_get_model(contacts_combo);
     gtk_tree_model_get(model, &iter, 0, &name, -1);
 
@@ -111,6 +111,10 @@ void save_button_clicked()
     GtkTextIter end;
     char *new_sched;
 
+    GtkTreeIter tree_iter;
+    int index, contact_changed;
+    char *new_name, *new_email, *new_phone;
+
     gtk_text_buffer_get_start_iter(sched_buf, &start);
     gtk_text_buffer_get_end_iter(sched_buf, &end);
     new_sched = gtk_text_buffer_get_text(sched_buf, &start, &end, TRUE);
@@ -118,8 +122,44 @@ void save_button_clicked()
     if (strcmp(sched, new_sched)) {
         free(sched);
         sched = new_sched;
-        if (write_schedule_file()) {
-            g_print("Error writing schedule file\n");
-        }
+        write_schedule_file();
+    }
+
+    contact_changed = 0;
+    index = get_active_index();
+
+    new_name = strdup(gtk_entry_get_text(name_entry));
+    new_email = strdup(gtk_entry_get_text(email_entry));
+    new_phone = strdup(gtk_entry_get_text(phone_entry));
+
+    if (strcmp(contacts[index+1], new_email)) {
+        contacts[index+1] = new_email;
+        contact_changed = 1;
+    }
+    else {
+        free(new_email);
+    }
+
+    if (strcmp(contacts[index+2], new_phone)) {
+        contacts[index+2] = new_phone;
+        contact_changed = 1;
+    }
+    else {
+        free(new_phone);
+    }
+
+    if (strcmp(contacts[index], new_name)) {
+        contacts[index] = new_name;
+        contact_changed = 1;
+
+        gtk_combo_box_get_active_iter(contacts_combo, &tree_iter);
+        gtk_list_store_set(names_list, &tree_iter, 0, contacts[index], -1);
+    }
+    else {
+        free(new_name);
+    }
+
+    if (contact_changed) {
+        write_contacts_file();
     }
 }

@@ -88,6 +88,7 @@ int read_contacts_file()
         }
 
         contacts[i] = strdup(entry);
+        if (!contacts[i]) return -1;
     }
 
     free(entry);
