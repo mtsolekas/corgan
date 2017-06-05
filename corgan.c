@@ -112,19 +112,17 @@ void new_button_clicked()
 
 void delete_button_clicked()
 {
-#if 0
     GtkTreeIter iter;
+    GtkTreeModel *model;
     int index;
 
     index = get_active_index();
     del_contact(index);
 
-    gtk_combo_box_get_active_iter(contacts_combo, &iter);
+    gtk_tree_selection_get_selected(selection, &model, &iter);
     gtk_list_store_remove(names_list, &iter);
-    gtk_combo_box_set_active(contacts_combo, 0);
 
     contacts_changed = 1;
-#endif
 }
 
 void save_button_clicked()
