@@ -5,11 +5,9 @@ int main(int argc, char **argv)
 {
     GObject *gobj;
     GtkTreeSortable *names_sort;
-
-    GtkCellLayout *cell_layout;
+    GtkTreeIter iter;
     GtkCellRenderer *renderer;
-
-    GtkTreeIter tree_iter;
+    GtkTreeViewColumn *col;
 
     if(init_data()) return EXIT_FAILURE;
 
@@ -29,18 +27,21 @@ int main(int argc, char **argv)
     gtk_tree_sortable_set_sort_column_id(names_sort, 0, GTK_SORT_ASCENDING);
 
     for (int i = 0; contacts[i]; i += 3) {
-        gtk_list_store_append(names_list, &tree_iter);
-        gtk_list_store_set(names_list, &tree_iter, 0, contacts[i], -1);
+        gtk_list_store_append(names_list, &iter);
+        gtk_list_store_set(names_list, &iter, 0, contacts[i], -1);
     }
 
-    gobj = gtk_builder_get_object(builder, "contacts_combo");
-    contacts_combo = GTK_COMBO_BOX(gobj);
+    gobj = gtk_builder_get_object(builder, "selection");
+    selection = GTK_TREE_SELECTION(gobj);
 
-    cell_layout = GTK_CELL_LAYOUT(contacts_combo);
-    renderer = GTK_CELL_RENDERER(gtk_cell_renderer_text_new());
+    gobj = gtk_builder_get_object(builder, "contacts_view");
+    contacts_view = GTK_TREE_VIEW(gobj);
 
-    gtk_cell_layout_pack_start(cell_layout, renderer, TRUE);
-    gtk_cell_layout_add_attribute(cell_layout, renderer, "text", 0);
+    renderer = gtk_cell_renderer_text_new();
+
+    col = gtk_tree_view_column_new_with_attributes("Name", renderer,
+                                                    "text", 0, NULL);
+    gtk_tree_view_append_column(contacts_view, col);
 
     gobj = gtk_builder_get_object(builder, "name_entry");
     name_entry = GTK_ENTRY(gobj);
@@ -49,7 +50,6 @@ int main(int argc, char **argv)
     gobj = gtk_builder_get_object(builder, "phone_entry");
     phone_entry = GTK_ENTRY(gobj);
 
-    gtk_combo_box_set_active(contacts_combo, 0);
     contacts_changed = 0;
 
     gtk_main();
@@ -65,8 +65,7 @@ int get_active_index()
     GtkTreeIter iter;
     GtkTreeModel *model;
 
-    gtk_combo_box_get_active_iter(contacts_combo, &iter);
-    model = gtk_combo_box_get_model(contacts_combo);
+    gtk_tree_selection_get_selected(selection, &model, &iter);
     gtk_tree_model_get(model, &iter, 0, &name, -1);
 
     for (int i = 0; contacts[i]; i += 3) {
@@ -85,7 +84,7 @@ void window_delete_event()
     gtk_main_quit();
 }
 
-void contacts_combo_changed()
+void selection_changed()
 {
     int index;
 
@@ -94,16 +93,38 @@ void contacts_combo_changed()
     gtk_entry_set_text(name_entry, contacts[index]);
     gtk_entry_set_text(email_entry, contacts[++index]);
     gtk_entry_set_text(phone_entry, contacts[++index]);
+
 }
 
 void new_button_clicked()
 {
+#if 0
+    GtkTreeIter iter;
 
+    new_contact();
+
+    gtk_list_store_append(names_list, &iter);
+    gtk_list_store_set(names_list, &iter, 0, " ", -1);
+
+    gtk_combo_box_set_active(contacts_combo, 0);
+#endif
 }
 
 void delete_button_clicked()
 {
+#if 0
+    GtkTreeIter iter;
+    int index;
 
+    index = get_active_index();
+    del_contact(index);
+
+    gtk_combo_box_get_active_iter(contacts_combo, &iter);
+    gtk_list_store_remove(names_list, &iter);
+    gtk_combo_box_set_active(contacts_combo, 0);
+
+    contacts_changed = 1;
+#endif
 }
 
 void save_button_clicked()
@@ -112,6 +133,7 @@ void save_button_clicked()
     GtkTextIter end;
     char *new_sched;
 
+    GtkTreeModel *model;
     GtkTreeIter tree_iter;
     int index;
     char *new_name, *new_email, *new_phone;
@@ -152,7 +174,7 @@ void save_button_clicked()
         contacts[index] = new_name;
         contacts_changed = 1;
 
-        gtk_combo_box_get_active_iter(contacts_combo, &tree_iter);
+        gtk_tree_selection_get_selected(selection, &model, &tree_iter);
         gtk_list_store_set(names_list, &tree_iter, 0, contacts[index], -1);
     }
     else {

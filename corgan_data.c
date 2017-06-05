@@ -45,6 +45,39 @@ void free_data()
     free(sched);
 }
 
+int new_contact()
+{
+    int i;
+
+    for (i = 0; contacts[i]; ++i) {
+        if ((i + 2) * sizeof(char*) >= contacts_size) {
+            contacts_size += sizeof(char) * 100;
+            contacts = realloc(contacts, contacts_size);
+            if (!contacts) return -1;
+        }
+    }
+
+    contacts[i] = " ";
+    contacts[++i] = " ";
+    contacts[++i] = " ";
+
+    return 0;
+}
+
+int del_contact(int index)
+{
+    for (int i = index; contacts[i]; ++i) {
+        if ((i + 3) * sizeof(char*) >= contacts_size) {
+            contacts[i] = NULL;
+        }
+        else {
+            contacts[i] = contacts[i+3];
+        }
+    }
+
+    return 0;
+}
+
 int entry_length(char *line)
 {
     int i = 0;
@@ -65,13 +98,12 @@ int read_contacts_file()
     FILE *fp;
     char *line;
     char *entry;
-    unsigned int size;
 
     fp = fopen(CONTACTS_PATH, "r");
     if(!fp) return -1;
 
-    size = sizeof(char*) * 100;
-    contacts = malloc(size);
+    contacts_size = sizeof(char*) * 100;
+    contacts = malloc(contacts_size);
     if (!contacts) return -1;
 
     line = malloc(sizeof(char) * 100);
@@ -81,9 +113,9 @@ int read_contacts_file()
         entry = strndup(line, sizeof(char*) * entry_length(line));
         if (!entry) return -1;
 
-        if (i * sizeof(char*) >= size) {
-            size += sizeof(char) * 100;
-            contacts = realloc(contacts, size);
+        if (i * sizeof(char*) >= contacts_size) {
+            contacts_size += sizeof(char) * 100;
+            contacts = realloc(contacts, contacts_size);
             if (!contacts) return -1;
         }
 

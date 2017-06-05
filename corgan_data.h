@@ -12,10 +12,15 @@ char *CONTACTS_PATH;
 char *SCHEDULE_PATH;
 
 char **contacts;
+unsigned int contacts_size;
+
 char *sched;
 
 int init_data();
 void free_data();
+
+int new_contact();
+int del_contact(int pos);
 
 int entry_length(char *line);
 
