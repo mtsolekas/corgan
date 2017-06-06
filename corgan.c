@@ -67,7 +67,10 @@ int get_active_index()
     GtkTreeIter iter;
     GtkTreeModel *model;
 
-    gtk_tree_selection_get_selected(selection, &model, &iter);
+    if (!gtk_tree_selection_get_selected(selection, &model, &iter)) {
+        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
+        gtk_tree_selection_select_iter(selection, &iter);
+    }
     gtk_tree_model_get(model, &iter, 0, &name, -1);
 
     for (int i = 0; contacts[i]; i += 3) {
