@@ -8,10 +8,10 @@ int init_data()
     
     path_size = sizeof(char) * 30;
     config_dir = strdup(getenv("HOME"));
-    config_dir = strcat(realloc(config_dir, path_size), "/.config/corgan");
+    config_dir = strcat(realloc(config_dir, path_size), "/.config/corgan/");
 
-    CONTACTS_PATH = strcat(strdup(config_dir), "/contacts");
-    SCHEDULE_PATH = strcat(strdup(config_dir), "/schedule");
+    CONTACTS_PATH = strcat(strdup(config_dir), "contacts");
+    SCHEDULE_PATH = strcat(strdup(config_dir), "schedule");
 
     mkdir(config_dir, 0700);
     free(config_dir);
@@ -26,8 +26,8 @@ int init_data()
         fclose(fp);
     }
 
-    if(read_schedule_file()) return -1;
     if(read_contacts_file()) return -1;
+    if(read_schedule_file()) return -1;
 
     return 0;
 }
@@ -50,16 +50,16 @@ int new_contact()
     int i;
 
     for (i = 0; contacts[i]; ++i) {
-        if ((i + 2) * sizeof(char*) >= contacts_size) {
+        if ((i + 3) * sizeof(char*) >= contacts_size) {
             contacts_size += sizeof(char) * 100;
             contacts = realloc(contacts, contacts_size);
             if (!contacts) return -1;
         }
     }
 
-    contacts[i] = "New Contact";
-    contacts[++i] = "New Email";
-    contacts[++i] = "New Phone";
+    contacts[i] = strdup(" ");
+    contacts[++i] = strdup(" ");
+    contacts[++i] = strdup(" ");
 
     return 0;
 }
@@ -139,7 +139,7 @@ int write_contacts_file()
     if (!fp) return -1;
 
     for (int i = 0; contacts[i]; ++i) {
-        fputs(contacts[i], fp);
+        fputs((char*)contacts[i], fp);
         fputc('\n', fp);
     }
 
@@ -172,9 +172,11 @@ int read_schedule_file()
 
     fclose(fp);
 
-    sched[size] = '\0';
-    sched = realloc(sched, sizeof(char) * (size));
-    if (!sched) return -1;
+    if (size) {
+        sched[size] = '\0';
+        sched = realloc(sched, sizeof(char) * (size));
+        if (!sched) return -1;
+    }
 
     return 0;
 }

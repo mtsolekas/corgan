@@ -50,8 +50,10 @@ int main(int argc, char **argv)
     gobj = gtk_builder_get_object(builder, "phone_entry");
     phone_entry = GTK_ENTRY(gobj);
 
-    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
-    gtk_tree_selection_select_iter(selection, &iter);
+    if (contacts[0]) {
+        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
+        gtk_tree_selection_select_iter(selection, &iter);
+    }
     contacts_changed = 0;
 
     gtk_main();
@@ -98,7 +100,6 @@ void selection_changed()
     gtk_entry_set_text(name_entry, contacts[index]);
     gtk_entry_set_text(email_entry, contacts[++index]);
     gtk_entry_set_text(phone_entry, contacts[++index]);
-
 }
 
 void new_button_clicked()
@@ -108,7 +109,7 @@ void new_button_clicked()
     new_contact();
 
     gtk_list_store_append(names_list, &iter);
-    gtk_list_store_set(names_list, &iter, 0, "New Contact", -1);
+    gtk_list_store_set(names_list, &iter, 0, " ", -1);
 
     gtk_tree_selection_select_iter(selection, &iter);
 }
