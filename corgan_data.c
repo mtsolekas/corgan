@@ -57,9 +57,9 @@ int new_contact()
         }
     }
 
-    contacts[i] = " ";
-    contacts[++i] = " ";
-    contacts[++i] = " ";
+    contacts[i] = "New Contact";
+    contacts[++i] = "New Email";
+    contacts[++i] = "New Phone";
 
     return 0;
 }
