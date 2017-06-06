@@ -50,10 +50,9 @@ int main(int argc, char **argv)
     gobj = gtk_builder_get_object(builder, "phone_entry");
     phone_entry = GTK_ENTRY(gobj);
 
-    contacts_changed = 0;
-
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
     gtk_tree_selection_select_iter(selection, &iter);
+    contacts_changed = 0;
 
     gtk_main();
 
