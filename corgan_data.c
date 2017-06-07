@@ -57,7 +57,7 @@ int new_contact()
         }
     }
 
-    contacts[i] = strdup(" ");
+    contacts[i] = strdup("NEW CONTACT");
     contacts[++i] = strdup(" ");
     contacts[++i] = strdup(" ");
 
@@ -151,30 +151,31 @@ int write_contacts_file()
 int read_schedule_file()
 {
     FILE *fp;
-    unsigned int byte_size, size;
+    unsigned int size;
+    int i;
     char c;
 
     fp = fopen(SCHEDULE_PATH, "r");
     if(!fp) return -1;
 
-    byte_size = sizeof(char) * 100;
-    sched = malloc(byte_size);
+    size = sizeof(char) * 100;
+    sched = malloc(size);
     if (!sched) return -1;
 
-    for (size = 0; (c = getc(fp)) != EOF; ++size) {
-        if (size >= byte_size / sizeof(char)) {
-            byte_size += sizeof(char) * 100;
-            sched = realloc(sched, byte_size);
+    for (i = 0; (c = getc(fp)) != EOF; ++i) {
+        if (i * sizeof(char) >= size) {
+            size += sizeof(char) * 100;
+            sched = realloc(sched, size);
             if (!sched) return -1;
         }
-        sched[size] = c;
+        sched[i] = c;
     }
 
     fclose(fp);
 
-    if (size) {
-        sched[size] = '\0';
-        sched = realloc(sched, sizeof(char) * (size));
+    if (i) {
+        sched[i] = '\0';
+        sched = realloc(sched, sizeof(char) * i);
         if (!sched) return -1;
     }
 
