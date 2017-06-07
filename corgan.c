@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 
     gtk_init(&argc, &argv);
 
-    builder = gtk_builder_new_from_file("corgan.glade");
+    builder = gtk_builder_new_from_file(argv[1]);
     gtk_builder_connect_signals(builder, NULL);
 
     gobj = gtk_builder_get_object(builder, "sched_buf");
