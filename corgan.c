@@ -161,6 +161,7 @@ void save_button_clicked()
     new_phone = strdup(gtk_entry_get_text(phone_entry));
 
     if (strcmp(contacts[index], new_name) ||
+            !strcmp(contacts[index], "NEW CONTACT") ||
             strcmp(contacts[index+1], new_email) ||
             strcmp(contacts[index+2], new_phone)) {
 
