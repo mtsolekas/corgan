@@ -173,6 +173,10 @@ void save_button_clicked()
             !strcmp(contacts[index], "NEW CONTACT") ||
             strcmp(contacts[index+1], new_email) ||
             strcmp(contacts[index+2], new_phone)) {
+        
+        free(contacts[index]);
+        free(contacts[index+1]);
+        free(contacts[index+2]);
 
         contacts[index] = new_name;
         contacts[index+1] = new_email;
