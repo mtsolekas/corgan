@@ -12,7 +12,7 @@ char *CONTACTS_PATH;
 char *SCHEDULE_PATH;
 
 char **contacts;
-unsigned int contacts_size;
+int contacts_size;
 
 char *sched;
 

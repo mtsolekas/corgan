@@ -37,7 +37,7 @@ void free_data()
     free(CONTACTS_PATH);
     free(SCHEDULE_PATH);
 
-    for (int i = 0; contacts[i]; ++i) {
+    for (int i = 0; i <= contacts_size; ++i) {
         free(contacts[i]);
     }
 
@@ -47,21 +47,13 @@ void free_data()
 
 int new_contact()
 {
-    int i;
-
-    for (i = 0; contacts[i]; ++i) {
-        if ((i + 3) * sizeof(char*) >= contacts_size) {
-            contacts_size += sizeof(char*) * 100;
-            contacts = realloc(contacts, contacts_size);
-            if (!contacts) return -1;
-        }
-    }
-
-    contacts[i] = strdup("NEW CONTACT");
-    contacts[++i] = strdup(" ");
-    contacts[++i] = strdup(" ");
-
     contacts_size += 3;
+    contacts = realloc(contacts, sizeof(char*) * (contacts_size + 1));
+    if (!contacts) return -1;
+
+    contacts[contacts_size-2] = strdup("NEW CONTACT");
+    contacts[contacts_size-1] = strdup(" ");
+    contacts[contacts_size] = strdup(" ");
 
     return 0;
 }
@@ -80,6 +72,9 @@ int del_contact(int idx)
     contacts[contacts_size-1] = NULL;
     contacts[contacts_size-2] = NULL;
     contacts_size -= 3;
+
+    contacts = realloc(contacts, sizeof(char*) * (contacts_size+1));
+    if (!contacts) return -1;
 
     return 0;
 }
@@ -108,8 +103,8 @@ int read_contacts_file()
     fp = fopen(CONTACTS_PATH, "r");
     if(!fp) return -1;
 
-    contacts_size = sizeof(char*) * 100;
-    contacts = malloc(contacts_size);
+    contacts_size = 100;
+    contacts = malloc(sizeof(char*) * contacts_size);
     if (!contacts) return -1;
 
     line = malloc(sizeof(char) * 100);
@@ -119,9 +114,9 @@ int read_contacts_file()
         entry = strndup(line, sizeof(char*) * entry_length(line));
         if (!entry) return -1;
 
-        if (i * sizeof(char*) >= contacts_size) {
-            contacts_size += sizeof(char) * 100;
-            contacts = realloc(contacts, contacts_size);
+        if (i >= contacts_size) {
+            contacts_size += 100;
+            contacts = realloc(contacts,sizeof(char*) * contacts_size);
             if (!contacts) return -1;
         }
 
