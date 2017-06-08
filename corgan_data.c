@@ -51,7 +51,7 @@ int new_contact()
 
     for (i = 0; contacts[i]; ++i) {
         if ((i + 3) * sizeof(char*) >= contacts_size) {
-            contacts_size += sizeof(char) * 100;
+            contacts_size += sizeof(char*) * 100;
             contacts = realloc(contacts, contacts_size);
             if (!contacts) return -1;
         }
@@ -87,7 +87,6 @@ int entry_length(char *line)
             line[i] = '\0';
             return ++i;
         }
-    }
 
     return i;
 }
