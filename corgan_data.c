@@ -80,14 +80,13 @@ int del_contact(int idx)
 
 int entry_length(char *line)
 {
-    int i = 0;
+    int i;
 
-    while (line[i]) {
+    for (i = 0; line[i]; ++i) {
         if (line[i] == '\n') {
             line[i] = '\0';
             return ++i;
         }
-        ++i;
     }
 
     return i;
