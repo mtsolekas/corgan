@@ -87,6 +87,7 @@ int entry_length(char *line)
             line[i] = '\0';
             return ++i;
         }
+    }
 
     return i;
 }
