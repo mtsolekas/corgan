@@ -20,6 +20,10 @@ int main(int argc, char **argv)
     sched_buf = GTK_TEXT_BUFFER(gobj);
     gtk_text_buffer_set_text(sched_buf, sched, -1);
 
+    if (sched[0] == '\0') {
+        write_schedule_file();
+    }
+
     gobj = gtk_builder_get_object(builder, "names_list");
     names_list = GTK_LIST_STORE(gobj);
 
@@ -53,7 +57,6 @@ int main(int argc, char **argv)
     if (!contacts[0]) {
         new_button_clicked();
         write_contacts_file();
-        write_schedule_file();
     }
     else {
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
@@ -161,6 +164,9 @@ void save_button_clicked()
         free(sched);
         sched = new_sched;
         write_schedule_file();
+    }
+    else {
+        free(new_sched);
     }
 
     idx = get_active_index();

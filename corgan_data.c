@@ -131,14 +131,9 @@ int read_contacts_file()
 
     fclose(fp);
 
-    if (i) {
-        contacts_size = i-1;
-        contacts = realloc(contacts, sizeof(char*) * (++i));
-        if (!contacts) return -1;
-    }
-    else {
-        contacts_size = -1;
-    }
+    contacts_size = i-1;
+    contacts = realloc(contacts, sizeof(char*) * (++i));
+    if (!contacts) return -1;
 
     return 0;
 }
@@ -186,7 +181,7 @@ int read_schedule_file()
     fclose(fp);
 
     sched[i] = '\0';
-    sched = realloc(sched, sizeof(char) * (i+1));
+    sched = realloc(sched, sizeof(char) * (++i));
     if (!sched) return -1;
 
     return 0;
