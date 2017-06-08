@@ -61,19 +61,25 @@ int new_contact()
     contacts[++i] = strdup(" ");
     contacts[++i] = strdup(" ");
 
+    contacts_size += 3;
+
     return 0;
 }
 
 int del_contact(int idx)
 {
-    for (int i = idx; contacts[i]; ++i) {
-        if ((i + 3) * sizeof(char*) >= contacts_size) {
-            contacts[i] = NULL;
-        }
-        else {
-            contacts[i] = contacts[i+3];
-        }
-    }
+    free(contacts[idx]);
+    free(contacts[++idx]);
+    free(contacts[++idx]);
+
+    contacts[idx] = contacts[contacts_size];
+    contacts[--idx] = contacts[contacts_size-1];
+    contacts[--idx] = contacts[contacts_size-2];
+
+    contacts[contacts_size] = NULL;
+    contacts[contacts_size-1] = NULL;
+    contacts[contacts_size-2] = NULL;
+    contacts_size -= 3;
 
     return 0;
 }
@@ -95,6 +101,7 @@ int entry_length(char *line)
 int read_contacts_file()
 {
     FILE *fp;
+    int i;
     char *line;
     char *entry;
 
@@ -108,7 +115,7 @@ int read_contacts_file()
     line = malloc(sizeof(char) * 100);
     if(!line) return -1;
 
-    for (int i = 0; (line = fgets(line, 100, fp)); ++i) {
+    for (i = 0; (line = fgets(line, 100, fp)); ++i) {
         entry = strndup(line, sizeof(char*) * entry_length(line));
         if (!entry) return -1;
 
@@ -126,6 +133,12 @@ int read_contacts_file()
     free(line);
 
     fclose(fp);
+
+    if (i) {
+        contacts_size = i-1;
+        contacts = realloc(contacts, sizeof(char*) * (++i));
+        if (!contacts) return -1;
+    }
 
     return 0;
 }
