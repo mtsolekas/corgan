@@ -52,6 +52,7 @@ int main(int argc, char **argv)
 
     if (!contacts[0]) {
         new_button_clicked();
+        write_contacts_file();
     }
     else {
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
@@ -93,10 +94,16 @@ void window_delete_event()
 
 void selection_changed()
 {
+    GtkTreeIter iter;
     int index;
 
     index = get_active_index();
-    if (index < 0) {
+    if (index < 0 && contacts[0]) {
+        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
+        gtk_tree_selection_select_iter(selection, &iter);
+        return;
+    }
+    else if (index < 0) {
         new_button_clicked();
         return;
     }
@@ -125,6 +132,7 @@ void delete_button_clicked()
     int index;
 
     index = get_active_index();
+
     del_contact(index);
 
     gtk_tree_selection_get_selected(selection, &model, &iter);
