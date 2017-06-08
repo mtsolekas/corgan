@@ -73,8 +73,10 @@ int del_contact(int idx)
     contacts[contacts_size-2] = NULL;
     contacts_size -= 3;
 
-    contacts = realloc(contacts, sizeof(char*) * (contacts_size+1));
-    if (!contacts) return -1;
+    if (contacts_size > 0) {
+        contacts = realloc(contacts, sizeof(char*) * (contacts_size+1));
+        if (!contacts) return -1;
+    }
 
     return 0;
 }
@@ -121,10 +123,10 @@ int read_contacts_file()
         }
 
         contacts[i] = strdup(entry);
+        free(entry);
         if (!contacts[i]) return -1;
     }
 
-    free(entry);
     free(line);
 
     fclose(fp);
@@ -133,6 +135,9 @@ int read_contacts_file()
         contacts_size = i-1;
         contacts = realloc(contacts, sizeof(char*) * (++i));
         if (!contacts) return -1;
+    }
+    else {
+        contacts_size = -1;
     }
 
     return 0;
@@ -145,7 +150,7 @@ int write_contacts_file()
     fp = fopen(CONTACTS_PATH, "w");
     if (!fp) return -1;
 
-    for (int i = 0; contacts[i]; ++i) {
+    for (int i = 0; i <= contacts_size; ++i) {
         fputs((char*)contacts[i], fp);
         fputc('\n', fp);
     }
@@ -180,11 +185,9 @@ int read_schedule_file()
 
     fclose(fp);
 
-    if (i) {
-        sched[i] = '\0';
-        sched = realloc(sched, sizeof(char) * i);
-        if (!sched) return -1;
-    }
+    sched[i] = '\0';
+    sched = realloc(sched, sizeof(char) * (i + 1));
+    if (!sched) return -1;
 
     return 0;
 }

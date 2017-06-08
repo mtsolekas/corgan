@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     names_sort = GTK_TREE_SORTABLE(names_list);
     gtk_tree_sortable_set_sort_column_id(names_sort, 0, GTK_SORT_ASCENDING);
 
-    for (int i = 0; contacts[i]; i += 3) {
+    for (int i = 0; i <= contacts_size; i += 3) {
         gtk_list_store_append(names_list, &iter);
         gtk_list_store_set(names_list, &iter, 0, contacts[i], -1);
     }
@@ -53,6 +53,7 @@ int main(int argc, char **argv)
     if (!contacts[0]) {
         new_button_clicked();
         write_contacts_file();
+        write_schedule_file();
     }
     else {
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
@@ -76,7 +77,7 @@ int get_active_index()
     if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return -1;
     gtk_tree_model_get(model, &iter, 0, &name, -1);
 
-    for (int i = 0; contacts[i]; i += 3) {
+    for (int i = 0; i <= contacts_size; i += 3) {
         if (!strcmp(contacts[i], name)) {
             free(name);
             return i;
