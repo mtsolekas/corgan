@@ -151,7 +151,7 @@ int write_contacts_file()
     if (!fp) return -1;
 
     for (int i = 0; i <= contacts_size; ++i) {
-        fputs((char*)contacts[i], fp);
+        fputs(contacts[i], fp);
         fputc('\n', fp);
     }
 
