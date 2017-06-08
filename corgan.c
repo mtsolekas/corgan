@@ -95,22 +95,22 @@ void window_delete_event()
 void selection_changed()
 {
     GtkTreeIter iter;
-    int index;
+    int idx;
 
-    index = get_active_index();
-    if (index < 0 && contacts[0]) {
+    idx = get_active_index();
+    if (idx < 0 && contacts[0]) {
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
         gtk_tree_selection_select_iter(selection, &iter);
         return;
     }
-    else if (index < 0) {
+    else if (idx < 0) {
         new_button_clicked();
         return;
     }
 
-    gtk_entry_set_text(name_entry, contacts[index]);
-    gtk_entry_set_text(email_entry, contacts[++index]);
-    gtk_entry_set_text(phone_entry, contacts[++index]);
+    gtk_entry_set_text(name_entry, contacts[idx]);
+    gtk_entry_set_text(email_entry, contacts[++idx]);
+    gtk_entry_set_text(phone_entry, contacts[++idx]);
 }
 
 void new_button_clicked()
@@ -129,11 +129,11 @@ void delete_button_clicked()
 {
     GtkTreeIter iter;
     GtkTreeModel *model;
-    int index;
+    int idx;
 
-    index = get_active_index();
+    idx = get_active_index();
 
-    del_contact(index);
+    del_contact(idx);
 
     gtk_tree_selection_get_selected(selection, &model, &iter);
     gtk_list_store_remove(names_list, &iter);
@@ -149,7 +149,7 @@ void save_button_clicked()
 
     GtkTreeModel *model;
     GtkTreeIter tree_iter;
-    int index;
+    int idx;
     char *new_name, *new_email, *new_phone;
 
     gtk_text_buffer_get_start_iter(sched_buf, &start);
@@ -162,29 +162,29 @@ void save_button_clicked()
         write_schedule_file();
     }
 
-    index = get_active_index();
-    if (index < 0) return;
+    idx = get_active_index();
+    if (idx < 0) return;
 
     new_name = strdup(gtk_entry_get_text(name_entry));
     new_email = strdup(gtk_entry_get_text(email_entry));
     new_phone = strdup(gtk_entry_get_text(phone_entry));
 
-    if (strcmp(contacts[index], new_name) ||
-            !strcmp(contacts[index], "NEW CONTACT") ||
-            strcmp(contacts[index+1], new_email) ||
-            strcmp(contacts[index+2], new_phone)) {
+    if (strcmp(contacts[idx], new_name) ||
+            !strcmp(contacts[idx], "NEW CONTACT") ||
+            strcmp(contacts[idx+1], new_email) ||
+            strcmp(contacts[idx+2], new_phone)) {
         
-        free(contacts[index]);
-        free(contacts[index+1]);
-        free(contacts[index+2]);
+        free(contacts[idx]);
+        free(contacts[idx+1]);
+        free(contacts[idx+2]);
 
-        contacts[index] = new_name;
-        contacts[index+1] = new_email;
-        contacts[index+2] = new_phone;
+        contacts[idx] = new_name;
+        contacts[idx+1] = new_email;
+        contacts[idx+2] = new_phone;
         contacts_changed = 1;
 
         gtk_tree_selection_get_selected(selection, &model, &tree_iter);
-        gtk_list_store_set(names_list, &tree_iter, 0, contacts[index], -1);
+        gtk_list_store_set(names_list, &tree_iter, 0, contacts[idx], -1);
     }
     else {
         free(new_name);

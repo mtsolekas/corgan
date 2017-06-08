@@ -64,9 +64,9 @@ int new_contact()
     return 0;
 }
 
-int del_contact(int index)
+int del_contact(int idx)
 {
-    for (int i = index; contacts[i]; ++i) {
+    for (int i = idx; contacts[i]; ++i) {
         if ((i + 3) * sizeof(char*) >= contacts_size) {
             contacts[i] = NULL;
         }
