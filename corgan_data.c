@@ -26,8 +26,10 @@ int init_data()
         fclose(fp);
     }
 
-    if(read_contacts_file()) return -1;
-    if(read_schedule_file()) return -1;
+    if (read_contacts_file()) return -1;
+    if (read_schedule_file()) return -1;
+
+    if (sort_contacts()) return -1;
 
     return 0;
 }
@@ -76,6 +78,33 @@ int del_contact(int idx)
     if (contacts_size > 0) {
         contacts = realloc(contacts, sizeof(char*) * (contacts_size+1));
         if (!contacts) return -1;
+    }
+
+    return 0;
+}
+
+int sort_contacts()
+{
+    char *tmp_name, *tmp_email, *tmp_phone;
+
+    if (contacts_size < 0) return 0;
+
+    for (int i = 0; i < contacts_size; i += 3) {
+        for (int j = i + 3; j < contacts_size; j += 3) {
+            if (strcmp(contacts[i], contacts[j]) > 0) {
+                tmp_name = contacts[i];
+                tmp_email = contacts[i+1];
+                tmp_phone = contacts[i+2];
+
+                contacts[i] = contacts[j];
+                contacts[i+1] = contacts[j+1];
+                contacts[i+2] = contacts[j+2];
+
+                contacts[j] = tmp_name;
+                contacts[j+1] = tmp_email;
+                contacts[j+2] = tmp_phone;
+            }
+        }
     }
 
     return 0;
