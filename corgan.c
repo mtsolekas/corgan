@@ -74,17 +74,37 @@ int main(int argc, char **argv)
 int get_active_index()
 {
     char *name;
+    int pos, new_pos;
+    int direction;
+    int lbound, ubound;
     GtkTreeIter iter;
     GtkTreeModel *model;
 
     if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return -1;
     gtk_tree_model_get(model, &iter, 0, &name, -1);
 
-    for (int i = 0; i <= contacts_size; i += 3) {
-        if (!strcmp(contacts[i], name)) {
-            free(name);
-            return i;
+    lbound = 0;
+    ubound = (contacts_size / 3) + 1;
+
+    pos = -1;
+    new_pos = (lbound + ((ubound - lbound) / 2)) * 3;
+
+    while (pos != new_pos) {
+        pos = new_pos;
+
+        direction = strcmp(name, contacts[pos]);
+        if (direction < 0) {
+            ubound = (pos / 3);
         }
+        else if (direction > 0) {
+            lbound = (pos / 3);
+        }
+        else {
+            free(name);
+            return pos;
+        }
+
+        new_pos = (lbound + ((ubound - lbound) / 2)) * 3;
     }
 
     free(name);

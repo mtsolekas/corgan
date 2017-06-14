@@ -29,8 +29,6 @@ int init_data()
     if (read_contacts_file()) return -1;
     if (read_schedule_file()) return -1;
 
-    if (sort_contacts()) return -1;
-
     return 0;
 }
 
@@ -57,6 +55,8 @@ int new_contact()
     contacts[contacts_size-1] = strdup(" ");
     contacts[contacts_size] = strdup(" ");
 
+    if (sort_contacts()) return -1;
+
     return 0;
 }
 
@@ -79,6 +79,8 @@ int del_contact(int idx)
         contacts = realloc(contacts, sizeof(char*) * (contacts_size+1));
         if (!contacts) return -1;
     }
+
+    if (sort_contacts()) return -1;
 
     return 0;
 }
@@ -164,6 +166,8 @@ int read_contacts_file()
     contacts = realloc(contacts, sizeof(char*) * (++i));
     if (!contacts) return -1;
 
+    if (sort_contacts()) return -1;
+
     return 0;
 }
 
@@ -174,6 +178,7 @@ int write_contacts_file()
     fp = fopen(CONTACTS_PATH, "w");
     if (!fp) return -1;
 
+    if (sort_contacts()) return -1;
     for (int i = 0; i <= contacts_size; ++i) {
         fputs(contacts[i], fp);
         fputc('\n', fp);
