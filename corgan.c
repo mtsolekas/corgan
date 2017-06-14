@@ -73,12 +73,10 @@ int main(int argc, char **argv)
 
 int get_active_index()
 {
-    char *name;
-    int pos, new_pos;
-    int direction;
-    int lbound, ubound;
     GtkTreeIter iter;
     GtkTreeModel *model;
+    char *name;
+    int pos, new_pos, direction, lbound, ubound;
 
     if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return -1;
     gtk_tree_model_get(model, &iter, 0, &name, -1);
@@ -167,14 +165,11 @@ void delete_button_clicked()
 
 void save_button_clicked()
 {
-    GtkTextIter start;
-    GtkTextIter end;
-    char *new_sched;
-
+    GtkTextIter start, end;
     GtkTreeModel *model;
     GtkTreeIter tree_iter;
+    char *new_sched, *new_name, *new_email, *new_phone;
     int idx;
-    char *new_name, *new_email, *new_phone;
 
     gtk_text_buffer_get_start_iter(sched_buf, &start);
     gtk_text_buffer_get_end_iter(sched_buf, &end);

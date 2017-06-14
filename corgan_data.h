@@ -8,8 +8,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-char *CONTACTS_PATH;
-char *SCHEDULE_PATH;
+char *CONTACTS_PATH, *SCHEDULE_PATH;
 
 char **contacts;
 int contacts_size;

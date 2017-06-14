@@ -3,8 +3,8 @@
 int init_data()
 {
     FILE *fp;
-    int path_size;
     char *config_dir;
+    int path_size;
     
     path_size = sizeof(char) * 30;
     config_dir = strdup(getenv("HOME"));
@@ -129,9 +129,8 @@ int entry_length(char *line)
 int read_contacts_file()
 {
     FILE *fp;
+    char *line, *entry;
     int i;
-    char *line;
-    char *entry;
 
     fp = fopen(CONTACTS_PATH, "r");
     if(!fp) return -1;
@@ -192,9 +191,9 @@ int write_contacts_file()
 int read_schedule_file()
 {
     FILE *fp;
-    unsigned int size;
-    int i;
     char c;
+    int i;
+    unsigned int size;
 
     fp = fopen(SCHEDULE_PATH, "r");
     if(!fp) return -1;
