@@ -85,6 +85,36 @@ int del_contact(int idx)
     return 0;
 }
 
+int search_contacts(const char *name)
+{
+    int pos, new_pos, direction, lbound, ubound;
+
+    lbound = 0;
+    ubound = (contacts_size / 3) + 1;
+
+    pos = -1;
+    new_pos = (lbound + ((ubound  - lbound) / 2)) * 3;
+
+    while (pos != new_pos) {
+        pos = new_pos;
+
+        direction = strcmp(name, contacts[pos]);
+        if (direction < 0) {
+            ubound = (pos / 3);
+        }
+        else if (direction > 0) {
+            lbound = (pos / 3);
+        }
+        else {
+            return pos;
+        }
+
+        new_pos = (lbound + ((ubound - lbound) / 2)) * 3;
+    }
+
+    return -1;
+}
+
 int sort_contacts()
 {
     char *tmp_name, *tmp_email, *tmp_phone;

@@ -20,6 +20,7 @@ void free_data();
 
 int new_contact();
 int del_contact(int pos);
+int search_contacts(const char *name);
 int sort_contacts();
 
 int entry_length(char *line);
