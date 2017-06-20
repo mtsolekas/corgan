@@ -75,10 +75,8 @@ int del_contact(int idx)
     contacts[contacts_size-3] = NULL;
     contacts_size -= 3;
 
-    if (contacts_size > 0) {
-        contacts = realloc(contacts, sizeof(char*) * contacts_size);
-        if (!contacts) return -1;
-    }
+    contacts = realloc(contacts, sizeof(char*) * contacts_size);
+    if (!contacts) return -1;
 
     if (sort_contacts()) return -1;
 
@@ -190,12 +188,10 @@ int read_contacts_file()
     fclose(fp);
 
     contacts_size = i;
+    contacts = realloc(contacts, sizeof(char*) * contacts_size);
+    if (!contacts && contacts_size > 0) return -1;
 
-    if (contacts_size > 0) {
-        contacts = realloc(contacts, sizeof(char*) * contacts_size);
-        if (!contacts) return -1;
-        if (sort_contacts()) return -1;
-    }
+    if (sort_contacts()) return -1;
 
     return 0;
 }
