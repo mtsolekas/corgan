@@ -98,7 +98,7 @@ void selection_changed()
     int idx;
 
     idx = get_active_index();
-    if (idx < 0 && contacts_size) {
+    if (idx < 0 && contacts_size > 0) {
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
         gtk_tree_selection_select_iter(selection, &iter);
         return;

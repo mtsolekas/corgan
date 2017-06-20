@@ -173,7 +173,7 @@ int read_contacts_file()
     if(!line) return -1;
 
     for (i = 0; (line = fgets(line, 100, fp)); ++i) {
-        entry = strndup(line, sizeof(char*) * entry_length(line));
+        entry = strndup(line, sizeof(char) * entry_length(line));
         if (!entry) return -1;
 
         if (i >= contacts_size) {
@@ -182,9 +182,7 @@ int read_contacts_file()
             if (!contacts) return -1;
         }
 
-        contacts[i] = strdup(entry);
-        free(entry);
-        if (!contacts[i]) return -1;
+        contacts[i] = entry;
     }
 
     free(line);
@@ -192,10 +190,12 @@ int read_contacts_file()
     fclose(fp);
 
     contacts_size = i;
-    contacts = realloc(contacts, sizeof(char*) * (contacts_size + 1));
-    if (!contacts) return -1;
 
-    if (sort_contacts()) return -1;
+    if (contacts_size > 0) {
+        contacts = realloc(contacts, sizeof(char*) * contacts_size);
+        if (!contacts) return -1;
+        if (sort_contacts()) return -1;
+    }
 
     return 0;
 }
