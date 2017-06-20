@@ -54,7 +54,7 @@ int main(int argc, char **argv)
     gobj = gtk_builder_get_object(builder, "phone_entry");
     phone_entry = GTK_ENTRY(gobj);
 
-    if (!contacts[0]) {
+    if (!contacts_size) {
         new_button_clicked();
         write_contacts_file();
     }
@@ -98,7 +98,7 @@ void selection_changed()
     int idx;
 
     idx = get_active_index();
-    if (idx < 0 && contacts[0]) {
+    if (idx < 0 && contacts_size) {
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
         gtk_tree_selection_select_iter(selection, &iter);
         return;

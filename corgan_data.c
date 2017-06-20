@@ -192,7 +192,7 @@ int read_contacts_file()
     fclose(fp);
 
     contacts_size = i;
-    contacts = realloc(contacts, sizeof(char*) * (contacts_size + 3));
+    contacts = realloc(contacts, sizeof(char*) * (contacts_size + 1));
     if (!contacts) return -1;
 
     if (sort_contacts()) return -1;
