@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     names_sort = GTK_TREE_SORTABLE(names_list);
     gtk_tree_sortable_set_sort_column_id(names_sort, 0, GTK_SORT_ASCENDING);
 
-    for (int i = 0; i <= contacts_size; i += 3) {
+    for (int i = 0; i < contacts_size; i += 3) {
         gtk_list_store_append(names_list, &iter);
         gtk_list_store_set(names_list, &iter, 0, contacts[i], -1);
     }

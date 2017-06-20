@@ -37,7 +37,7 @@ void free_data()
     free(CONTACTS_PATH);
     free(SCHEDULE_PATH);
 
-    for (int i = 0; i <= contacts_size; ++i) {
+    for (int i = 0; i < contacts_size; ++i) {
         free(contacts[i]);
     }
 
@@ -48,12 +48,12 @@ void free_data()
 int new_contact()
 {
     contacts_size += 3;
-    contacts = realloc(contacts, sizeof(char*) * (contacts_size + 1));
+    contacts = realloc(contacts, sizeof(char*) * contacts_size);
     if (!contacts) return -1;
 
-    contacts[contacts_size-2] = strdup("NEW CONTACT");
+    contacts[contacts_size-3] = strdup("NEW CONTACT");
+    contacts[contacts_size-2] = strdup(" ");
     contacts[contacts_size-1] = strdup(" ");
-    contacts[contacts_size] = strdup(" ");
 
     if (sort_contacts()) return -1;
 
@@ -66,17 +66,17 @@ int del_contact(int idx)
     free(contacts[++idx]);
     free(contacts[++idx]);
 
-    contacts[idx] = contacts[contacts_size];
-    contacts[--idx] = contacts[contacts_size-1];
+    contacts[idx] = contacts[contacts_size-1];
     contacts[--idx] = contacts[contacts_size-2];
+    contacts[--idx] = contacts[contacts_size-3];
 
-    contacts[contacts_size] = NULL;
     contacts[contacts_size-1] = NULL;
     contacts[contacts_size-2] = NULL;
+    contacts[contacts_size-3] = NULL;
     contacts_size -= 3;
 
     if (contacts_size > 0) {
-        contacts = realloc(contacts, sizeof(char*) * (contacts_size+1));
+        contacts = realloc(contacts, sizeof(char*) * contacts_size);
         if (!contacts) return -1;
     }
 
@@ -90,7 +90,7 @@ int search_contacts(const char *name)
     int pos, new_pos, direction, lbound, ubound;
 
     lbound = 0;
-    ubound = (contacts_size / 3) + 1;
+    ubound = contacts_size / 3;
 
     pos = -1;
     new_pos = (lbound + ((ubound  - lbound) / 2)) * 3;
@@ -119,7 +119,7 @@ int sort_contacts()
 {
     char *tmp_name, *tmp_email, *tmp_phone;
 
-    if (contacts_size < 0) return 0;
+    if (!contacts_size) return 0;
 
     for (int i = 0; i < contacts_size; i += 3) {
         for (int j = i + 3; j < contacts_size; j += 3) {
@@ -191,8 +191,8 @@ int read_contacts_file()
 
     fclose(fp);
 
-    contacts_size = i-1;
-    contacts = realloc(contacts, sizeof(char*) * (++i));
+    contacts_size = i;
+    contacts = realloc(contacts, sizeof(char*) * (contacts_size + 3));
     if (!contacts) return -1;
 
     if (sort_contacts()) return -1;
@@ -208,7 +208,7 @@ int write_contacts_file()
     if (!fp) return -1;
 
     if (sort_contacts()) return -1;
-    for (int i = 0; i <= contacts_size; ++i) {
+    for (int i = 0; i < contacts_size; ++i) {
         fputs(contacts[i], fp);
         fputc('\n', fp);
     }
