@@ -218,20 +218,19 @@ int read_schedule_file()
 {
     FILE *fp;
     char c;
-    int i;
-    unsigned int size;
+    int size, i;
 
     fp = fopen(SCHEDULE_PATH, "r");
     if(!fp) return -1;
 
-    size = sizeof(char) * 100;
-    sched = malloc(size);
+    size = 100;
+    sched = malloc(sizeof(char) * size);
     if (!sched) return -1;
 
     for (i = 0; (c = getc(fp)) != EOF; ++i) {
-        if (i * sizeof(char) >= size) {
-            size += sizeof(char) * 100;
-            sched = realloc(sched, size);
+        if (i >= size) {
+            size += 100;
+            sched = realloc(sched, sizeof(char) * size);
             if (!sched) return -1;
         }
         sched[i] = c;
