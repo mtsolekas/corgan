@@ -9,7 +9,7 @@ int main(int argc, char **argv)
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *col;
 
-    if(init_data()) return EXIT_FAILURE;
+    if (init_data()) return EXIT_FAILURE;
 
     gtk_init(&argc, &argv);
 
