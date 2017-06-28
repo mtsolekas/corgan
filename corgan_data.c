@@ -4,13 +4,23 @@ int init_data()
 {
     FILE *fp;
     char *config_dir;
-    
-    config_dir = realloc(strdup(getenv("HOME")), sizeof(char) * 200);
-    if (!config_dir) return -1;
 
+    config_dir = realloc(strdup(getenv("HOME")),
+                         sizeof(char) * (strlen(getenv("HOME")) +
+                                         strlen("/.config.corgan/") + 1));
+    if (!config_dir) return -1;
     config_dir = strcat(config_dir, "/.config/corgan/");
-    CONTACTS_PATH = strcat(strdup(config_dir), "contacts");
-    SCHEDULE_PATH = strcat(strdup(config_dir), "schedule");
+
+    CONTACTS_PATH = realloc(strdup(config_dir),
+                            sizeof(char) * (strlen(config_dir) +
+                                            strlen("contacts") + 1));
+    SCHEDULE_PATH = realloc(strdup(config_dir),
+                            sizeof(char) * (strlen(config_dir) +
+                                            strlen("contacts") + 1));
+    if (!CONTACTS_PATH || !SCHEDULE_PATH) return -1;
+
+    CONTACTS_PATH = strcat(CONTACTS_PATH, "contacts");
+    SCHEDULE_PATH = strcat(SCHEDULE_PATH, "schedule");
 
     mkdir(config_dir, 0700);
     free(config_dir);
