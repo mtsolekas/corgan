@@ -4,12 +4,11 @@ int init_data()
 {
     FILE *fp;
     char *config_dir;
-    int path_size;
     
-    path_size = sizeof(char) * 30;
-    config_dir = strdup(getenv("HOME"));
-    config_dir = strcat(realloc(config_dir, path_size), "/.config/corgan/");
+    config_dir = realloc(strdup(getenv("HOME")), sizeof(char) * 200);
+    if (!config_dir) return -1;
 
+    config_dir = strcat(config_dir, "/.config/corgan/");
     CONTACTS_PATH = strcat(strdup(config_dir), "contacts");
     SCHEDULE_PATH = strcat(strdup(config_dir), "schedule");
 
