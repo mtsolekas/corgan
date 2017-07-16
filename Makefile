@@ -11,7 +11,8 @@ WARNINGS = -Wall -Wextra -Wpedantic
 CFLAGS = -std=gnu11 -rdynamic $(WARNINGS) $(LIBS)
 
 ifeq ($(DEBUG), 1)
-CFLAGS += -g3
+SANITIZE = -fsanitize=address -fsanitize=undefined -fno-omit-frame-pointer
+CFLAGS += -g3 $(SANITIZE)
 else
 CFLAGS += -O3 -march=native
 endif
