@@ -166,7 +166,7 @@ int entry_length(char *line)
 int read_contacts_file()
 {
     FILE *fp;
-    char *line, *entry;
+    char *line;
     int i;
 
     fp = fopen(CONTACTS_PATH, "r");
@@ -180,16 +180,14 @@ int read_contacts_file()
     if(!line) return -1;
 
     for (i = 0; (line = fgets(line, 100, fp)); ++i) {
-        entry = strndup(line, sizeof(char) * entry_length(line));
-        if (!entry) return -1;
-
         if (i >= contacts_size) {
             contacts_size += 100;
-            contacts = realloc(contacts,sizeof(char*) * contacts_size);
+            contacts = realloc(contacts, sizeof(char*) * contacts_size);
             if (!contacts) return -1;
         }
 
-        contacts[i] = entry;
+        contacts[i] = strndup(line, sizeof(char) * entry_length(line));
+        if (!contacts[i]) return -1;
     }
 
     free(line);
