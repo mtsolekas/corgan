@@ -166,7 +166,7 @@ int entry_length(char *line)
 int read_contacts_file()
 {
     FILE *fp;
-    char *line;
+    char *line, *pointer_save;
     int i;
 
     fp = fopen(CONTACTS_PATH, "r");
@@ -177,6 +177,7 @@ int read_contacts_file()
     if (!contacts) return -1;
 
     line = malloc(sizeof(char) * 100);
+    pointer_save = line;
     if(!line) return -1;
 
     for (i = 0; (line = fgets(line, 100, fp)); ++i) {
@@ -190,7 +191,7 @@ int read_contacts_file()
         if (!contacts[i]) return -1;
     }
 
-    free(line);
+    free(pointer_save);
 
     fclose(fp);
 
@@ -240,6 +241,7 @@ int read_schedule_file()
             sched = realloc(sched, sizeof(char) * size);
             if (!sched) return -1;
         }
+
         sched[i] = c;
     }
 
