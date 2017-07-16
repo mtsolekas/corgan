@@ -23,7 +23,7 @@ int del_contact(int pos);
 int search_contacts(const char *name);
 int sort_contacts();
 
-int entry_length(char *line);
+int line_length(char *line);
 
 int read_contacts_file();
 int write_contacts_file();

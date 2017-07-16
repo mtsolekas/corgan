@@ -149,7 +149,7 @@ int sort_contacts()
     return 0;
 }
 
-int entry_length(char *line)
+int line_length(char *line)
 {
     int i;
 
@@ -187,7 +187,7 @@ int read_contacts_file()
             if (!contacts) return -1;
         }
 
-        contacts[i] = strndup(line, sizeof(char) * entry_length(line));
+        contacts[i] = strndup(line, sizeof(char) * line_length(line));
         if (!contacts[i]) return -1;
     }
 
