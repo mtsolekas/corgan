@@ -82,9 +82,9 @@ int del_contact(int idx)
     free(contacts[idx]->phone);
     free(contacts[idx]);
 
-    contacts[idx] = contacts[contacts_size-1];
-    contacts[contacts_size-1] = NULL;
     --contacts_size;
+    contacts[idx] = contacts[contacts_size];
+    contacts[contacts_size] = NULL;
 
     contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
     if (!contacts) return -1;
