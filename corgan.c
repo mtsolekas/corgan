@@ -30,9 +30,9 @@ int main(int argc, char **argv)
     names_sort = GTK_TREE_SORTABLE(names_list);
     gtk_tree_sortable_set_sort_column_id(names_sort, 0, GTK_SORT_ASCENDING);
 
-    for (int i = 0; i < contacts_size; i += 3) {
+    for (int i = 0; i < contacts_size; ++i) {
         gtk_list_store_append(names_list, &iter);
-        gtk_list_store_set(names_list, &iter, 0, contacts[i], -1);
+        gtk_list_store_set(names_list, &iter, 0, contacts[i]->name, -1);
     }
 
     gobj = gtk_builder_get_object(builder, "selection");
@@ -108,9 +108,9 @@ void selection_changed()
         return;
     }
 
-    gtk_entry_set_text(name_entry, contacts[idx]);
-    gtk_entry_set_text(email_entry, contacts[++idx]);
-    gtk_entry_set_text(phone_entry, contacts[++idx]);
+    gtk_entry_set_text(name_entry, contacts[idx]->name);
+    gtk_entry_set_text(email_entry, contacts[idx]->email);
+    gtk_entry_set_text(phone_entry, contacts[idx]->phone);
 }
 
 void new_button_clicked()
@@ -169,22 +169,23 @@ void save_button_clicked()
     new_email = strdup(gtk_entry_get_text(email_entry));
     new_phone = strdup(gtk_entry_get_text(phone_entry));
 
-    if (strcmp(contacts[idx], new_name) ||
-            !strcmp(contacts[idx], "NEW CONTACT") ||
-            strcmp(contacts[idx+1], new_email) ||
-            strcmp(contacts[idx+2], new_phone)) {
+    if (strcmp(contacts[idx]->name, new_name) ||
+            !strcmp(contacts[idx]->name, "NEW CONTACT") ||
+            strcmp(contacts[idx]->email, new_email) ||
+            strcmp(contacts[idx]->phone, new_phone)) {
         
-        free(contacts[idx]);
-        free(contacts[idx+1]);
-        free(contacts[idx+2]);
+        free(contacts[idx]->name);
+        free(contacts[idx]->email);
+        free(contacts[idx]->phone);
 
-        contacts[idx] = new_name;
-        contacts[idx+1] = new_email;
-        contacts[idx+2] = new_phone;
+        contacts[idx]->name = new_name;
+        contacts[idx]->email = new_email;
+        contacts[idx]->phone = new_phone;
         contacts_changed = 1;
 
         gtk_tree_selection_get_selected(selection, &model, &tree_iter);
-        gtk_list_store_set(names_list, &tree_iter, 0, contacts[idx], -1);
+        gtk_list_store_set(names_list, &tree_iter, 0,
+                           contacts[idx]->name, -1);
     }
     else {
         free(new_name);

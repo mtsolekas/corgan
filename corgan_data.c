@@ -47,6 +47,9 @@ void free_data()
     free(SCHEDULE_PATH);
 
     for (int i = 0; i < contacts_size; ++i) {
+        free(contacts[i]->name);
+        free(contacts[i]->email);
+        free(contacts[i]->phone);
         free(contacts[i]);
     }
 
@@ -56,13 +59,16 @@ void free_data()
 
 int new_contact()
 {
-    contacts_size += 3;
-    contacts = realloc(contacts, sizeof(char*) * contacts_size);
+    ++contacts_size;
+    contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
     if (!contacts) return -1;
 
-    contacts[contacts_size-3] = strdup("NEW CONTACT");
-    contacts[contacts_size-2] = strdup(" ");
-    contacts[contacts_size-1] = strdup(" ");
+    contacts[contacts_size-1] = malloc(sizeof(contact_t));
+    if (!contacts[contacts_size-1]) return -1;
+
+    contacts[contacts_size-1]->name = strdup("NEW CONTACT");
+    contacts[contacts_size-1]->email = strdup(" ");
+    contacts[contacts_size-1]->phone = strdup(" ");
 
     if (sort_contacts()) return -1;
 
@@ -71,20 +77,16 @@ int new_contact()
 
 int del_contact(int idx)
 {
+    free(contacts[idx]->name);
+    free(contacts[idx]->email);
+    free(contacts[idx]->phone);
     free(contacts[idx]);
-    free(contacts[++idx]);
-    free(contacts[++idx]);
 
     contacts[idx] = contacts[contacts_size-1];
-    contacts[--idx] = contacts[contacts_size-2];
-    contacts[--idx] = contacts[contacts_size-3];
-
     contacts[contacts_size-1] = NULL;
-    contacts[contacts_size-2] = NULL;
-    contacts[contacts_size-3] = NULL;
-    contacts_size -= 3;
+    --contacts_size;
 
-    contacts = realloc(contacts, sizeof(char*) * contacts_size);
+    contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
     if (!contacts) return -1;
 
     if (sort_contacts()) return -1;
@@ -94,29 +96,12 @@ int del_contact(int idx)
 
 int search_contacts(const char *name)
 {
-    int pos, new_pos, direction, lbound, ubound;
+    int pos;
 
-    lbound = 0;
-    ubound = contacts_size / 3;
-
-    pos = -1;
-    new_pos = (lbound + ((ubound  - lbound) / 2)) * 3;
-
-    while (pos != new_pos) {
-        pos = new_pos;
-
-        direction = strcmp(name, contacts[pos]);
-        if (direction < 0) {
-            ubound = (pos / 3);
-        }
-        else if (direction > 0) {
-            lbound = (pos / 3);
-        }
-        else {
+    for(pos = 0; pos < contacts_size; ++pos) {
+        if (!strcmp(contacts[pos]->name, name)) {
             return pos;
         }
-
-        new_pos = (lbound + ((ubound - lbound) / 2)) * 3;
     }
 
     return -1;
@@ -128,20 +113,20 @@ int sort_contacts()
 
     if (!contacts_size) return 0;
 
-    for (int i = 0; i < contacts_size; i += 3) {
-        for (int j = i + 3; j < contacts_size; j += 3) {
-            if (strcmp(contacts[i], contacts[j]) > 0) {
-                tmp_name = contacts[i];
-                tmp_email = contacts[i+1];
-                tmp_phone = contacts[i+2];
+    for (int i = 0; i < contacts_size; ++i) {
+        for (int j = i + 1; j < contacts_size; ++j) {
+            if (strcmp(contacts[i]->name, contacts[j]->name) > 0) {
+                tmp_name = contacts[i]->name;
+                tmp_email = contacts[i]->email;
+                tmp_phone = contacts[i]->phone;
 
-                contacts[i] = contacts[j];
-                contacts[i+1] = contacts[j+1];
-                contacts[i+2] = contacts[j+2];
+                contacts[i]->name = contacts[j]->name;
+                contacts[i]->email = contacts[j]->email;
+                contacts[i]->phone = contacts[j]->phone;
 
-                contacts[j] = tmp_name;
-                contacts[j+1] = tmp_email;
-                contacts[j+2] = tmp_phone;
+                contacts[j]->name = tmp_name;
+                contacts[j]->email = tmp_email;
+                contacts[j]->phone = tmp_phone;
             }
         }
     }
@@ -173,7 +158,7 @@ int read_contacts_file()
     if(!fp) return -1;
 
     contacts_size = 100;
-    contacts = malloc(sizeof(char*) * contacts_size);
+    contacts = malloc(sizeof(contact_t*) * contacts_size);
     if (!contacts) return -1;
 
     line = malloc(sizeof(char) * 100);
@@ -183,12 +168,23 @@ int read_contacts_file()
     for (i = 0; (line = fgets(line, 100, fp)); ++i) {
         if (i >= contacts_size) {
             contacts_size += 100;
-            contacts = realloc(contacts, sizeof(char*) * contacts_size);
+            contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
             if (!contacts) return -1;
         }
 
-        contacts[i] = strndup(line, sizeof(char) * line_length(line));
+        contacts[i] = malloc(sizeof(contact_t));
         if (!contacts[i]) return -1;
+
+        contacts[i]->name = strndup(line, sizeof(char) * line_length(line));
+        if (!contacts[i]->name) return -1;
+
+        line = fgets(line, 100, fp);
+        contacts[i]->email = strndup(line, sizeof(char) * line_length(line));
+        if (!contacts[i]->email) return -1;
+
+        line = fgets(line, 100, fp);
+        contacts[i]->phone = strndup(line, sizeof(char) * line_length(line));
+        if (!contacts[i]->email) return -1;
     }
 
     free(pointer_save);
@@ -196,7 +192,7 @@ int read_contacts_file()
     fclose(fp);
 
     contacts_size = i;
-    contacts = realloc(contacts, sizeof(char*) * contacts_size);
+    contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
     if (!contacts && contacts_size > 0) return -1;
 
     if (sort_contacts()) return -1;
@@ -213,8 +209,9 @@ int write_contacts_file()
 
     if (sort_contacts()) return -1;
     for (int i = 0; i < contacts_size; ++i) {
-        fputs(contacts[i], fp);
-        fputc('\n', fp);
+        fputs(contacts[i]->name, fp); fputc('\n', fp);
+        fputs(contacts[i]->email, fp); fputc('\n', fp);
+        fputs(contacts[i]->phone, fp); fputc('\n', fp);
     }
 
     fclose(fp);

@@ -10,7 +10,13 @@
 
 char *CONTACTS_PATH, *SCHEDULE_PATH;
 
-char **contacts;
+typedef struct contact_type {
+    char *name;
+    char *email;
+    char *phone;
+} contact_t;
+
+contact_t **contacts;
 int contacts_size;
 
 char *sched;
