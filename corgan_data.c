@@ -70,7 +70,7 @@ int new_contact()
     contacts[contacts_size-1]->email = strdup(" ");
     contacts[contacts_size-1]->phone = strdup(" ");
 
-    if (sort_contacts()) return -1;
+    sort_contacts();
 
     return 0;
 }
@@ -89,7 +89,22 @@ int del_contact(int idx)
     contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
     if (!contacts) return -1;
 
-    if (sort_contacts()) return -1;
+    sort_contacts();
+
+    return 0;
+}
+
+int compare_contacts(const void *p1, const void *p2)
+{
+    return strcmp(((contact_t*) p1)->name, ((contact_t*) p2)->name);
+}
+
+int sort_contacts()
+{
+
+    if (!contacts_size) return 0;
+
+    qsort(contacts, contacts_size, sizeof(contact_t*), compare_contacts);
 
     return 0;
 }
@@ -105,33 +120,6 @@ int search_contacts(const char *name)
     }
 
     return -1;
-}
-
-int sort_contacts()
-{
-    char *tmp_name, *tmp_email, *tmp_phone;
-
-    if (!contacts_size) return 0;
-
-    for (int i = 0; i < contacts_size; ++i) {
-        for (int j = i + 1; j < contacts_size; ++j) {
-            if (strcmp(contacts[i]->name, contacts[j]->name) > 0) {
-                tmp_name = contacts[i]->name;
-                tmp_email = contacts[i]->email;
-                tmp_phone = contacts[i]->phone;
-
-                contacts[i]->name = contacts[j]->name;
-                contacts[i]->email = contacts[j]->email;
-                contacts[i]->phone = contacts[j]->phone;
-
-                contacts[j]->name = tmp_name;
-                contacts[j]->email = tmp_email;
-                contacts[j]->phone = tmp_phone;
-            }
-        }
-    }
-
-    return 0;
 }
 
 int line_length(char *line)
@@ -195,7 +183,7 @@ int read_contacts_file()
     contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
     if (!contacts && contacts_size > 0) return -1;
 
-    if (sort_contacts()) return -1;
+    sort_contacts();
 
     return 0;
 }
@@ -207,7 +195,7 @@ int write_contacts_file()
     fp = fopen(CONTACTS_PATH, "w");
     if (!fp) return -1;
 
-    if (sort_contacts()) return -1;
+    sort_contacts();
     for (int i = 0; i < contacts_size; ++i) {
         fputs(contacts[i]->name, fp); fputc('\n', fp);
         fputs(contacts[i]->email, fp); fputc('\n', fp);

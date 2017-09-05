@@ -26,8 +26,10 @@ void free_data();
 
 int new_contact();
 int del_contact(int pos);
-int search_contacts(const char *name);
+
+int compare_contacts(const void *p1, const void *p2);
 int sort_contacts();
+int search_contacts(const char *name);
 
 int line_length(char *line);
 
