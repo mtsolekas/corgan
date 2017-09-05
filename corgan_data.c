@@ -111,21 +111,16 @@ int sort_contacts()
 
 int search_contacts(const char *name)
 {
-    int pos;
-
-    for(pos = 0; pos < contacts_size; ++pos) {
-        if (!strcmp(contacts[pos]->name, name)) {
-            return pos;
-        }
-    }
-    /*int idx, pos, lbound, ubound;
+    int idx, prev_pos, pos, lbound, ubound;
 
     lbound = 0;
-    ubound = contacts_size-1;
+    ubound = contacts_size;
+    prev_pos = -1;
     pos = (ubound - lbound) / 2;
 
-    while (pos > lbound) {
-        idx = strcmp(contacts[pos]->name, name);
+    while (prev_pos != pos) {
+        prev_pos = pos;
+        idx = strcmp(name, contacts[pos]->name);
 
         if (idx < 0) {
             ubound = pos;
@@ -136,7 +131,7 @@ int search_contacts(const char *name)
             return pos;
         }
         pos = ((ubound - lbound) / 2) + lbound;
-    }*/
+    }
 
     return -1;
 }
