@@ -1,26 +1,29 @@
-ifndef DEBUG
-DEBUG = 1
-endif
-
 CC = gcc
 
 LIBS = -I. `pkg-config --cflags gtk+-3.0` `pkg-config --libs gtk+-3.0`
 
-WARNINGS = -Wall -Wextra -Wpedantic
+WARNINGS = -Wall -Wextra -Wpedantic -pedantic
 
 CFLAGS = -std=gnu11 -rdynamic $(WARNINGS) $(LIBS)
 
-ifeq ($(DEBUG), 1)
+OPTFLAGS = -O3 -march=native
+
 SANITIZE = -fsanitize=address -fsanitize=undefined -fno-omit-frame-pointer
-CFLAGS += -g3 $(SANITIZE)
+DBGFLAGS = -Og -ggdb3 $(SANITIZE)
+
+DBG ?= 1
+ifeq ($(DBG), 0)
+CFLAGS += $(OPTFLAGS)
 else
-CFLAGS += -O3 -march=native
+CFLAGS += $(DBGFLAGS)
 endif
 
 C_SOURCES = $(wildcard corgan*.c)
 C_OBJECTS = $(C_SOURCES:.c=.o)
 
-.PHONY: clean
+.PHONY: all clean
+
+all: corgan
 
 corgan: $(C_OBJECTS)
 	$(CC) $(CFLAGS) -o corgan $(C_OBJECTS)
