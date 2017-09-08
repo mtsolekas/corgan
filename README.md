@@ -12,7 +12,7 @@ To build corgan you will need the GTK+3 developement libraries.
 
 Run **make** which will build with debugging enabled by default.
 
-Run **make DEBUG=0** to disable debugging and enable optimizations.
+Run **make DBG=0** to disable debugging and enable optimizations.
 
 ## Execution
 
