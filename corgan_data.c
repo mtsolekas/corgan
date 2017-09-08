@@ -265,3 +265,28 @@ int write_schedule_file()
 
     return 0;
 }
+
+int export_contacts_vcard()
+{
+    FILE *fp;
+
+    EXPORT_PATH = realloc(strdup(getenv("HOME")),
+                         sizeof(char) * (strlen(getenv("HOME")) +
+                                         strlen("/contacts.vcf") + 1));
+    if (!EXPORT_PATH) return -1;
+    EXPORT_PATH = strcat(EXPORT_PATH, "/contacts.vcf");
+
+    fp = fopen(EXPORT_PATH, "w");
+    if (!fp) return -1;
+
+    for (int i = 0; i < contacts_size; ++i) {
+        fputs("BEGIN:VCARD\nVERSION:3.0", fp);
+        fputs("\nFN:", fp); fputs(contacts[i]->name, fp);
+        fputs("\nTEL;TYPE=HOME,VOICE:", fp); fputs(contacts[i]->phone, fp);
+        fputs("\nEMAIL:", fp); fputs(contacts[i]->email, fp);
+        fputs("\nEND:VCARD\n", fp);
+    }
+
+    fclose(fp);
+    return 0;
+}

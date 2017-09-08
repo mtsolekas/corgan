@@ -8,7 +8,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-char *CONTACTS_PATH, *SCHEDULE_PATH;
+char *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
 
 typedef struct contact_type {
     char *name;
@@ -38,5 +38,7 @@ int write_contacts_file();
 
 int read_schedule_file();
 int write_schedule_file();
+
+int export_contacts_vcard();
 
 #endif

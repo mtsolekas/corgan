@@ -181,7 +181,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">11</property>
+                <property name="position">10</property>
               </packing>
             </child>
             <child>
@@ -191,6 +191,20 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <signal name="clicked" handler="delete_button_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">11</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="export_button">
+                <property name="label" translatable="yes">Export Contacts</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <signal name="clicked" handler="export_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>

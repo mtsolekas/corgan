@@ -141,6 +141,11 @@ void delete_button_clicked()
     contacts_changed = 1;
 }
 
+void export_button_clicked()
+{
+    export_contacts_vcard();
+}
+
 void save_button_clicked()
 {
     GtkTextIter start, end;

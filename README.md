@@ -3,6 +3,9 @@
 Corgan is a simple contacts and schedule organizer written in C
 using the Gtk+3 framework.
 
+You can also automatically export all your contacts, in the
+form of a vCard version 3, to your home directory.
+
 ## Build
 
 To build corgan you will need the GTK+3 developement libraries.
