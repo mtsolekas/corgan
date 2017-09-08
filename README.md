@@ -3,10 +3,17 @@
 Corgan is a simple contacts and schedule organizer written in C
 using the Gtk+3 framework.
 
-To build it you will need the GTK+3 developement libraries. After that
-just run make.
+## Build
 
-To run it, you need give to the executable the glade file's path
+To build corgan you will need the GTK+3 developement libraries.
+
+Run **make** which will build with debugging enabled by default.
+
+Run **make DEBUG=0** to disable debugging and enable optimizations.
+
+## Execution
+
+To run corgan, you need give to the executable the glade file's path
 as an arguement.
 
 ## License
