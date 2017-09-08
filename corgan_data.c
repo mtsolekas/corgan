@@ -3,27 +3,29 @@
 int init_data()
 {
     FILE *fp;
-    char *config_dir;
 
-    config_dir = realloc(strdup(getenv("HOME")),
-                         sizeof(char) * (strlen(getenv("HOME")) +
-                                         strlen("/.config.corgan/") + 1));
-    if (!config_dir) return -1;
-    config_dir = strcat(config_dir, "/.config/corgan/");
+    APP_DIR = realloc(strdup(getenv("HOME")),
+                            sizeof(char) * (strlen(getenv("HOME")) +
+                                         strlen("/.corgan/") + 1));
+    if (!APP_DIR) return -1;
+    APP_DIR = strcat(APP_DIR, "/.corgan/");
 
-    CONTACTS_PATH = realloc(strdup(config_dir),
-                            sizeof(char) * (strlen(config_dir) +
+    CONTACTS_PATH = realloc(strdup(APP_DIR),
+                            sizeof(char) * (strlen(APP_DIR) +
                                             strlen("contacts") + 1));
-    SCHEDULE_PATH = realloc(strdup(config_dir),
-                            sizeof(char) * (strlen(config_dir) +
+    SCHEDULE_PATH = realloc(strdup(APP_DIR),
+                            sizeof(char) * (strlen(APP_DIR) +
                                             strlen("contacts") + 1));
-    if (!CONTACTS_PATH || !SCHEDULE_PATH) return -1;
+    EXPORT_PATH = realloc(strdup(APP_DIR),
+                            sizeof(char) * (strlen(APP_DIR) +
+                                            strlen("contacts.vcf") + 1));
+    if (!CONTACTS_PATH || !SCHEDULE_PATH || !EXPORT_PATH) return -1;
 
     CONTACTS_PATH = strcat(CONTACTS_PATH, "contacts");
     SCHEDULE_PATH = strcat(SCHEDULE_PATH, "schedule");
+    EXPORT_PATH = strcat(EXPORT_PATH, "contacts.vcf");
 
-    mkdir(config_dir, 0700);
-    free(config_dir);
+    mkdir(APP_DIR, 0700);
 
     if (access(CONTACTS_PATH, F_OK | R_OK | W_OK)) {
         fp = fopen(CONTACTS_PATH, "w");
@@ -43,6 +45,7 @@ int init_data()
 
 void free_data()
 {
+    free(APP_DIR);
     free(CONTACTS_PATH);
     free(SCHEDULE_PATH);
     free(EXPORT_PATH);
@@ -270,12 +273,6 @@ int write_schedule_file()
 int export_contacts_vcard()
 {
     FILE *fp;
-
-    EXPORT_PATH = realloc(strdup(getenv("HOME")),
-                         sizeof(char) * (strlen(getenv("HOME")) +
-                                         strlen("/contacts.vcf") + 1));
-    if (!EXPORT_PATH) return -1;
-    EXPORT_PATH = strcat(EXPORT_PATH, "/contacts.vcf");
 
     fp = fopen(EXPORT_PATH, "w");
     if (!fp) return -1;

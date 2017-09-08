@@ -8,7 +8,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-char *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
+char *APP_DIR, *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
 
 typedef struct contact_type {
     char *name;
