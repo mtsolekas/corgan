@@ -45,6 +45,7 @@ void free_data()
 {
     free(CONTACTS_PATH);
     free(SCHEDULE_PATH);
+    free(EXPORT_PATH);
 
     for (int i = 0; i < contacts_size; ++i) {
         free(contacts[i]->name);
