@@ -71,8 +71,8 @@ int new_contact()
     if (!contacts[contacts_size-1]) return -1;
 
     contacts[contacts_size-1]->name = strdup("NEW CONTACT");
-    contacts[contacts_size-1]->email = strdup(" ");
-    contacts[contacts_size-1]->phone = strdup(" ");
+    contacts[contacts_size-1]->email = strdup("\0");
+    contacts[contacts_size-1]->phone = strdup("\0");
 
     sort_contacts();
 
@@ -215,9 +215,8 @@ int write_contacts_file()
 
     sort_contacts();
     for (int i = 0; i < contacts_size; ++i) {
-        fputs(contacts[i]->name, fp); fputc('\n', fp);
-        fputs(contacts[i]->email, fp); fputc('\n', fp);
-        fputs(contacts[i]->phone, fp); fputc('\n', fp);
+        fprintf(fp, "%s\n%s\n%s\n", contacts[i]->name, contacts[i]->email,
+                                    contacts[i]->phone);
     }
 
     fclose(fp);
