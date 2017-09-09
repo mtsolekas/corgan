@@ -289,9 +289,9 @@ int export_contacts_vcard()
         fprintf(fp, "\nN:%s;%s;", lname, fname); 
         free(name);
 
-        fprintf(fp, "\nFN:%s", contacts[i]->name);
-        fprintf(fp, "\nTEL;TYPE=VOICE:%s", contacts[i]->phone);
-        fprintf(fp, "\nEMAIL:%s\nEND:VCARD\n", contacts[i]->email);
+        fprintf(fp, "\nFN:%s\nTEL;TYPE=VOICE:%s\nEMAIL:%s\nEND:VCARD\n",
+                                contacts[i]->name, contacts[i]->phone,
+                                contacts[i]->email);
     }
 
     fclose(fp);
