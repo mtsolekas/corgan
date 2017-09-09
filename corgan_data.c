@@ -273,16 +273,26 @@ int write_schedule_file()
 int export_contacts_vcard()
 {
     FILE *fp;
+    char *name, *fname, *lname, *tmp;
 
     fp = fopen(EXPORT_PATH, "w");
     if (!fp) return -1;
 
     for (int i = 0; i < contacts_size; ++i) {
-        fputs("BEGIN:VCARD\nVERSION:3.0", fp);
-        fputs("\nFN:", fp); fputs(contacts[i]->name, fp);
-        fputs("\nTEL;TYPE=HOME,VOICE:", fp); fputs(contacts[i]->phone, fp);
-        fputs("\nEMAIL:", fp); fputs(contacts[i]->email, fp);
-        fputs("\nEND:VCARD\n", fp);
+        fprintf(fp, "BEGIN:VCARD\nVERSION:3.0");
+        
+        name = strdup(contacts[i]->name);
+        fname = strtok(name, " ");
+        lname = strtok(NULL, " ");
+        while ((tmp = strtok(NULL, " "))) {
+            lname = tmp;
+        }
+        fprintf(fp, "\nN:%s;%s;", lname, fname); 
+        free(name);
+
+        fprintf(fp, "\nFN:%s", contacts[i]->name);
+        fprintf(fp, "\nTEL;TYPE=VOICE:%s", contacts[i]->phone);
+        fprintf(fp, "\nEMAIL:%s\nEND:VCARD\n", contacts[i]->email);
     }
 
     fclose(fp);
