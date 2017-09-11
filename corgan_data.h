@@ -5,10 +5,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 
-char *APP_DIR, *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
+#include <glib.h>
+#include <glib/gstdio.h>
+
+GString *APP_DIR, *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
 
 typedef struct contact_type {
     char *name;
@@ -19,7 +20,7 @@ typedef struct contact_type {
 contact_t **contacts;
 int contacts_size;
 
-char *sched;
+GString *sched;
 
 int init_data();
 void free_data();

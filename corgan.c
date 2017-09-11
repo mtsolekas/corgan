@@ -18,11 +18,7 @@ int main(int argc, char **argv)
 
     gobj = gtk_builder_get_object(builder, "sched_buf");
     sched_buf = GTK_TEXT_BUFFER(gobj);
-    gtk_text_buffer_set_text(sched_buf, sched, -1);
-
-    if (sched[0] == '\0') {
-        write_schedule_file();
-    }
+    gtk_text_buffer_set_text(sched_buf, sched->str, -1);
 
     gobj = gtk_builder_get_object(builder, "names_list");
     names_list = GTK_LIST_STORE(gobj);
@@ -158,14 +154,12 @@ void save_button_clicked()
     gtk_text_buffer_get_end_iter(sched_buf, &end);
     new_sched = gtk_text_buffer_get_text(sched_buf, &start, &end, TRUE);
     
-    if (strcmp(sched, new_sched)) {
-        free(sched);
-        sched = new_sched;
+    if (strcmp(sched->str, new_sched)) {
+        g_string_free(sched, TRUE);
+        sched = g_string_new(new_sched);
         write_schedule_file();
     }
-    else {
-        free(new_sched);
-    }
+    free(new_sched);
 
     idx = get_active_index();
     if (idx < 0) return;
