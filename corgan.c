@@ -20,9 +20,8 @@ int main(int argc, char **argv)
     sched_buf = GTK_TEXT_BUFFER(gobj);
     gtk_text_buffer_set_text(sched_buf, sched, -1);
 
-    if (sched[0] == '\0') {
+    if (sched[0] == '\0')
         write_schedule_file();
-    }
 
     gobj = gtk_builder_get_object(builder, "names_list");
     names_list = GTK_LIST_STORE(gobj);

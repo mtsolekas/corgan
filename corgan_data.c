@@ -129,14 +129,12 @@ int search_contacts(const char *name)
         prev_pos = pos;
         idx = strcmp(name, contacts[pos]->name);
 
-        if (idx < 0) {
+        if (idx < 0)
             ubound = pos;
-        }
-        else if (idx > 0) {
+        else if (idx > 0)
             lbound = pos;
-        } else {
+        else
             return pos;
-        }
         pos = ((ubound - lbound) / 2) + lbound;
     }
 
