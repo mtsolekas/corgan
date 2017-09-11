@@ -1,6 +1,6 @@
 CC = gcc
 
-LIBS = -I. `pkg-config --cflags gtk+-3.0` `pkg-config --libs gtk+-3.0`
+LIBS = -I. `pkg-config --cflags --libs gtk+-3.0`
 
 WARNINGS = -Wall -Wextra -Wpedantic -pedantic
 
