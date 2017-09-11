@@ -143,20 +143,6 @@ int search_contacts(const char *name)
     return -1;
 }
 
-int line_length(char *line)
-{
-    int i;
-
-    for (i = 0; line[i]; ++i) {
-        if (line[i] == '\n') {
-            line[i] = '\0';
-            return ++i;
-        }
-    }
-
-    return i;
-}
-
 int read_contacts_file()
 {
     FILE *fp;
@@ -184,15 +170,18 @@ int read_contacts_file()
         contacts[i] = malloc(sizeof(contact_t));
         if (!contacts[i]) return -1;
 
-        contacts[i]->name = strndup(line, sizeof(char) * line_length(line));
+        contacts[i]->name = strndup(line, sizeof(char) * strlen(line));
+        contacts[i]->name[strlen(line)-1] = '\0';
         if (!contacts[i]->name) return -1;
 
         line = fgets(line, 100, fp);
-        contacts[i]->email = strndup(line, sizeof(char) * line_length(line));
+        contacts[i]->email = strndup(line, sizeof(char) * strlen(line));
+        contacts[i]->email[strlen(line)-1] = '\0';
         if (!contacts[i]->email) return -1;
 
         line = fgets(line, 100, fp);
-        contacts[i]->phone = strndup(line, sizeof(char) * line_length(line));
+        contacts[i]->phone = strndup(line, sizeof(char) * strlen(line));
+        contacts[i]->phone[strlen(line)-1] = '\0';
         if (!contacts[i]->email) return -1;
     }
 

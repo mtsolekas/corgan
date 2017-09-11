@@ -31,8 +31,6 @@ int compare_contacts(const void *p1, const void *p2);
 int sort_contacts();
 int search_contacts(const char *name);
 
-int line_length(char *line);
-
 int read_contacts_file();
 int write_contacts_file();
 
