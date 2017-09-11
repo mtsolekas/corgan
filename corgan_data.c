@@ -148,7 +148,7 @@ int read_contacts_file()
     int i;
 
     fp = fopen(CONTACTS_PATH, "r");
-    if(!fp) return -1;
+    if (!fp) return -1;
 
     contacts_size = 100;
     contacts = malloc(sizeof(contact_t*) * contacts_size);
@@ -156,7 +156,7 @@ int read_contacts_file()
 
     line = malloc(sizeof(char) * 100);
     pointer_save = line;
-    if(!line) return -1;
+    if (!line) return -1;
 
     for (i = 0; (line = fgets(line, 100, fp)); ++i) {
         if (i >= contacts_size) {
@@ -218,7 +218,7 @@ int read_schedule_file()
     int size, i;
 
     fp = fopen(SCHEDULE_PATH, "r");
-    if(!fp) return -1;
+    if (!fp) return -1;
 
     size = 100;
     sched = malloc(sizeof(char) * size);
