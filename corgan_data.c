@@ -2,19 +2,39 @@
 
 int init_data()
 {
-    APP_DIR = g_string_append(g_string_new(getenv("HOME")), "/.corgan/");
-    CONTACTS_PATH = g_string_append(g_string_new(APP_DIR->str), "contacts");
-    SCHEDULE_PATH = g_string_append(g_string_new(APP_DIR->str), "schedule");
-    EXPORT_PATH = g_string_append(g_string_new(APP_DIR->str), "contacts.vcf");
+    FILE *fp;
 
-    g_mkdir(APP_DIR->str, 0700);
+    APP_DIR = realloc(strdup(getenv("HOME")),
+                            sizeof(char) * (strlen(getenv("HOME")) +
+                                         strlen("/.corgan/") + 1));
+    if (!APP_DIR) return -1;
+    APP_DIR = strcat(APP_DIR, "/.corgan/");
 
-    if (g_access(CONTACTS_PATH->str, F_OK | R_OK | W_OK)) {
-        if (!g_file_set_contents(CONTACTS_PATH->str, "", -1, NULL)) return -1;
+    CONTACTS_PATH = realloc(strdup(APP_DIR),
+                            sizeof(char) * (strlen(APP_DIR) +
+                                            strlen("contacts") + 1));
+    SCHEDULE_PATH = realloc(strdup(APP_DIR),
+                            sizeof(char) * (strlen(APP_DIR) +
+                                            strlen("contacts") + 1));
+    EXPORT_PATH = realloc(strdup(APP_DIR),
+                            sizeof(char) * (strlen(APP_DIR) +
+                                            strlen("contacts.vcf") + 1));
+    if (!CONTACTS_PATH || !SCHEDULE_PATH || !EXPORT_PATH) return -1;
+
+    CONTACTS_PATH = strcat(CONTACTS_PATH, "contacts");
+    SCHEDULE_PATH = strcat(SCHEDULE_PATH, "schedule");
+    EXPORT_PATH = strcat(EXPORT_PATH, "contacts.vcf");
+
+    mkdir(APP_DIR, 0700);
+
+    if (access(CONTACTS_PATH, F_OK | R_OK | W_OK)) {
+        fp = fopen(CONTACTS_PATH, "w");
+        fclose(fp);
     }
 
-    if (g_access(SCHEDULE_PATH->str, F_OK | R_OK | W_OK)) {
-        if (!g_file_set_contents(SCHEDULE_PATH->str, "", -1, NULL)) return -1;
+    if (access(SCHEDULE_PATH, F_OK | R_OK | W_OK)) {
+        fp = fopen(SCHEDULE_PATH, "w");
+        fclose(fp);
     }
 
     if (read_contacts_file()) return -1;
@@ -25,10 +45,10 @@ int init_data()
 
 void free_data()
 {
-    g_string_free(APP_DIR, TRUE);
-    g_string_free(CONTACTS_PATH, TRUE);
-    g_string_free(SCHEDULE_PATH, TRUE);
-    g_string_free(EXPORT_PATH, TRUE);
+    free(APP_DIR);
+    free(CONTACTS_PATH);
+    free(SCHEDULE_PATH);
+    free(EXPORT_PATH);
 
     for (int i = 0; i < contacts_size; ++i) {
         free(contacts[i]->name);
@@ -38,7 +58,7 @@ void free_data()
     }
 
     free(contacts);
-    g_string_free(sched, TRUE);
+    free(sched);
 }
 
 int new_contact()
@@ -140,7 +160,7 @@ int read_contacts_file()
     char *line, *pointer_save;
     int i;
 
-    fp = fopen(CONTACTS_PATH->str, "r");
+    fp = fopen(CONTACTS_PATH, "r");
     if(!fp) return -1;
 
     contacts_size = 100;
@@ -190,7 +210,7 @@ int write_contacts_file()
 {
     FILE *fp;
 
-    fp = fopen(CONTACTS_PATH->str, "w");
+    fp = fopen(CONTACTS_PATH, "w");
     if (!fp) return -1;
 
     sort_contacts();
@@ -206,17 +226,45 @@ int write_contacts_file()
 
 int read_schedule_file()
 {
-    sched = g_string_new(NULL);
-    if (!g_file_get_contents(SCHEDULE_PATH->str, &sched->str, NULL, NULL))
-        return -1;
+    FILE *fp;
+    char c;
+    int size, i;
+
+    fp = fopen(SCHEDULE_PATH, "r");
+    if(!fp) return -1;
+
+    size = 100;
+    sched = malloc(sizeof(char) * size);
+    if (!sched) return -1;
+
+    for (i = 0; (c = getc(fp)) != EOF; ++i) {
+        if (i >= size) {
+            size += 100;
+            sched = realloc(sched, sizeof(char) * size);
+            if (!sched) return -1;
+        }
+
+        sched[i] = c;
+    }
+
+    fclose(fp);
+
+    sched[i] = '\0';
+    sched = realloc(sched, sizeof(char) * (++i));
+    if (!sched) return -1;
 
     return 0;
 }
 
 int write_schedule_file()
 {
-    if (!g_file_set_contents(SCHEDULE_PATH->str, sched->str, -1, NULL))
-        return -1;
+    FILE *fp;
+
+    fp = fopen(SCHEDULE_PATH, "w");
+    if (!fp) return -1;
+
+    fputs(sched, fp);
+    fclose(fp);
 
     return 0;
 }
@@ -226,7 +274,7 @@ int export_contacts_vcard()
     FILE *fp;
     char *name, *fname, *lname, *tmp;
 
-    fp = fopen(EXPORT_PATH->str, "w");
+    fp = fopen(EXPORT_PATH, "w");
     if (!fp) return -1;
 
     for (int i = 0; i < contacts_size; ++i) {
