@@ -173,10 +173,10 @@ void save_button_clicked()
     new_email = strdup(gtk_entry_get_text(email_entry));
     new_phone = strdup(gtk_entry_get_text(phone_entry));
 
-    if (strcmp(contacts[idx]->name, new_name) ||
-            !strcmp(contacts[idx]->name, "NEW CONTACT") ||
-            strcmp(contacts[idx]->email, new_email) ||
-            strcmp(contacts[idx]->phone, new_phone)) {
+    if (!strcmp(contacts[idx]->name, "NEW CONTACT")
+        || strcmp(contacts[idx]->name, new_name)
+        || strcmp(contacts[idx]->email, new_email)
+        || strcmp(contacts[idx]->phone, new_phone)) {
         
         free(contacts[idx]->name);
         free(contacts[idx]->email);
