@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     renderer = gtk_cell_renderer_text_new();
 
     col = gtk_tree_view_column_new_with_attributes("Name", renderer,
-                                                    "text", 0, NULL);
+                                                   "text", 0, NULL);
     gtk_tree_view_append_column(contacts_view, col);
 
     gobj = gtk_builder_get_object(builder, "name_entry");

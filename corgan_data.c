@@ -7,7 +7,7 @@ int init_data()
 
     app_dir = realloc(strdup(getenv("HOME")),
                             sizeof(char) * (strlen(getenv("HOME")) +
-                                         strlen("/.corgan/") + 1));
+                                            strlen("/.corgan/") + 1));
     if (!app_dir) return -1;
     app_dir = strcat(app_dir, "/.corgan/");
 
@@ -203,7 +203,7 @@ int write_contacts_file()
     sort_contacts();
     for (int i = 0; i < contacts_size; ++i) {
         fprintf(fp, "%s\n%s\n%s\n", contacts[i]->name, contacts[i]->email,
-                                    contacts[i]->phone);
+                contacts[i]->phone);
     }
 
     fclose(fp);
@@ -277,8 +277,7 @@ int export_contacts_vcard()
         free(name);
 
         fprintf(fp, "\nFN:%s\nTEL;TYPE=VOICE:%s\nEMAIL:%s\nEND:VCARD\n",
-                                contacts[i]->name, contacts[i]->phone,
-                                contacts[i]->email);
+                contacts[i]->name, contacts[i]->phone, contacts[i]->email);
     }
 
     fclose(fp);
