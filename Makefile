@@ -1,14 +1,16 @@
 CC = gcc
 
-SANITIZE = -fsanitize=address -fsanitize=undefined -fno-omit-frame-pointer
-WARNINGS = -Wall -Wextra -Wpedantic -pedantic
-DIRS = -I. `pkg-config --cflags gtk+-3.0`
+CFLAGS = -std=gnu11 -rdynamic -Wall -Wextra -Wpedantic -pedantic
 
-DBGFLAGS = -Og -ggdb3 $(SANITIZE)
+CPPFLAGS = -I. `pkg-config --cflags gtk+-3.0`
+
+LDFLAGS = -L.
+LDLIBS = `pkg-config --libs gtk+-3.0`
+
+DBGFLAGS = -fsanitize=address -fsanitize=undefined -fno-omit-frame-pointer
+DBGFLAGS += -Og -ggdb3
+
 OPTFLAGS = -O3 -march=native
-
-CFLAGS = -std=gnu11 -rdynamic $(WARNINGS) $(DIRS)
-LDFLAGS = `pkg-config --libs gtk+-3.0`
 
 DBG ?= 1
 ifeq ($(DBG), 0)
@@ -17,15 +19,15 @@ else
 CFLAGS += $(DBGFLAGS)
 endif
 
-C_SOURCES = $(wildcard corgan*.c)
-C_OBJECTS = $(C_SOURCES:.c=.o)
+SOURCES = $(wildcard *.c)
+OBJECTS = $(SOURCES:.c=.o)
 
 .PHONY: all clean
 
 all: corgan
 
-corgan: $(C_OBJECTS)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o corgan $(C_OBJECTS)
+corgan: $(OBJECTS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS) -o corgan $(OBJECTS)
 
 clean:
 	-rm *.[ao]
