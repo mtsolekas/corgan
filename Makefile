@@ -22,7 +22,10 @@ endif
 SOURCES = $(wildcard *.c)
 OBJECTS = $(SOURCES:.c=.o)
 
-.PHONY: all clean
+BIN_DIR = $(HOME)/.local/bin
+DATA_DIR = $(HOME)/.local/share/corgan
+
+.PHONY: all clean install uninstall local_install local_uninstall
 
 all: corgan
 
@@ -30,4 +33,19 @@ corgan: $(OBJECTS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS) -o corgan $(OBJECTS)
 
 clean:
+	-rm corgan
 	-rm *.[ao]
+
+install: local_install
+
+uninstall: local_uninstall
+
+local_install:
+	mkdir -p $(BIN_DIR)
+	mkdir -m 0700 -p $(DATA_DIR)
+	cp corgan $(BIN_DIR)/corgan
+	cp corgan.glade $(DATA_DIR)/corgan.glade
+
+local_uninstall:
+	-rm $(BIN_DIR)/corgan
+	-rm -r $(DATA_DIR)
