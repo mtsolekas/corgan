@@ -9,12 +9,10 @@ int main(int argc, char **argv)
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *col;
 
-    if (init_data()) return EXIT_FAILURE;
-
     gtk_init(&argc, &argv);
 
-    builder = gtk_builder_new_from_file(argv[1]);
-    gtk_builder_connect_signals(builder, NULL);
+    if (init_data()) return EXIT_FAILURE;
+    if (init_glade()) return EXIT_FAILURE;
 
     gobj = gtk_builder_get_object(builder, "sched_buf");
     sched_buf = GTK_TEXT_BUFFER(gobj);
@@ -68,6 +66,24 @@ int main(int argc, char **argv)
     free_data();
 
     return EXIT_SUCCESS;
+}
+
+int init_glade()
+{
+    char *glade_path;
+
+    glade_path = realloc(strdup(APP_DIR), sizeof(char)
+                                          * (strlen(APP_DIR)
+                                             + strlen("corgan.glade") + 1));
+    if (!glade_path) return -1;
+    glade_path = strcat(glade_path, "corgan.glade");
+    
+    builder = gtk_builder_new_from_file(glade_path);
+    gtk_builder_connect_signals(builder, NULL);
+
+    free(glade_path);
+
+    return 0;
 }
 
 int get_active_index()

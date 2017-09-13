@@ -12,6 +12,8 @@ GtkTreeView *contacts_view;
 GtkTreeSelection *selection;
 GtkEntry *name_entry, *email_entry, *phone_entry;
 
+int init_glade();
+
 int contacts_changed;
 
 int get_active_index();

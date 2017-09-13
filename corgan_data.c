@@ -3,31 +3,27 @@
 int init_data()
 {
     FILE *fp;
-    char *app_dir;
 
-    app_dir = realloc(strdup(getenv("HOME")), sizeof(char)
-                                              * (strlen(getenv("HOME"))
-                                                 + strlen("/.corgan/") + 1));
-    if (!app_dir) return -1;
-    app_dir = strcat(app_dir, "/.corgan/");
+    APP_DIR = realloc(strdup(getenv("HOME")), sizeof(char)
+                                            * (strlen(getenv("HOME"))
+                                    + strlen("/.local/share/corgan/") + 1));
+    if (!APP_DIR) return -1;
+    APP_DIR = strcat(APP_DIR, "/.local/share/corgan/");
 
-    CONTACTS_PATH = realloc(strdup(app_dir), sizeof(char)
-                                             * (strlen(app_dir)
+    CONTACTS_PATH = realloc(strdup(APP_DIR), sizeof(char)
+                                             * (strlen(APP_DIR)
                                                 + strlen("contacts") + 1));
-    SCHEDULE_PATH = realloc(strdup(app_dir), sizeof(char)
-                                             * (strlen(app_dir)
+    SCHEDULE_PATH = realloc(strdup(APP_DIR), sizeof(char)
+                                             * (strlen(APP_DIR)
                                                 + strlen("contacts") + 1));
-    EXPORT_PATH = realloc(strdup(app_dir), sizeof(char)
-                                           * (strlen(app_dir)
+    EXPORT_PATH = realloc(strdup(APP_DIR), sizeof(char)
+                                           * (strlen(APP_DIR)
                                               + strlen("contacts.vcf") + 1));
     if (!CONTACTS_PATH || !SCHEDULE_PATH || !EXPORT_PATH) return -1;
 
     CONTACTS_PATH = strcat(CONTACTS_PATH, "contacts");
     SCHEDULE_PATH = strcat(SCHEDULE_PATH, "schedule");
     EXPORT_PATH = strcat(EXPORT_PATH, "contacts.vcf");
-
-    mkdir(app_dir, 0700);
-    free(app_dir);
 
     if (access(CONTACTS_PATH, F_OK | R_OK | W_OK)) {
         fp = fopen(CONTACTS_PATH, "w");
@@ -49,6 +45,7 @@ int init_data()
 
 void free_data()
 {
+    free(APP_DIR);
     free(CONTACTS_PATH);
     free(SCHEDULE_PATH);
     free(EXPORT_PATH);
