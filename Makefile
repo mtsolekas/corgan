@@ -42,7 +42,7 @@ uninstall: local_uninstall
 
 local_install:
 	mkdir -p $(BIN_DIR)
-	mkdir -m 0700 -p $(DATA_DIR)
+	mkdir -p $(DATA_DIR)
 	cp corgan $(BIN_DIR)/corgan
 	cp corgan.glade $(DATA_DIR)/corgan.glade
 
