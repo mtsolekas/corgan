@@ -5,21 +5,21 @@ int init_data()
     FILE *fp;
     char *app_dir;
 
-    app_dir = realloc(strdup(getenv("HOME")),
-                            sizeof(char) * (strlen(getenv("HOME")) +
-                                            strlen("/.corgan/") + 1));
+    app_dir = realloc(strdup(getenv("HOME")), sizeof(char)
+                                              * (strlen(getenv("HOME"))
+                                                 + strlen("/.corgan/") + 1));
     if (!app_dir) return -1;
     app_dir = strcat(app_dir, "/.corgan/");
 
-    CONTACTS_PATH = realloc(strdup(app_dir),
-                            sizeof(char) * (strlen(app_dir) +
-                                            strlen("contacts") + 1));
-    SCHEDULE_PATH = realloc(strdup(app_dir),
-                            sizeof(char) * (strlen(app_dir) +
-                                            strlen("contacts") + 1));
-    EXPORT_PATH = realloc(strdup(app_dir),
-                            sizeof(char) * (strlen(app_dir) +
-                                            strlen("contacts.vcf") + 1));
+    CONTACTS_PATH = realloc(strdup(app_dir), sizeof(char)
+                                             * (strlen(app_dir)
+                                                + strlen("contacts") + 1));
+    SCHEDULE_PATH = realloc(strdup(app_dir), sizeof(char)
+                                             * (strlen(app_dir)
+                                                + strlen("contacts") + 1));
+    EXPORT_PATH = realloc(strdup(app_dir), sizeof(char)
+                                           * (strlen(app_dir)
+                                              + strlen("contacts.vcf") + 1));
     if (!CONTACTS_PATH || !SCHEDULE_PATH || !EXPORT_PATH) return -1;
 
     CONTACTS_PATH = strcat(CONTACTS_PATH, "contacts");
