@@ -23,7 +23,13 @@ SOURCES = $(wildcard *.c)
 OBJECTS = $(SOURCES:.c=.o)
 
 BIN_DIR = $(HOME)/.local/bin
+BIN_PATH = $(BIN_DIR)/corgan
+
 DATA_DIR = $(HOME)/.local/share/corgan
+GLADE_PATH = $(DATA_DIR)/corgan.glade
+
+DESKTOP_DIR = $(HOME)/.local/share/applications
+DESKTOP_PATH = $(DESKTOP_DIR)/corgan.desktop
 
 .PHONY: all clean install uninstall local_install local_uninstall
 
@@ -41,11 +47,12 @@ install: local_install
 uninstall: local_uninstall
 
 local_install:
-	mkdir -p $(BIN_DIR)
-	mkdir -p $(DATA_DIR)
-	cp corgan $(BIN_DIR)/corgan
-	cp corgan.glade $(DATA_DIR)/corgan.glade
+	mkdir -p $(BIN_DIR) $(DATA_DIR) $(DESKTOP_DIR)
+	cp corgan $(BIN_PATH)
+	cp corgan.glade $(GLADE_PATH)
+	sed s:Exec=:Exec=$(BIN_PATH): desktop_template > $(DESKTOP_PATH)
 
 local_uninstall:
-	-rm $(BIN_DIR)/corgan
+	-rm $(BIN_PATH)
 	-rm -r $(DATA_DIR)
+	-rm $(DESKTOP_PATH)
