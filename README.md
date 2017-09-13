@@ -14,10 +14,14 @@ Run **make** which will build with debugging enabled by default.
 
 Run **make DBG=0** to disable debugging and enable optimizations.
 
-## Execution
+## Install & Run
 
-To run corgan, you need give to the executable the glade file's path
-as an arguement.
+To install run **make install**, after which you can either run it from
+its desktop file entry or from the command line. Currently it only
+installs locally and not in the root directory.
+
+To uninstall run **make uninstall**, which will remove all files
+created by make install.
 
 ## License
 
