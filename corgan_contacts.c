@@ -1,55 +1,26 @@
-#include "corgan_data.h"
+#include "corgan_paths.h"
+#include "corgan_contacts.h"
 
-int init_data()
+int init_contacts()
 {
     FILE *fp;
-
-    APP_DIR = realloc(strdup(getenv("HOME")), sizeof(char)
-                                            * (strlen(getenv("HOME"))
-                                    + strlen("/.local/share/corgan/") + 1));
-    if (!APP_DIR) return -1;
-    APP_DIR = strcat(APP_DIR, "/.local/share/corgan/");
-
-    CONTACTS_PATH = realloc(strdup(APP_DIR), sizeof(char)
-                                             * (strlen(APP_DIR)
-                                                + strlen("contacts") + 1));
-    SCHEDULE_PATH = realloc(strdup(APP_DIR), sizeof(char)
-                                             * (strlen(APP_DIR)
-                                                + strlen("contacts") + 1));
-    EXPORT_PATH = realloc(strdup(APP_DIR), sizeof(char)
-                                           * (strlen(APP_DIR)
-                                              + strlen("contacts.vcf") + 1));
-    if (!CONTACTS_PATH || !SCHEDULE_PATH || !EXPORT_PATH) return -1;
-
-    CONTACTS_PATH = strcat(CONTACTS_PATH, "contacts");
-    SCHEDULE_PATH = strcat(SCHEDULE_PATH, "schedule");
-    EXPORT_PATH = strcat(EXPORT_PATH, "contacts.vcf");
 
     if (access(CONTACTS_PATH, F_OK | R_OK | W_OK)) {
         fp = fopen(CONTACTS_PATH, "w");
         if (!fp) return -1;
-        fclose(fp);
-    }
 
-    if (access(SCHEDULE_PATH, F_OK | R_OK | W_OK)) {
-        fp = fopen(SCHEDULE_PATH, "w");
-        if (!fp) return -1;
+        fprintf(fp, "%s\n%s\n%s\n", "NEW CONTACT", "\0", "\0");
+
         fclose(fp);
     }
 
     if (read_contacts_file()) return -1;
-    if (read_schedule_file()) return -1;
 
     return 0;
 }
 
-void free_data()
+int free_contacts()
 {
-    free(APP_DIR);
-    free(CONTACTS_PATH);
-    free(SCHEDULE_PATH);
-    free(EXPORT_PATH);
-
     for (int i = 0; i < contacts_size; ++i) {
         free(contacts[i]->name);
         free(contacts[i]->email);
@@ -58,7 +29,8 @@ void free_data()
     }
 
     free(contacts);
-    free(sched);
+
+    return 0;
 }
 
 int new_contact()
@@ -203,51 +175,6 @@ int write_contacts_file()
                 contacts[i]->phone);
     }
 
-    fclose(fp);
-
-    return 0;
-}
-
-int read_schedule_file()
-{
-    FILE *fp;
-    char c;
-    int size, i;
-
-    fp = fopen(SCHEDULE_PATH, "r");
-    if (!fp) return -1;
-
-    size = 100;
-    sched = malloc(sizeof(char) * size);
-    if (!sched) return -1;
-
-    for (i = 0; (c = getc(fp)) != EOF; ++i) {
-        if (i >= size) {
-            size += 100;
-            sched = realloc(sched, sizeof(char) * size);
-            if (!sched) return -1;
-        }
-
-        sched[i] = c;
-    }
-
-    fclose(fp);
-
-    sched[i] = '\0';
-    sched = realloc(sched, sizeof(char) * (++i));
-    if (!sched) return -1;
-
-    return 0;
-}
-
-int write_schedule_file()
-{
-    FILE *fp;
-
-    fp = fopen(SCHEDULE_PATH, "w");
-    if (!fp) return -1;
-
-    fputs(sched, fp);
     fclose(fp);
 
     return 0;

@@ -1,5 +1,7 @@
 #include "corgan.h"
-#include "corgan_data.h"
+#include "corgan_paths.h"
+#include "corgan_contacts.h"
+#include "corgan_schedule.h"
 
 int main(int argc, char **argv)
 {
@@ -11,15 +13,14 @@ int main(int argc, char **argv)
 
     gtk_init(&argc, &argv);
 
-    if (init_data()) return EXIT_FAILURE;
+    if (init_paths()) return EXIT_FAILURE;
+    if (init_contacts()) return EXIT_FAILURE;
+    if (init_schedule()) return EXIT_FAILURE;
     if (init_glade()) return EXIT_FAILURE;
 
     gobj = gtk_builder_get_object(builder, "sched_buf");
     sched_buf = GTK_TEXT_BUFFER(gobj);
     gtk_text_buffer_set_text(sched_buf, sched, -1);
-
-    if (sched[0] == '\0')
-        write_schedule_file();
 
     gobj = gtk_builder_get_object(builder, "names_list");
     names_list = GTK_LIST_STORE(gobj);
@@ -51,19 +52,16 @@ int main(int argc, char **argv)
     gobj = gtk_builder_get_object(builder, "phone_entry");
     phone_entry = GTK_ENTRY(gobj);
 
-    if (!contacts_size) {
-        new_button_clicked();
-        write_contacts_file();
-    }
-    else {
-        gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
-        gtk_tree_selection_select_iter(selection, &iter);
-    }
+    gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
+    gtk_tree_selection_select_iter(selection, &iter);
+
     contacts_changed = 0;
 
     gtk_main();
 
-    free_data();
+    free_paths();
+    free_contacts();
+    free_schedule();
 
     return EXIT_SUCCESS;
 }
