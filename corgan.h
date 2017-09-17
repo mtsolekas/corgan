@@ -12,17 +12,8 @@ GtkTreeView *contacts_view;
 GtkTreeSelection *selection;
 GtkEntry *name_entry, *email_entry, *phone_entry;
 
+extern int contacts_changed;
+
 int init_glade();
-
-int contacts_changed;
-
-int get_active_index();
-
-void window_delete_event();
-void selection_changed();
-void new_button_clicked();
-void delete_button_clicked();
-void export_button_clicked();
-void save_button_clicked();
 
 #endif
