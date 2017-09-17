@@ -21,8 +21,6 @@ int free_contacts();
 int new_contact();
 int del_contact(int pos);
 
-int compare_contacts(const void *p1, const void *p2);
-int sort_contacts();
 int search_contacts(const char *name);
 
 int read_contacts_file();

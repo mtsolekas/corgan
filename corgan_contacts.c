@@ -1,6 +1,9 @@
 #include "corgan_paths.h"
 #include "corgan_contacts.h"
 
+static int compare_contacts(const void *p1, const void *p2);
+static int sort_contacts();
+
 int init_contacts()
 {
     FILE *fp;
@@ -70,12 +73,12 @@ int del_contact(int idx)
     return 0;
 }
 
-int compare_contacts(const void *p1, const void *p2)
+static int compare_contacts(const void *p1, const void *p2)
 {
     return strcmp((*(contact_t**) p1)->name, (*(contact_t**) p2)->name);
 }
 
-int sort_contacts()
+static int sort_contacts()
 {
 
     if (!contacts_size) return 0;

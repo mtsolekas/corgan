@@ -3,6 +3,8 @@
 #include "corgan_contacts.h"
 #include "corgan_schedule.h"
 
+static int init_glade();
+
 int main(int argc, char **argv)
 {
     GObject *gobj;
@@ -66,7 +68,7 @@ int main(int argc, char **argv)
     return EXIT_SUCCESS;
 }
 
-int init_glade()
+static int init_glade()
 {
     char *glade_path;
 

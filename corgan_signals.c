@@ -3,7 +3,9 @@
 #include "corgan_contacts.h"
 #include "corgan_schedule.h"
 
-int get_active_index()
+static int get_active_index();
+
+static int get_active_index()
 {
     GtkTreeIter iter;
     GtkTreeModel *model;

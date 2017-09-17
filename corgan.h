@@ -14,6 +14,4 @@ GtkEntry *name_entry, *email_entry, *phone_entry;
 
 extern int contacts_changed;
 
-int init_glade();
-
 #endif

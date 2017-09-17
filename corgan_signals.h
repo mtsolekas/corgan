@@ -3,8 +3,6 @@
 
 int contacts_changed;
 
-int get_active_index();
-
 void window_delete_event();
 void selection_changed();
 void new_button_clicked();
