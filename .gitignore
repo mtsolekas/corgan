@@ -1,2 +1,19 @@
+# Build
+autom4te.cache/
+src/.deps/
+aclocal.m4
+compile
+config.h*
+config.log
+config.status
+configure
+depcomp
+install-sh
+*Makefile
+*Makefile.in
+missing
+stamp-h1
+
+# Project
 *.[ao]
 corgan
