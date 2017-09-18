@@ -1,3 +1,16 @@
+if DEBUG
+DBGFLAGS = -fsanitize=address -fsanitize=undefined \
+		   -fno-omit-frame-pointer -Og
+OPTFLAGS =
+else
+DBGFLAGS =
+OPTFLAGS = -O3 -march=native
+endif
+
+AM_CPPFLAGS = $(GTK_CFLAGS) $(DBGFLAGS) $(OPTFLAGS)
+AM_CFLAGS = $(DBGFLAGS) -Wall -Werror -Wpedantic -std=gnu11
+AM_LDFLAGS = $(CORGAN_LIBS) $(GTK_LIBS) -rdynamic
+
 bin_PROGRAMS = corgan
 corgan_SOURCES = corgan.c \
 				 corgan.h \
@@ -9,9 +22,3 @@ corgan_SOURCES = corgan.c \
 				 corgan_schedule.h \
 				 corgan_signals.c \
 				 corgan_signals.h
-
-corgan_CPPFLAGS = $(GTK_CFLAGS)
-DBGFLAGS = -fsanitize=address -fsanitize=undefined -fno-omit-frame-pointer
-DBGFLAGS += -Og -ggdb3
-corgan_CFLAGS = $(DBGFLAGS) -Wall -Werror -Wpedantic -std=gnu11
-corgan_LDFLAGS = $(CORGAN_LIBS) $(GTK_LIBS) -rdynamic

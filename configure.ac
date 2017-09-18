@@ -6,6 +6,16 @@ AM_SILENT_RULES([yes])
 
 AC_PROG_CC
 
+AC_ARG_ENABLE([debug],
+              [--enable-debug Turn on debugging],
+              [case "${enableval}" in
+               yes) debug=true ;;
+               no) debug=false ;;
+               *) AC_MSG_ERROR([bad value for --enable-debug]) ;;
+              esac],
+              [debug=false])
+AM_CONDITIONAL([DEBUG], [test x$debug = xtrue])
+
 PKG_CHECK_MODULES(GTK, gtk+-3.0)
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
