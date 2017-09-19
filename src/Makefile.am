@@ -20,12 +20,10 @@ CLEANFILES = $(BUILT_SOURCES)
 
 if DEBUG
 AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
-		       -fno-omit-frame-pointer -Og
+		     -fno-omit-frame-pointer -Og
 else
-AM_CFLAGS += -O3 -march=native
+AM_CFLAGS += -Ofast -march=native
 endif
-
-resource_files=$(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir) --generate-dependiencies $(srcdir)/gresource.xml)
 
 resources.h:
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(SRCDIR) --generate-source $(srcdir)/gresource.xml

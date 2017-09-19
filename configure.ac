@@ -1,5 +1,5 @@
 AC_INIT([corgan], [0.10], [https://github.com/mtsolekas/corgan/issues])
-AM_INIT_AUTOMAKE([-Wall foreign])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_SRCDIR([src/corgan.c])
 AC_CONFIG_HEADERS([config.h])
 AM_SILENT_RULES([yes])
