@@ -12,6 +12,4 @@ GtkTreeView *contacts_view;
 GtkTreeSelection *selection;
 GtkEntry *name_entry, *email_entry, *phone_entry;
 
-extern int contacts_changed;
-
 #endif
