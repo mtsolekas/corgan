@@ -23,6 +23,8 @@ int init_paths()
     SCHEDULE_PATH = strcat(SCHEDULE_PATH, "schedule");
     EXPORT_PATH = strcat(EXPORT_PATH, "contacts.vcf");
 
+    mkdir(APP_DIR, 0700);
+
     return 0;
 }
 

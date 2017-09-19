@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 char *APP_DIR;
 char *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
