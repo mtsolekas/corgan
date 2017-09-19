@@ -9,9 +9,9 @@ form of a vCard version 3, to the apps directory.
 ## Build
 
 Build Requirements:
-    * Autoconf
-    * Automake
-    * GTK3 developement headers
+    - Autoconf
+    - Automake
+    - GTK3 developement headers
 
 Build Instructions:
     * autoreconf -i
