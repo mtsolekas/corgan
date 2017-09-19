@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-char *APP_DIR;
+char *DATA_DIR;
 char *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
 
 int init_paths();
