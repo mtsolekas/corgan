@@ -4,8 +4,6 @@
 #include "corgan_schedule.h"
 #include "resources.h"
 
-static int init_glade();
-
 int main(int argc, char **argv)
 {
     GObject *gobj;
@@ -19,7 +17,9 @@ int main(int argc, char **argv)
     if (init_paths()) return EXIT_FAILURE;
     if (init_contacts()) return EXIT_FAILURE;
     if (init_schedule()) return EXIT_FAILURE;
-    if (init_glade()) return EXIT_FAILURE;
+
+    builder = gtk_builder_new_from_resource("/org/corgan/corgan.glade");
+    gtk_builder_connect_signals(builder, NULL);
 
     gobj = gtk_builder_get_object(builder, "sched_buf");
     sched_buf = GTK_TEXT_BUFFER(gobj);
@@ -67,12 +67,4 @@ int main(int argc, char **argv)
     if (free_schedule()) return EXIT_FAILURE;
 
     return EXIT_SUCCESS;
-}
-
-static int init_glade()
-{
-    builder = gtk_builder_new_from_resource("/org/corgan/corgan.glade");
-    gtk_builder_connect_signals(builder, NULL);
-
-    return 0;
 }
