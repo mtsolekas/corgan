@@ -6,12 +6,12 @@ using the Gtk+3 framework.
 You can also automatically export all your contacts, in the
 form of a vCard version 3, to the apps directory.
 
-##Build Requirements:
+## Build Requirements:
 - Autoconf
 - Automake
 - GTK3 developement headers
 
-##Build Instructions:
+## Build Instructions:
 - autoreconf -i
 - ./configure
 - make
