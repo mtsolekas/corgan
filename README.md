@@ -8,20 +8,25 @@ form of a vCard version 3, to the apps directory.
 
 ## Build
 
-To build corgan you will need the GTK+3 developement libraries.
+Build Requirements:
+    * Autoconf
+    * Automake
+    * GTK3 developement headers
 
-Run **make** which will build with debugging enabled by default.
+Build Instructions:
+    * autoreconf -i
+    * ./configure
+    * make
 
-Run **make DBG=0** to disable debugging and enable optimizations.
+To enable debugging run **./configure --enable-debug=yes**.
 
-## Install & Run
+Install/Uninstall Instructions:
+    * **sudo make install**
+    * **sudo make uninstall**
 
-To install run **make install**, after which you can either run it from
-its desktop file entry or from the command line. Currently it only
-installs locally and not in the root directory.
-
-To uninstall run **make uninstall**, which will remove all files
-created by make install.
+After installing your contacts and schedule files will be saved
+to ~/.local/share/corgan/ and will have to removed manually after
+uninstalling.
 
 ## License
 
