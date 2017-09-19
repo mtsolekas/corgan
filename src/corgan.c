@@ -2,6 +2,7 @@
 #include "corgan_paths.h"
 #include "corgan_contacts.h"
 #include "corgan_schedule.h"
+#include "resources.h"
 
 static int init_glade();
 
@@ -70,18 +71,8 @@ int main(int argc, char **argv)
 
 static int init_glade()
 {
-    char *glade_path;
-
-    glade_path = realloc(strdup(APP_DIR), sizeof(char)
-                                          * (strlen(APP_DIR)
-                                             + strlen("corgan.glade") + 1));
-    if (!glade_path) return -1;
-    glade_path = strcat(glade_path, "corgan.glade");
-    
-    builder = gtk_builder_new_from_file(glade_path);
+    builder = gtk_builder_new_from_resource("/org/corgan/corgan.glade");
     gtk_builder_connect_signals(builder, NULL);
-
-    free(glade_path);
 
     return 0;
 }

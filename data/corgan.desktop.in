@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Corgan
+Comment=Contacts & Schedule Organizer
+Categories=GTK;Office;
+Icon=x-office-address-book
+TryExec=@PACKAGE@
+Exec=@PACKAGE@
+Keywords=corgan;schedule;contacts;organizer;everything;
+StartupNotify=true
+Terminal=false

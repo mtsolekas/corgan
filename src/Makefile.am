@@ -1,5 +1,5 @@
-AM_CPPFLAGS = $(GTK_CFLAGS) $(DBGFLAGS) $(OPTFLAGS)
-AM_CFLAGS = $(DBGFLAGS) -Wall -Werror -Wpedantic -std=gnu11
+AM_CPPFLAGS = $(GTK_CFLAGS)
+AM_CFLAGS = -Wall -Werror -Wpedantic -pedantic -std=gnu11
 AM_LDFLAGS = $(CORGAN_LIBS) $(GTK_LIBS) -rdynamic
 
 bin_PROGRAMS = corgan
@@ -14,12 +14,21 @@ corgan_SOURCES = corgan.c \
 				 corgan_signals.c \
 				 corgan_signals.h
 
+EXTRA_DIST = corgan.glade
+BUILT_SOURCES = resources.c resources.h
+CLEANFILES = $(BUILT_SOURCES)
+
 if DEBUG
-DBGFLAGS = -fsanitize=address -fsanitize=undefined \
-		   -fno-omit-frame-pointer -Og
-OPTFLAGS =
+AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
+		       -fno-omit-frame-pointer -Og
 else
-DBGFLAGS =
-OPTFLAGS = -O3 -march=native
+AM_CFLAGS += -O3 -march=native
 endif
 
+resource_files=$(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir) --generate-dependiencies $(srcdir)/gresource.xml)
+
+resources.h:
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(SRCDIR) --generate-source $(srcdir)/gresource.xml
+
+resources.c:
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(SRCDIR) --generate-source $(srcdir)/gresource.xml
