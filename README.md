@@ -19,8 +19,8 @@ form of a vCard version 3, to the apps directory.
 To enable debugging run **./configure --enable-debug=yes**.
 
 ## Install/Uninstall Instructions:
-- **sudo make install**
-- **sudo make uninstall**
+- sudo make install
+- sudo make uninstall
 
 After installing your contacts and schedule files will be saved
 to ~/.local/share/corgan/ and will have to removed manually after
