@@ -26,7 +26,7 @@ AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
 
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
-AC_CHECK_FUNCS([strdup strndup])
+AC_CHECK_FUNCS([atexit mkdir strdup strndup])
 
 AC_CONFIG_FILES([Makefile src/Makefile data/Makefile])
 
