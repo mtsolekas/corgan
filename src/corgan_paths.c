@@ -1,3 +1,8 @@
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
 #include "corgan_paths.h"
 
 int init_paths()

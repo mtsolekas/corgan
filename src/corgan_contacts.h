@@ -1,11 +1,6 @@
 #ifndef __CORGAN_CONTACTS_H
 #define __CORGAN_CONTACTS_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
 typedef struct contact_type {
     char *name;
     char *email;

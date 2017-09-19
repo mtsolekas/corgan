@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
 #include "corgan_paths.h"
 #include "corgan_schedule.h"
 

@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <string.h>
+
 #include "corgan.h"
 #include "corgan_signals.h"
 #include "corgan_contacts.h"

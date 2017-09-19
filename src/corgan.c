@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "corgan.h"
 #include "corgan_paths.h"
 #include "corgan_contacts.h"
