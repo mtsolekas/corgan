@@ -7,9 +7,10 @@ AM_SILENT_RULES([yes])
 AC_PROG_CC
 
 AC_ARG_ENABLE([debug],
-[ --enable-debug Turn on debugging],
+[ --enable-debug[[=ARG]] Turn on debugging [[ARG=yes]]],
 [case "${enableval}" in
  yes) debug=true ;;
+ NULL) debug=true ;;
  no) debug=false ;;
  *) AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
 esac], [debug=false])
