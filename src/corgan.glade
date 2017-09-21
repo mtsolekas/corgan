@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.20.0 
+
+Copyright (C) 2017 Marios Tsolekas <marios.tsolekas@gmail.com>
+
+This file is part of Corgan.
+
+Corgan is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Corgan is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Corgan.  If not, see <http://www.gnu.org/licenses/>.
+
+Author: Marios Tsolekas
+
+-->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <!-- interface-license-type gplv3 -->
+  <!-- interface-name Corgan -->
+  <!-- interface-copyright 2017 Marios Tsolekas <marios.tsolekas@gmail.com> -->
+  <!-- interface-authors Marios Tsolekas -->
   <object class="GtkListStore" id="names_list">
     <columns>
       <!-- column-name Names -->

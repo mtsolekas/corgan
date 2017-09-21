@@ -25,9 +25,3 @@ To enable debugging run **./configure --enable-debug**.
 After installing your contacts and schedule files will be saved
 to ~/.local/share/corgan/ or $XDG\_DATA\_HOME/corgan/ if its set, and will
 have to removed manually after uninstalling.
-
-## License
-
-Copyright 2017 Marios Tsolekas <marios.tsolekas@gmail.com>.
-
-Corgan is free software under the GPL version 3.
