@@ -23,8 +23,8 @@ To enable debugging run **./configure --enable-debug**.
 - sudo make uninstall
 
 After installing your contacts and schedule files will be saved
-to ~/.local/share/corgan/ and will have to removed manually after
-uninstalling.
+to ~/.local/share/corgan/ or $XDG\_DATA\_HOME/corgan/ if its set, and will
+have to removed manually after uninstalling.
 
 ## License
 
