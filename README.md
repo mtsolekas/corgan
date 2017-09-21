@@ -18,10 +18,16 @@ form of a vCard version 3, to the apps directory.
 
 To enable debugging run **./configure --enable-debug**.
 
-## Install/Uninstall Instructions:
+## Install Instructions:
 - sudo make install
+
+This will install the corgan binary and its desktop file to their
+respective locations. Your contacts and schedule data are saved at
+$XDG\_DATA\_HOME/corgan/ which is by default ~/.local/share/corgan/.
+
+## Uninstall Instructions:
 - sudo make uninstall
 
-After installing your contacts and schedule files will be saved
-to ~/.local/share/corgan/ or $XDG\_DATA\_HOME/corgan/ if its set, and will
-have to removed manually after uninstalling.
+While it will remove the installed binary and desktop file, your
+contacts and schedule data will persist, so you must remove them
+manually.
