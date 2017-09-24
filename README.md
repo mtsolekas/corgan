@@ -23,7 +23,7 @@ To enable debugging run **./configure --enable-debug**.
 ## Install Instructions:
 - sudo make install
 
-This will install the corgan binary, its desktop file and l10n
+This will install the corgan binary, its desktop file and i18n
 files to their respective locations. Your contacts and schedule
 data are saved at $XDG\_DATA\_HOME/corgan/ which 
 is by default ~/.local/share/corgan/.
