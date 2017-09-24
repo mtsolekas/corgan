@@ -75,7 +75,7 @@ Author: Marios Tsolekas
                   <object class="GtkTreeView" id="contacts_view">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="halign">start</property>
+                    <property name="halign">baseline</property>
                     <property name="valign">start</property>
                     <property name="hscroll_policy">natural</property>
                     <property name="model">names_list</property>
