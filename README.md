@@ -14,7 +14,7 @@ form of a vCard version 3, to the apps directory.
 - GTK3 developement headers
 
 ## Build Instructions:
-- autoreconf -fiv
+- autoreconf -ivf
 - ./configure
 - make
 
@@ -23,13 +23,14 @@ To enable debugging run **./configure --enable-debug**.
 ## Install Instructions:
 - sudo make install
 
-This will install the corgan binary and its desktop file to their
-respective locations. Your contacts and schedule data are saved at
-$XDG\_DATA\_HOME/corgan/ which is by default ~/.local/share/corgan/.
+This will install the corgan binary, its desktop file and l10n
+file to their respective locations. Your contacts and schedule
+data are saved at $XDG\_DATA\_HOME/corgan/ which 
+is by default ~/.local/share/corgan/.
 
 ## Uninstall Instructions:
 - sudo make uninstall
 
-While it will remove the installed binary and desktop file, your
+While it will remove all files installed by **make install**, your
 contacts and schedule data will persist, so you must remove them
 manually.
