@@ -1,0 +1,70 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Marios Tsolekas
+# This file is distributed under the same license as the corgan package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: corgan 0.10\n"
+"Report-Msgid-Bugs-To: https://github.com/mtsolekas/corgan/issues\n"
+"POT-Creation-Date: 2017-09-24 16:52+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/corgan.glade:40 data/corgan.desktop.in:5
+msgid "Corgan"
+msgstr ""
+
+#: src/corgan.glade:60
+msgid "Contacts"
+msgstr ""
+
+#: src/corgan.glade:120
+msgid "Name"
+msgstr ""
+
+#: src/corgan.glade:143
+msgid "Email Address"
+msgstr ""
+
+#: src/corgan.glade:166
+msgid "Phone Number"
+msgstr ""
+
+#: src/corgan.glade:200
+msgid "New Contact"
+msgstr ""
+
+#: src/corgan.glade:214
+msgid "Delete Contact"
+msgstr ""
+
+#: src/corgan.glade:228
+msgid "Export Contacts"
+msgstr ""
+
+#: src/corgan.glade:255
+msgid "Save Changes"
+msgstr ""
+
+#: src/corgan.glade:283
+msgid "Schedule"
+msgstr ""
+
+#: data/corgan.desktop.in:6
+msgid "Contacts & Schedule Organizer"
+msgstr ""
+
+#: data/corgan.desktop.in:8
+msgid "x-office-address-book"
+msgstr ""
+
+#: data/corgan.desktop.in:11
+msgid "corgan;schedule;contacts;organizer;everything;"
+msgstr ""

@@ -29,6 +29,9 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_CHECK_FUNCS([atexit mkdir strdup strndup])
 
-AC_CONFIG_FILES([Makefile src/Makefile data/Makefile])
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
+
+AC_CONFIG_FILES([Makefile src/Makefile data/Makefile po/Makefile.in])
 
 AC_OUTPUT

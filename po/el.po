@@ -1,0 +1,70 @@
+# Greek translations for corgan package.
+# Copyright (C) 2017 Marios Tsolekas
+# This file is distributed under the same license as the corgan package.
+# Marios <marios.tsolekas@gmail.com>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: corgan 0.10\n"
+"Report-Msgid-Bugs-To: https://github.com/mtsolekas/corgan/issues\n"
+"POT-Creation-Date: 2017-09-24 16:52+0300\n"
+"PO-Revision-Date: 2017-09-24 16:30+0300\n"
+"Last-Translator: Marios <marios.tsolekas@gmail.com>\n"
+"Language-Team: Greek\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/corgan.glade:40 data/corgan.desktop.in:5
+msgid "Corgan"
+msgstr "Corgan"
+
+#: src/corgan.glade:60
+msgid "Contacts"
+msgstr "Επαφές"
+
+#: src/corgan.glade:120
+msgid "Name"
+msgstr "Όνομα"
+
+#: src/corgan.glade:143
+msgid "Email Address"
+msgstr "Ηλεκτρονικό Ταχυδρομείο"
+
+#: src/corgan.glade:166
+msgid "Phone Number"
+msgstr "Αριθμός Τηλεφώνου"
+
+#: src/corgan.glade:200
+msgid "New Contact"
+msgstr "Νέα Επαφή"
+
+#: src/corgan.glade:214
+msgid "Delete Contact"
+msgstr "Διαγραφή Επαφής"
+
+#: src/corgan.glade:228
+msgid "Export Contacts"
+msgstr "Εξαγωγή Επαφών"
+
+#: src/corgan.glade:255
+msgid "Save Changes"
+msgstr "Αποθήκευση Αλλαγών"
+
+#: src/corgan.glade:283
+msgid "Schedule"
+msgstr "Πρόγραμμα"
+
+#: data/corgan.desktop.in:6
+msgid "Contacts & Schedule Organizer"
+msgstr "Οργάνωση Επαφών και Προγράμματος"
+
+#: data/corgan.desktop.in:8
+msgid "x-office-address-book"
+msgstr ""
+
+#: data/corgan.desktop.in:11
+msgid "corgan;schedule;contacts;organizer;everything;"
+msgstr ""

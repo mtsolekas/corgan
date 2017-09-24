@@ -1,6 +1,6 @@
-AM_CPPFLAGS = $(GTK_CFLAGS)
-AM_CFLAGS = -Wall -Werror -Wpedantic -pedantic -std=gnu11
-AM_LDFLAGS = $(CORGAN_LIBS) $(GTK_LIBS) -rdynamic
+AM_CPPFLAGS = $(GTK_CFLAGS) -DLOCALEDIR=\"$(localedir)\"
+AM_CFLAGS = -Wall -Wextra -std=gnu11
+AM_LDFLAGS = $(CORGAN_LIBS) $(GTK_LIBS) @LIBINTL@ -rdynamic
 
 bin_PROGRAMS = corgan
 corgan_SOURCES = corgan.c \

@@ -20,6 +20,10 @@
  */
 
 #include <stdlib.h>
+#include <locale.h>
+#include <libintl.h>
+
+#include "config.h"
 
 #include "corgan.h"
 #include "corgan_signals.h"
@@ -30,6 +34,10 @@
 
 int main(int argc, char **argv)
 {
+    setlocale(LC_ALL, "");
+    bindtextdomain(PACKAGE, LOCALEDIR);
+    textdomain(PACKAGE);
+
     GObject *gobj;
     GtkTreeSortable *names_sort;
     GtkTreeIter iter;

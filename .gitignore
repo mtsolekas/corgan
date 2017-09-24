@@ -1,9 +1,10 @@
 # Build
 autom4te.cache/
+m4/
 src/.deps/
 aclocal.m4
 compile
-config.h*
+config.*
 config.log
 config.status
 configure
@@ -13,8 +14,21 @@ install-sh
 *Makefile.in
 missing
 stamp-h1
+ABOUT-NLS
+po/boldquot.sed
+po/*.gmo
+po/Makefile.in.in
+po/Makevars.template
+po/POTFILES
+po/Rules-quot
+po/en@*
+po/insert-header.sin
+po/quot.sed
+po/remove-potcdate.sin
+po/stamp-po
 
 # Project
 *.[ao]
 resources*
+corgan.desktop
 corgan
