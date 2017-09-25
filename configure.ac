@@ -23,11 +23,11 @@ PKG_CHECK_MODULES(GTK, gtk+-3.0)
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
 
-AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
+AC_CHECK_HEADERS([stdlib.h string.h unistd.h locale.h libintl.h])
 
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
-AC_CHECK_FUNCS([atexit mkdir strdup strndup])
+AC_CHECK_FUNCS([atexit mkdir setlocale strdup strndup])
 
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.8])
