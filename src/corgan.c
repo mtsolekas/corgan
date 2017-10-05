@@ -30,7 +30,6 @@
 #include "corgan_paths.h"
 #include "corgan_contacts.h"
 #include "corgan_schedule.h"
-#include "resources.h"
 
 int main(int argc, char **argv)
 {

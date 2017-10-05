@@ -14,9 +14,12 @@ corgan_SOURCES = corgan.c \
 				 corgan_signals.c \
 				 corgan_signals.h
 
+nodist_corgan_SOURCES = $(BUILT_SOURCES)
+BUILT_SOURCES = resources.c
+
 EXTRA_DIST = corgan.glade
-BUILT_SOURCES = resources.c resources.h
 CLEANFILES = $(BUILT_SOURCES)
+
 
 if DEBUG
 AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
@@ -24,9 +27,6 @@ AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
 else
 AM_CFLAGS += -Ofast -march=native
 endif
-
-resources.h:
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(SRCDIR) --generate-source $(srcdir)/gresource.xml
 
 resources.c:
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(SRCDIR) --generate-source $(srcdir)/gresource.xml

@@ -29,6 +29,6 @@ po/stamp-po
 
 # Project
 *.[ao]
-resources*
+resources.c
 corgan.desktop
 corgan
