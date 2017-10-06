@@ -1,6 +1,6 @@
 # Corgan
 
-![alt text](data/corgan.png "Corgan")
+![screenshot](data/corgan.png "Corgan")
 
 Corgan is a simple contacts and schedule organizer written in C
 using the Gtk+3 framework.
