@@ -29,4 +29,4 @@ AM_CFLAGS += -Ofast -march=native
 endif
 
 resources.c:
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(SRCDIR) --generate-source $(srcdir)/gresource.xml
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/gresource.xml
