@@ -20,7 +20,6 @@ BUILT_SOURCES = resources.c
 EXTRA_DIST = corgan.glade
 CLEANFILES = $(BUILT_SOURCES)
 
-
 if DEBUG
 AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
 		     -fno-omit-frame-pointer -Og
