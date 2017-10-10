@@ -17,7 +17,7 @@ corgan_SOURCES = corgan.c \
 nodist_corgan_SOURCES = $(BUILT_SOURCES)
 BUILT_SOURCES = resources.c
 
-EXTRA_DIST = corgan.glade
+EXTRA_DIST = corgan.glade gresource.xml
 CLEANFILES = $(BUILT_SOURCES)
 
 if DEBUG
