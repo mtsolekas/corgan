@@ -61,19 +61,19 @@ int read_schedule_file()
     fp = fopen(SCHEDULE_PATH, "r");
     if (!fp) return -1;
 
-    size = 100;
-    sched = malloc(sizeof(char) * size);
+    size = 128;
+    sched = malloc(sizeof(char) * 128);
     if (!sched) return -1;
 
-    line = malloc(sizeof(char) * 100);
+    line = malloc(sizeof(char) * 128);
     pointer_save = line;
     if (!line) return -1;
 
     sched[0] = '\0';
 
-    while ((line = fgets(line,100,fp))) {
+    while ((line = fgets(line,128,fp))) {
         if (strlen(sched) + strlen(line) >= size) {
-            size += 100;
+            size += 128;
             sched = realloc(sched, sizeof(char) * size);
             if (!sched) return -1;
         }
@@ -85,7 +85,7 @@ int read_schedule_file()
 
     fclose(fp);
 
-    sched = realloc(sched, sizeof(char) * strlen(sched)+1);
+    sched = realloc(sched, sizeof(char) * (strlen(sched) + 1));
     if (!sched) return -1;
 
     return 0;

@@ -148,17 +148,17 @@ int read_contacts_file()
     fp = fopen(CONTACTS_PATH, "r");
     if (!fp) return -1;
 
-    contacts_size = 100;
+    contacts_size = 128;
     contacts = malloc(sizeof(contact_t*) * contacts_size);
     if (!contacts) return -1;
 
-    line = malloc(sizeof(char) * 100);
+    line = malloc(sizeof(char) * 128);
     pointer_save = line;
     if (!line) return -1;
 
-    for (i = 0; (line = fgets(line, 100, fp)); ++i) {
+    for (i = 0; (line = fgets(line, 128, fp)); ++i) {
         if (i >= contacts_size) {
-            contacts_size += 100;
+            contacts_size += 128;
             contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
             if (!contacts) return -1;
         }
@@ -169,11 +169,11 @@ int read_contacts_file()
         contacts[i]->name = strndup(line, sizeof(char) * (strlen(line) - 1));
         if (!contacts[i]->name) return -1;
 
-        line = fgets(line, 100, fp);
+        line = fgets(line, 128, fp);
         contacts[i]->email = strndup(line, sizeof(char) * (strlen(line) - 1));
         if (!contacts[i]->email) return -1;
 
-        line = fgets(line, 100, fp);
+        line = fgets(line, 128, fp);
         contacts[i]->phone = strndup(line, sizeof(char) * (strlen(line) - 1));
         if (!contacts[i]->email) return -1;
     }
