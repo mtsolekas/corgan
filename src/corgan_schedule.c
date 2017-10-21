@@ -21,6 +21,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "corgan_paths.h"
@@ -54,8 +55,8 @@ int free_schedule()
 int read_schedule_file()
 {
     FILE *fp;
-    char c;
-    int size, i;
+    char *line, *pointer_save;
+    unsigned int size;
 
     fp = fopen(SCHEDULE_PATH, "r");
     if (!fp) return -1;
@@ -64,20 +65,27 @@ int read_schedule_file()
     sched = malloc(sizeof(char) * size);
     if (!sched) return -1;
 
-    for (i = 0; (c = getc(fp)) != EOF; ++i) {
-        if (i >= size) {
+    line = malloc(sizeof(char) * 100);
+    pointer_save = line;
+    if (!line) return -1;
+
+    sched[0] = '\0';
+
+    while ((line = fgets(line,100,fp))) {
+        if (strlen(sched) + strlen(line) >= size) {
             size += 100;
             sched = realloc(sched, sizeof(char) * size);
             if (!sched) return -1;
         }
 
-        sched[i] = c;
+        sched = strcat(sched, strdup(line));
     }
+
+    free(pointer_save);
 
     fclose(fp);
 
-    sched[i] = '\0';
-    sched = realloc(sched, sizeof(char) * (++i));
+    sched = realloc(sched, sizeof(char) * strlen(sched)+1);
     if (!sched) return -1;
 
     return 0;
