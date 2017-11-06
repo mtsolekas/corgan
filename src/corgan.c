@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     if (init_contacts()) return EXIT_FAILURE;
     if (init_schedule()) return EXIT_FAILURE;
 
-    builder = gtk_builder_new_from_resource("/org/corgan/corgan.glade");
+    builder = gtk_builder_new_from_resource("/org/corgan/corgan_window.ui");
     gtk_builder_connect_signals(builder, NULL);
 
     gobj = gtk_builder_get_object(builder, "sched_buf");

@@ -23,6 +23,6 @@ Author: Marios Tsolekas
 -->
 <gresources>
     <gresource prefix="/org/corgan">
-        <file compressed="true">corgan.glade</file>
+        <file compressed="true">corgan_window.ui</file>
     </gresource>
 </gresources>
