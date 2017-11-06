@@ -22,7 +22,7 @@ Author: Marios Tsolekas
 
 -->
 <interface>
-  <requires lib="gtk+" version="3.20"/>
+  <requires lib="gtk+" version="3.8"/>
   <!-- interface-license-type gplv3 -->
   <!-- interface-name Corgan -->
   <!-- interface-copyright 2017 Marios Tsolekas <marios.tsolekas@gmail.com> -->
