@@ -1,6 +1,11 @@
 AM_CPPFLAGS = $(GTK_CFLAGS) -DLOCALEDIR=\"$(localedir)\"
-AM_CFLAGS = -Wall -Wextra -std=gnu11
+AM_CFLAGS = -Wall -Wextra -std=gnu11 -O3 -march=native
 AM_LDFLAGS = $(CORGAN_LIBS) $(GTK_LIBS) @LIBINTL@ -rdynamic
+
+if DEBUG
+AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
+		     -fno-omit-frame-pointer -g3
+endif
 
 bin_PROGRAMS = corgan
 corgan_SOURCES = corgan.c \
@@ -19,13 +24,6 @@ BUILT_SOURCES = resources.c
 
 EXTRA_DIST = corgan_window.ui gresource.xml
 CLEANFILES = $(BUILT_SOURCES)
-
-if DEBUG
-AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
-		     -fno-omit-frame-pointer -Og
-else
-AM_CFLAGS += -Ofast -march=native
-endif
 
 resources.c:
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $(srcdir)/gresource.xml
