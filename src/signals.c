@@ -74,13 +74,20 @@ void selection_changed()
 void new_button_clicked()
 {
     GtkTreeIter iter;
+    GtkTreePath *path;
+    int idx;
 
-    new_contact();
+    if ((idx = search_contacts("NEW CONTACT")) < 0) {
+        new_contact();
+        gtk_list_store_append(names_list, &iter);
+        gtk_list_store_set(names_list, &iter, 0, "NEW CONTACT", -1);
+        idx = search_contacts("NEW CONTACT");
+    }
 
-    gtk_list_store_append(names_list, &iter);
-    gtk_list_store_set(names_list, &iter, 0, "NEW CONTACT", -1);
-
-    gtk_tree_selection_select_iter(selection, &iter);
+    path = gtk_tree_path_new_from_indices(idx + 1, -1);
+    gtk_tree_selection_select_path(selection, path);
+    gtk_tree_view_scroll_to_cell(contacts_view, path, NULL, 0, 0, 0);
+    gtk_tree_path_free(path);
 }
 
 void delete_button_clicked()
