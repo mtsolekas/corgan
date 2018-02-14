@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -24,7 +24,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include "corgan_paths.h"
+#include "paths.h"
 
 int init_paths()
 {

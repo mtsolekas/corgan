@@ -24,8 +24,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "corgan_paths.h"
-#include "corgan_contacts.h"
+#include "paths.h"
+#include "contacts.h"
 
 static int compare_contacts(const void *p1, const void *p2);
 static int sort_contacts();

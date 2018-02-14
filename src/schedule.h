@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -19,16 +19,15 @@
  * Author: Marios Tsolekas
  */
 
-#ifndef __CORGAN_SIGNALS_H
-#define __CORGAN_SIGNALS_H
+#ifndef __SCHEDULE_H
+#define __SCHEDULE_H
 
-int contacts_changed;
+char *sched;
 
-void window_delete_event();
-void selection_changed();
-void new_button_clicked();
-void delete_button_clicked();
-void export_button_clicked();
-void save_button_clicked();
+int init_schedule();
+int free_schedule();
+
+int read_schedule_file();
+int write_schedule_file();
 
 #endif

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -19,29 +19,13 @@
  * Author: Marios Tsolekas
  */
 
-#ifndef __CORGAN_CONTACTS_H
-#define __CORGAN_CONTACTS_H
+#ifndef __PATHS_H
+#define __PATHS_H
 
-typedef struct contact_type {
-    char *name;
-    char *email;
-    char *phone;
-} contact_t;
+char *DATA_DIR;
+char *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
 
-contact_t **contacts;
-int contacts_size;
-
-int init_contacts();
-int free_contacts();
-
-int new_contact();
-int del_contact(int pos);
-
-int search_contacts(const char *name);
-
-int read_contacts_file();
-int write_contacts_file();
-
-int export_contacts_vcard();
+int init_paths();
+int free_paths();
 
 #endif

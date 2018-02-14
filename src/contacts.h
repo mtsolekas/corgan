@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -19,15 +19,29 @@
  * Author: Marios Tsolekas
  */
 
-#ifndef __CORGAN_SCHEDULE_H
-#define __CORGAN_SCHEDULE_H
+#ifndef __CONTACTS_H
+#define __CONTACTS_H
 
-char *sched;
+typedef struct contact_type {
+    char *name;
+    char *email;
+    char *phone;
+} contact_t;
 
-int init_schedule();
-int free_schedule();
+contact_t **contacts;
+int contacts_size;
 
-int read_schedule_file();
-int write_schedule_file();
+int init_contacts();
+int free_contacts();
+
+int new_contact();
+int del_contact(int pos);
+
+int search_contacts(const char *name);
+
+int read_contacts_file();
+int write_contacts_file();
+
+int export_contacts_vcard();
 
 #endif

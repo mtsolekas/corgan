@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -23,9 +23,9 @@
 #include <string.h>
 
 #include "corgan.h"
-#include "corgan_signals.h"
-#include "corgan_contacts.h"
-#include "corgan_schedule.h"
+#include "signals.h"
+#include "contacts.h"
+#include "schedule.h"
 
 static int get_active_index();
 

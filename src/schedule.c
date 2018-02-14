@@ -24,8 +24,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "corgan_paths.h"
-#include "corgan_schedule.h"
+#include "paths.h"
+#include "schedule.h"
 
 int init_schedule()
 {

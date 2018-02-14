@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -26,10 +26,10 @@
 #include "config.h"
 
 #include "corgan.h"
-#include "corgan_signals.h"
-#include "corgan_paths.h"
-#include "corgan_contacts.h"
-#include "corgan_schedule.h"
+#include "signals.h"
+#include "paths.h"
+#include "contacts.h"
+#include "schedule.h"
 
 int main(int argc, char **argv)
 {
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     if (init_contacts()) return EXIT_FAILURE;
     if (init_schedule()) return EXIT_FAILURE;
 
-    builder = gtk_builder_new_from_resource("/org/corgan/corgan_window.ui");
+    builder = gtk_builder_new_from_resource("/org/corgan/window.ui");
     gtk_builder_connect_signals(builder, NULL);
 
     gobj = gtk_builder_get_object(builder, "sched_buf");

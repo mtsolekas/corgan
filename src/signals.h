@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -19,13 +19,16 @@
  * Author: Marios Tsolekas
  */
 
-#ifndef __CORGAN_PATHS_H
-#define __CORGAN_PATHS_H
+#ifndef __SIGNALS_H
+#define __SIGNALS_H
 
-char *DATA_DIR;
-char *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
+int contacts_changed;
 
-int init_paths();
-int free_paths();
+void window_delete_event();
+void selection_changed();
+void new_button_clicked();
+void delete_button_clicked();
+void export_button_clicked();
+void save_button_clicked();
 
 #endif

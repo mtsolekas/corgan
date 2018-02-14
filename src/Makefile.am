@@ -10,19 +10,19 @@ endif
 bin_PROGRAMS = corgan
 corgan_SOURCES = corgan.c \
 				 corgan.h \
-				 corgan_contacts.c \
-				 corgan_contacts.h \
-				 corgan_paths.c \
-				 corgan_paths.h \
-				 corgan_schedule.c \
-				 corgan_schedule.h \
-				 corgan_signals.c \
-				 corgan_signals.h
+				 contacts.c \
+				 contacts.h \
+				 paths.c \
+				 paths.h \
+				 schedule.c \
+				 schedule.h \
+				 signals.c \
+				 signals.h
 
 nodist_corgan_SOURCES = $(BUILT_SOURCES)
 BUILT_SOURCES = resources.c
 
-EXTRA_DIST = corgan_window.ui gresource.xml
+EXTRA_DIST = window.ui gresource.xml
 CLEANFILES = $(BUILT_SOURCES)
 
 resources.c:
