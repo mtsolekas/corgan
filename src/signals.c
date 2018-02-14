@@ -115,6 +115,7 @@ void save_button_clicked()
 {
     GtkTextIter start, end;
     GtkTreeModel *model;
+    GtkTreePath *path;
     GtkTreeIter tree_iter;
     char *new_sched, *new_name, *new_email, *new_phone;
     int idx;
@@ -143,6 +144,12 @@ void save_button_clicked()
         || strcmp(contacts[idx]->name, new_name)
         || strcmp(contacts[idx]->email, new_email)
         || strcmp(contacts[idx]->phone, new_phone)) {
+
+        while (search_contacts(new_name) >= 0) {
+            new_name = realloc(new_name, sizeof(char) * (strlen(new_name) + 5));
+            new_name = strcat(new_name, " Alt");
+            gtk_entry_set_text(name_entry, new_name);
+        }
         
         free(contacts[idx]->name);
         free(contacts[idx]->email);
@@ -154,8 +161,11 @@ void save_button_clicked()
         contacts_changed = 1;
 
         gtk_tree_selection_get_selected(selection, &model, &tree_iter);
-        gtk_list_store_set(names_list, &tree_iter, 0,
-                           contacts[idx]->name, -1);
+        gtk_list_store_set(names_list, &tree_iter, 0, contacts[idx]->name, -1);
+
+        path = gtk_tree_model_get_path(model, &tree_iter);
+        gtk_tree_view_scroll_to_cell(contacts_view, path, NULL, 0, 0, 0);
+        gtk_tree_path_free(path);
     }
     else {
         free(new_name);
