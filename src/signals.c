@@ -84,7 +84,7 @@ void new_button_clicked()
         idx = search_contacts("NEW CONTACT");
     }
 
-    path = gtk_tree_path_new_from_indices(idx + 1, -1);
+    path = gtk_tree_path_new_from_indices(idx, -1);
     gtk_tree_selection_select_path(selection, path);
     gtk_tree_view_scroll_to_cell(contacts_view, path, NULL, 0, 0, 0);
     gtk_tree_path_free(path);
