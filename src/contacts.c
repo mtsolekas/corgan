@@ -38,7 +38,7 @@ int init_contacts()
         fp = fopen(CONTACTS_PATH, "w");
         if (!fp) return -1;
 
-        fprintf(fp, "%s\n%s\n%s\n", "NEW CONTACT", "\0", "\0");
+        fprintf(fp, "1\nNEW CONTACT\n%s\n%s\n", "\0", "\0");
 
         fclose(fp);
     }
@@ -143,25 +143,20 @@ int read_contacts_file()
 {
     FILE *fp;
     char line[128];
-    int i;
 
     fp = fopen(CONTACTS_PATH, "r");
     if (!fp) return -1;
 
-    contacts_size = 128;
+    fscanf(fp, "%d\n", &contacts_size);
     contacts = malloc(sizeof(contact_t*) * contacts_size);
     if (!contacts) return -1;
 
-    for (i = 0; (fgets(line, 128, fp)); ++i) {
-        if (i >= contacts_size) {
-            contacts_size += 128;
-            contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
-            if (!contacts) return -1;
-        }
+    for (int i = 0; i < contacts_size; ++i) {
 
         contacts[i] = malloc(sizeof(contact_t));
         if (!contacts[i]) return -1;
 
+        fgets(line, 128, fp);
         contacts[i]->name = strndup(line, sizeof(char) * (strlen(line) - 1));
         if (!contacts[i]->name) return -1;
 
@@ -176,10 +171,6 @@ int read_contacts_file()
 
     fclose(fp);
 
-    contacts_size = i;
-    contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
-    if (!contacts && contacts_size > 0) return -1;
-
     sort_contacts();
 
     return 0;
@@ -193,6 +184,8 @@ int write_contacts_file()
     if (!fp) return -1;
 
     sort_contacts();
+
+    fprintf(fp, "%d\n", contacts_size);
     for (int i = 0; i < contacts_size; ++i) {
         fprintf(fp, "%s\n%s\n%s\n", contacts[i]->name, contacts[i]->email,
                 contacts[i]->phone);
