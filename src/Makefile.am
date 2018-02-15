@@ -1,5 +1,5 @@
 AM_CPPFLAGS = $(GTK_CFLAGS) -DLOCALEDIR=\"$(localedir)\"
-AM_CFLAGS = -Wall -Wextra -std=gnu11 -O3 -march=native
+AM_CFLAGS = -Wall -Wextra -Wpedantic -std=gnu11 -O3 -march=native
 AM_LDFLAGS = $(CORGAN_LIBS) $(GTK_LIBS) @LIBINTL@ -rdynamic
 
 if DEBUG
