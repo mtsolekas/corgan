@@ -77,7 +77,8 @@ void new_button_clicked()
     GtkTreePath *path;
     int idx;
 
-    if ((idx = search_contacts("NEW CONTACT")) < 0) {
+    idx = 0;
+    if (!contacts_size ||(idx = search_contacts("NEW CONTACT")) < 0) {
         new_contact();
         gtk_list_store_append(names_list, &iter);
         gtk_list_store_set(names_list, &iter, 0, "NEW CONTACT", -1);
@@ -145,7 +146,8 @@ void save_button_clicked()
         || strcmp(contacts[idx]->email, new_email)
         || strcmp(contacts[idx]->phone, new_phone)) {
 
-        while (search_contacts(new_name) >= 0) {
+        while (strcmp(contacts[idx]->name, new_name)
+               && search_contacts(new_name) >= 0) {
             new_name = realloc(new_name, sizeof(char) * (strlen(new_name) + 5));
             new_name = strcat(new_name, " Alt");
             gtk_entry_set_text(name_entry, new_name);
