@@ -5,8 +5,6 @@ src/.deps/
 aclocal.m4
 compile
 config.*
-config.log
-config.status
 configure
 depcomp
 install-sh
