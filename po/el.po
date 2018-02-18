@@ -17,43 +17,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/corgan.glade:40 data/corgan.desktop.in:5
+#: src/window.ui:40 data/corgan.desktop.in:5
 msgid "Corgan"
 msgstr "Corgan"
 
-#: src/corgan.glade:60
+#: src/window.ui:60
 msgid "Contacts"
 msgstr "Επαφές"
 
-#: src/corgan.glade:120
+#: src/window.ui:120
 msgid "Name"
 msgstr "Όνομα"
 
-#: src/corgan.glade:143
+#: src/window.ui:143
 msgid "Email Address"
 msgstr "Ηλεκτρονικό Ταχυδρομείο"
 
-#: src/corgan.glade:166
+#: src/window.ui:166
 msgid "Phone Number"
 msgstr "Αριθμός Τηλεφώνου"
 
-#: src/corgan.glade:200
+#: src/window.ui:200
 msgid "New Contact"
 msgstr "Νέα Επαφή"
 
-#: src/corgan.glade:214
+#: src/window.ui:214
 msgid "Delete Contact"
 msgstr "Διαγραφή Επαφής"
 
-#: src/corgan.glade:228
+#: src/window.ui:228
 msgid "Export Contacts"
 msgstr "Εξαγωγή Επαφών"
 
-#: src/corgan.glade:255
+#: src/window.ui:255
 msgid "Save Changes"
 msgstr "Αποθήκευση Αλλαγών"
 
-#: src/corgan.glade:283
+#: src/window.ui:283
 msgid "Schedule"
 msgstr "Πρόγραμμα"
 
