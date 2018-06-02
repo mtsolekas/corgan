@@ -43,8 +43,7 @@ int init_paths()
 
         DATA_DIR = strcat(DATA_DIR, "corgan/");
         mkdir(DATA_DIR, 0700);
-    }
-    else {
+    } else {
         DATA_DIR = realloc(strdup(getenv("XDG_DATA_HOME")),
                            sizeof(char) * (strlen(getenv("XDG_DATA_HOME"))
                                            + strlen("/corgan/") + 1));

@@ -60,8 +60,7 @@ void selection_changed()
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
         gtk_tree_selection_select_iter(selection, &iter);
         return;
-    }
-    else if (idx < 0) {
+    } else if (idx < 0) {
         new_button_clicked();
         return;
     }
@@ -129,8 +128,7 @@ void save_button_clicked()
         free(sched);
         sched = new_sched;
         write_schedule_file();
-    }
-    else {
+    } else {
         free(new_sched);
     }
 
@@ -168,8 +166,7 @@ void save_button_clicked()
         path = gtk_tree_model_get_path(model, &tree_iter);
         gtk_tree_view_scroll_to_cell(contacts_view, path, NULL, 0, 0, 0);
         gtk_tree_path_free(path);
-    }
-    else {
+    } else {
         free(new_name);
         free(new_email);
         free(new_phone);
