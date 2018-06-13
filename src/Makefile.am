@@ -7,7 +7,8 @@ AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
 		     -fno-omit-frame-pointer -g3
 endif
 
-TESTS = $(check_PROGRAMS)
+TESTS = $(check_PROGRAMS) test_cleanup
+test_cleanup: $(check_PROGRAMS)
 check_PROGRAMS = test_paths
 test_paths_SOURCES = test_paths.c paths.c paths.h
 
