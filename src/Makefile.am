@@ -8,9 +8,15 @@ AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
 endif
 
 TESTS = $(check_PROGRAMS) test_cleanup
-test_cleanup: $(check_PROGRAMS)
-check_PROGRAMS = test_paths
-test_paths_SOURCES = test_paths.c paths.c paths.h
+check_PROGRAMS = test_paths test_schedule
+test_paths_SOURCES = test_paths.c \
+					 paths.c \
+					 paths.h
+test_schedule_SOURCES = test_schedule.c \
+						schedule.c \
+						schedule.h \
+						paths.c \
+						paths.h
 
 bin_PROGRAMS = corgan
 corgan_SOURCES = corgan.c \

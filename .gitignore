@@ -12,7 +12,6 @@ install-sh
 *Makefile.in
 missing
 stamp-h1
-test-driver
 ABOUT-NLS
 po/boldquot.sed
 po/*.gmo
@@ -26,8 +25,13 @@ po/quot.sed
 po/remove-potcdate.sed
 po/remove-potcdate.sin
 po/stamp-po
+
+# Tests
 *.log
 *.trs
+test-driver
+test_paths
+test_schedule
 
 # Project
 *.[ao]
