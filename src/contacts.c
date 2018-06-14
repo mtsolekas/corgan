@@ -27,7 +27,7 @@
 #include "paths.h"
 #include "contacts.h"
 
-static int compare_contacts(const void *p1, const void *p2);
+static int compare_contacts(const void *, const void *);
 static int sort_contacts();
 
 int init_contacts()

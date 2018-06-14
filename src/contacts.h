@@ -35,9 +35,9 @@ int init_contacts();
 int free_contacts();
 
 int new_contact();
-int del_contact(int pos);
+int del_contact(int);
 
-int search_contacts(const char *name);
+int search_contacts(const char *);
 
 int read_contacts_file();
 int write_contacts_file();
