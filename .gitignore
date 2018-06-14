@@ -30,8 +30,9 @@ po/stamp-po
 *.log
 *.trs
 test-driver
-test_paths
-test_schedule
+src/test_paths
+src/test_schedule
+src/test_contacts
 
 # Project
 *.[ao]
