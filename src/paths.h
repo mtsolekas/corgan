@@ -19,8 +19,8 @@
  * Author: Marios Tsolekas
  */
 
-#ifndef __PATHS_H
-#define __PATHS_H
+#ifndef PATHS_H
+#define PATHS_H
 
 char *DATA_DIR;
 char *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;

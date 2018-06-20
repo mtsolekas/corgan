@@ -19,8 +19,8 @@
  * Author: Marios Tsolekas
  */
 
-#ifndef __CORGAN_H
-#define __CORGAN_H
+#ifndef CORGAN_H
+#define CORGAN_H
 
 #include <gtk/gtk.h>
 

@@ -19,8 +19,8 @@
  * Author: Marios Tsolekas
  */
 
-#ifndef __SIGNALS_H
-#define __SIGNALS_H
+#ifndef SIGNALS_H
+#define SIGNALS_H
 
 int contacts_changed;
 

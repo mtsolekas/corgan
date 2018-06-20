@@ -19,8 +19,8 @@
  * Author: Marios Tsolekas
  */
 
-#ifndef __CONTACTS_H
-#define __CONTACTS_H
+#ifndef CONTACTS_H
+#define CONTACTS_H
 
 typedef struct contact_type {
     char *name;

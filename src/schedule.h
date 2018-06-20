@@ -19,8 +19,8 @@
  * Author: Marios Tsolekas
  */
 
-#ifndef __SCHEDULE_H
-#define __SCHEDULE_H
+#ifndef SCHEDULE_H
+#define SCHEDULE_H
 
 char *sched;
 
