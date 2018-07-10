@@ -37,5 +37,13 @@ int main()
 
     assert(!init_contacts());
 
+    assert(!new_contact());
+
+    assert(!write_contacts_file());
+    assert(!read_contacts_file());
+
+    assert(search_contacts("NEW CONTACT") == 1);
+    assert(!del_contact(1));
+
     return 0;
 }
