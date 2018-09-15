@@ -43,6 +43,7 @@ int main()
     assert(!read_contacts_file());
 
     assert(search_contacts("NEW CONTACT") == 1);
+    assert(!export_contacts_vcard());
     assert(!del_contact(1));
 
     return 0;
