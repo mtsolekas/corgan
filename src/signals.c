@@ -27,8 +27,6 @@
 #include "contacts.h"
 #include "schedule.h"
 
-static int get_active_index();
-
 static int get_active_index()
 {
     GtkTreeIter iter;
@@ -43,6 +41,28 @@ static int get_active_index()
     free(name);
 
     return idx;
+}
+
+static void show_error_dialog()
+{
+    GObject *gobj;
+    GtkDialog *dialog;
+
+    gobj = gtk_builder_get_object(builder, "error_dialog");
+    dialog = GTK_DIALOG(gobj);
+
+    gtk_widget_show(GTK_WIDGET(dialog));
+}
+
+void close_button_clicked()
+{
+    GObject *gobj;
+    GtkDialog *dialog;
+
+    gobj = gtk_builder_get_object(builder, "error_dialog");
+    dialog = GTK_DIALOG(gobj);
+
+    gtk_widget_hide(GTK_WIDGET(dialog));
 }
 
 void window_delete_event()
@@ -84,7 +104,7 @@ void new_button_clicked()
         idx = search_contacts("NEW CONTACT");
     }
 
-    path = gtk_tree_path_new_from_indices(idx, -1);
+    path = gtk_tree_path_new_from_indices(idx + 1, -1);
     gtk_tree_selection_select_path(selection, path);
     gtk_tree_view_scroll_to_cell(contacts_view, path, NULL, 0, 0, 0);
     gtk_tree_path_free(path);
