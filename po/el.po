@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: corgan 0.10\n"
 "Report-Msgid-Bugs-To: https://github.com/mtsolekas/corgan/issues\n"
-"POT-Creation-Date: 2018-02-18 17:19+0200\n"
+"POT-Creation-Date: 2018-09-22 18:33+0300\n"
 "PO-Revision-Date: 2017-09-24 16:30+0300\n"
 "Last-Translator: Marios <marios.tsolekas@gmail.com>\n"
 "Language-Team: Greek\n"
@@ -56,6 +56,22 @@ msgstr "Αποθήκευση Αλλαγών"
 #: src/window.ui:283
 msgid "Schedule"
 msgstr "Πρόγραμμα"
+
+#: src/window.ui:340
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: src/window.ui:380
+msgid ""
+"\n"
+"    An error has occured.\n"
+"\n"
+"    The specified action could not be performed.    \n"
+msgstr ""
+"\n"
+"    Συνέβη ένα σφάλμα.\n"
+"\n"
+"    Η ζητούμενη δράση δεν μπόρεσε να εκτελεστεί.    \n"
 
 #: data/corgan.desktop.in:6
 msgid "Contacts & Schedule Organizer"

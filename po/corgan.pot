@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: corgan master\n"
 "Report-Msgid-Bugs-To: https://github.com/mtsolekas/corgan/issues\n"
-"POT-Creation-Date: 2018-02-18 17:19+0200\n"
+"POT-Creation-Date: 2018-09-22 18:33+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,6 +55,18 @@ msgstr ""
 
 #: src/window.ui:283
 msgid "Schedule"
+msgstr ""
+
+#: src/window.ui:340
+msgid "Close"
+msgstr ""
+
+#: src/window.ui:380
+msgid ""
+"\n"
+"    An error has occured.\n"
+"\n"
+"    The specified action could not be performed.    \n"
 msgstr ""
 
 #: data/corgan.desktop.in:6
