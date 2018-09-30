@@ -4,36 +4,36 @@ AM_LDFLAGS = $(CORGAN_LIBS) $(GTK_LIBS) @LIBINTL@ -rdynamic
 
 if DEBUG
 AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
-		     -fno-omit-frame-pointer -g3
+             -fno-omit-frame-pointer -g3
 endif
 
 TESTS = $(check_PROGRAMS) test_cleanup
 check_PROGRAMS = test_paths test_schedule test_contacts
 test_paths_SOURCES = test_paths.c \
-					 paths.c \
-					 paths.h
+                     paths.c \
+                     paths.h
 test_schedule_SOURCES = test_schedule.c \
-						schedule.c \
-						schedule.h \
-						paths.c \
-						paths.h
+                        schedule.c \
+                        schedule.h \
+                        paths.c \
+                        paths.h
 test_contacts_SOURCES = test_contacts.c \
-						contacts.c \
-						contacts.h \
-						paths.c \
-						paths.h
+                        contacts.c \
+                        contacts.h \
+                        paths.c \
+                        paths.h
 
 bin_PROGRAMS = corgan
 corgan_SOURCES = corgan.c \
-				 corgan.h \
-				 contacts.c \
-				 contacts.h \
-				 paths.c \
-				 paths.h \
-				 schedule.c \
-				 schedule.h \
-				 signals.c \
-				 signals.h
+                 corgan.h \
+                 contacts.c \
+                 contacts.h \
+                 paths.c \
+                 paths.h \
+                 schedule.c \
+                 schedule.h \
+                 signals.c \
+                 signals.h
 
 nodist_corgan_SOURCES = $(BUILT_SOURCES)
 BUILT_SOURCES = resources.c
