@@ -46,5 +46,8 @@ int main()
     assert(!export_contacts_vcard());
     assert(!del_contact(1));
 
+    assert(!free_paths());
+    assert(!free_contacts());
+
     return 0;
 }

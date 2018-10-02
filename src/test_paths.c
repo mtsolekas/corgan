@@ -62,6 +62,8 @@ int test_init_noxdg()
     if (!S_ISDIR(sb.st_mode))
         return -1;
 
+    if (free_paths()) return -1;
+
     return 0;
 }
 
@@ -85,6 +87,8 @@ int test_init_xdg()
 
     if (!S_ISDIR(sb.st_mode))
         return -1;
+
+    if (free_paths()) return -1;
 
     return 0;
 }

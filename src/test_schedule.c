@@ -49,5 +49,8 @@ int main()
 
     assert(!strcmp(sched, test_sched));
 
+    assert(!free_paths());
+    assert(!free_schedule());
+
     return 0;
 }
