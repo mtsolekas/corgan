@@ -101,7 +101,7 @@ int del_contact(int idx)
 
 static int compare_contacts(const void *p1, const void *p2)
 {
-    return strcmp((*(contact_t**) p1)->name, (*(contact_t**) p2)->name);
+    return strcasecmp((*(contact_t**) p1)->name, (*(contact_t**) p2)->name);
 }
 
 static int sort_contacts()
@@ -125,7 +125,7 @@ int search_contacts(const char *name)
 
     while (prev_pos != pos) {
         prev_pos = pos;
-        idx = strcmp(name, contacts[pos]->name);
+        idx = strcasecmp(name, contacts[pos]->name);
 
         if (idx < 0)
             ubound = pos;
