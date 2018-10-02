@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <gmodule.h>
 
 #include "paths.h"
 #include "contacts.h"
@@ -101,7 +102,17 @@ int del_contact(int idx)
 
 static int compare_contacts(const void *p1, const void *p2)
 {
-    return strcasecmp((*(contact_t**) p1)->name, (*(contact_t**) p2)->name);
+    int res;
+    char *s1, *s2;
+
+    s1 = g_utf8_casefold((*(contact_t**) p1)->name, -1);
+    s2 = g_utf8_casefold((*(contact_t**) p2)->name, -1);
+    res = strcmp(s1, s2);
+
+    free(s1);
+    free(s2);
+
+    return res;
 }
 
 static int sort_contacts()
@@ -117,6 +128,7 @@ static int sort_contacts()
 int search_contacts(const char *name)
 {
     int idx, prev_pos, pos, lbound, ubound;
+    char *s1, *s2;
 
     lbound = 0;
     ubound = contacts_size;
@@ -125,7 +137,10 @@ int search_contacts(const char *name)
 
     while (prev_pos != pos) {
         prev_pos = pos;
-        idx = strcasecmp(name, contacts[pos]->name);
+
+        s1 = g_utf8_casefold(name, -1);
+        s2 = g_utf8_casefold(contacts[pos]->name, -1);
+        idx = strcmp(s1, s2);
 
         if (idx < 0)
             ubound = pos;
@@ -134,6 +149,9 @@ int search_contacts(const char *name)
         else
             return pos;
         pos = ((ubound - lbound) / 2) + lbound;
+
+        free(s1);
+        free(s2);
     }
 
     return -1;
