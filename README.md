@@ -21,6 +21,7 @@ form of a vCard version 3, to the apps directory.
 - make
 
 To enable debugging run **./configure --enable-debug**.
+To execute tests run  **make check**.
 
 ## Install Instructions:
 - sudo make install
