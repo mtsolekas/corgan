@@ -140,7 +140,11 @@ int search_contacts(const char *name)
 
         s1 = g_utf8_casefold(name, -1);
         s2 = g_utf8_casefold(contacts[pos]->name, -1);
+
         idx = strcmp(s1, s2);
+
+        free(s1);
+        free(s2);
 
         if (idx < 0)
             ubound = pos;
@@ -149,9 +153,6 @@ int search_contacts(const char *name)
         else
             return pos;
         pos = ((ubound - lbound) / 2) + lbound;
-
-        free(s1);
-        free(s2);
     }
 
     return -1;
