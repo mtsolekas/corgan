@@ -38,15 +38,15 @@ int main()
     assert(!init_paths());
 
     assert(!init_schedule());
+    assert(!strcmp(sched, "\0"));
+    free(sched);
 
     test_sched = "TEST\n";
     sched = test_sched;
 
     assert(!write_schedule_file());
 
-    sched = "";
     assert(!read_schedule_file());
-
     assert(!strcmp(sched, test_sched));
 
     assert(!free_paths());
