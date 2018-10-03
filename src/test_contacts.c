@@ -37,14 +37,30 @@ int main()
 
     assert(!init_contacts());
 
+    free(contacts[0]->name);
+    contacts[0]->name = strdup("aaa");
+
     assert(!new_contact());
 
     assert(!write_contacts_file());
+    assert(!free_contacts());
+
     assert(!read_contacts_file());
 
+    assert(search_contacts("aaa") == 0);
     assert(search_contacts("NEW CONTACT") == 1);
+
     assert(!export_contacts_vcard());
+
+    assert(contacts_size == 2);
     assert(!del_contact(1));
+
+    assert(contacts_size == 1);
+    assert(del_contact(0));
+
+    assert(contacts_size == 0);
+    assert(!new_contact());
+    assert(search_contacts("NEW CONTACT") == 0);
 
     assert(!free_paths());
     assert(!free_contacts());
