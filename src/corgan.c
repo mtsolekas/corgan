@@ -106,8 +106,8 @@ int main(int argc, char **argv)
 {
     GtkApplication *app;
 
-    app = gtk_application_new ("org.corgan", G_APPLICATION_FLAGS_NONE);
-    g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+    app = gtk_application_new("org.corgan", G_APPLICATION_FLAGS_NONE);
+    g_signal_connect (app, "activate", G_CALLBACK(activate), NULL);
     g_application_run(G_APPLICATION(app), argc, argv);
     if (builder) g_object_unref(builder);
     g_object_unref(app);
