@@ -24,7 +24,7 @@
 
 int contacts_changed;
 
-void close_error_button_clicked()
+void close_error_button_clicked();
 void selection_changed();
 void new_button_clicked();
 void delete_button_clicked();
