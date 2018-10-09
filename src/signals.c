@@ -65,11 +65,6 @@ void close_button_clicked()
     gtk_widget_hide(GTK_WIDGET(dialog));
 }
 
-void window_delete_event()
-{
-    gtk_main_quit();
-}
-
 void selection_changed()
 {
     GtkTreeIter iter;

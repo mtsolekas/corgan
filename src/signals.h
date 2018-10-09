@@ -24,7 +24,6 @@
 
 int contacts_changed;
 
-void window_delete_event();
 void selection_changed();
 void new_button_clicked();
 void delete_button_clicked();

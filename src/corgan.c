@@ -31,24 +31,30 @@
 #include "contacts.h"
 #include "schedule.h"
 
-int main(int argc, char **argv)
+static void activate(GtkApplication *app)
 {
-    setlocale(LC_ALL, "");
-    bindtextdomain(PACKAGE, LOCALEDIR);
-    bind_textdomain_codeset(PACKAGE, "UTF-8");
-    textdomain(PACKAGE);
-
+    GList *list;
     GObject *gobj;
     GtkTreeSortable *names_sort;
     GtkTreeIter iter;
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *col;
 
-    gtk_init(&argc, &argv);
+    list = gtk_application_get_windows(app);
 
-    if (init_paths()) return EXIT_FAILURE;
-    if (init_contacts()) return EXIT_FAILURE;
-    if (init_schedule()) return EXIT_FAILURE;
+    if (list) {
+        gtk_window_present(GTK_WINDOW(list->data));
+        return;
+    }
+
+    setlocale(LC_ALL, "");
+    bindtextdomain(PACKAGE, LOCALEDIR);
+    bind_textdomain_codeset(PACKAGE, "UTF-8");
+    textdomain(PACKAGE);
+
+    if (init_paths()) exit(EXIT_FAILURE);
+    if (init_contacts()) exit(EXIT_FAILURE);
+    if (init_schedule()) exit(EXIT_FAILURE);
 
     builder = gtk_builder_new_from_resource("/org/corgan/window.ui");
     gtk_builder_connect_signals(builder, NULL);
@@ -92,11 +98,23 @@ int main(int argc, char **argv)
 
     contacts_changed = 0;
 
-    gtk_main();
+    gobj = gtk_builder_get_object(builder, "window");
+    gtk_application_add_window(app, GTK_WINDOW(gobj));
+}
 
-    if (free_paths()) return EXIT_FAILURE;
-    if (free_contacts()) return EXIT_FAILURE;
-    if (free_schedule()) return EXIT_FAILURE;
+int main(int argc, char **argv)
+{
+    GtkApplication *app;
+
+    app = gtk_application_new ("org.corgan", G_APPLICATION_FLAGS_NONE);
+    g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+    g_application_run(G_APPLICATION(app), argc, argv);
+    if (builder) g_object_unref(builder);
+    g_object_unref(app);
+
+    if (free_paths()) exit(EXIT_FAILURE);
+    if (free_contacts()) exit(EXIT_FAILURE);
+    if (free_schedule()) exit(EXIT_FAILURE);
 
     return EXIT_SUCCESS;
 }
