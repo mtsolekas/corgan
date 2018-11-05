@@ -43,28 +43,6 @@ static int get_active_index()
     return idx;
 }
 
-static void show_error_dialog()
-{
-    GObject *gobj;
-    GtkDialog *dialog;
-
-    gobj = gtk_builder_get_object(builder, "error_dialog");
-    dialog = GTK_DIALOG(gobj);
-
-    gtk_widget_show(GTK_WIDGET(dialog));
-}
-
-void close_button_clicked()
-{
-    GObject *gobj;
-    GtkDialog *dialog;
-
-    gobj = gtk_builder_get_object(builder, "error_dialog");
-    dialog = GTK_DIALOG(gobj);
-
-    gtk_widget_hide(GTK_WIDGET(dialog));
-}
-
 void selection_changed()
 {
     GtkTreeIter iter;
@@ -138,7 +116,7 @@ void save_button_clicked()
     gtk_text_buffer_get_start_iter(sched_buf, &start);
     gtk_text_buffer_get_end_iter(sched_buf, &end);
     new_sched = gtk_text_buffer_get_text(sched_buf, &start, &end, TRUE);
-    
+
     if (strcmp(sched, new_sched)) {
         free(sched);
         sched = new_sched;
@@ -165,7 +143,7 @@ void save_button_clicked()
             new_name = strcat(new_name, " Alt");
             gtk_entry_set_text(name_entry, new_name);
         }
-        
+
         free(contacts[idx]->name);
         free(contacts[idx]->email);
         free(contacts[idx]->phone);
