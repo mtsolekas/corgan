@@ -29,7 +29,7 @@ void *xmalloc(size_t size)
     void *ret;
 
     ret = malloc(size);
-    if (!ret) {
+    if (!ret && size) {
         fprintf(stderr, "%s:%d out of memory, ", __FILE__, __LINE__);
         abort();
     }
