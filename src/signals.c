@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "util.h"
 #include "corgan.h"
 #include "signals.h"
 #include "contacts.h"
@@ -139,7 +140,7 @@ void save_button_clicked()
 
         while (strcmp(contacts[idx]->name, new_name)
                && search_contacts(new_name) >= 0) {
-            new_name = realloc(new_name, sizeof(char) * (strlen(new_name) + 5));
+            new_name = xrealloc(new_name, sizeof(char) * (strlen(new_name) + 5));
             new_name = strcat(new_name, " Alt");
             gtk_entry_set_text(name_entry, new_name);
         }

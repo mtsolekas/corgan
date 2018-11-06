@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <gmodule.h>
 
+#include "util.h"
 #include "paths.h"
 #include "contacts.h"
 
@@ -66,11 +67,9 @@ int free_contacts()
 int new_contact()
 {
     ++contacts_size;
-    contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
-    if (!contacts) return -1;
+    contacts = xrealloc(contacts, sizeof(contact_t*) * contacts_size);
 
-    contacts[contacts_size-1] = malloc(sizeof(contact_t));
-    if (!contacts[contacts_size-1]) return -1;
+    contacts[contacts_size-1] = xmalloc(sizeof(contact_t));
 
     contacts[contacts_size-1]->name = strdup("NEW CONTACT");
     contacts[contacts_size-1]->email = strdup("\0");
@@ -92,8 +91,7 @@ int del_contact(int idx)
     contacts[idx] = contacts[contacts_size];
     contacts[contacts_size] = NULL;
 
-    contacts = realloc(contacts, sizeof(contact_t*) * contacts_size);
-    if (!contacts) return -1;
+    contacts = xrealloc(contacts, sizeof(contact_t*) * contacts_size);
 
     sort_contacts();
 
@@ -167,13 +165,11 @@ int read_contacts_file()
     if (!fp) return -1;
 
     fscanf(fp, "%d\n", &contacts_size);
-    contacts = malloc(sizeof(contact_t*) * contacts_size);
-    if (!contacts) return -1;
+    contacts = xmalloc(sizeof(contact_t*) * contacts_size);
 
     for (int i = 0; i < contacts_size; ++i) {
 
-        contacts[i] = malloc(sizeof(contact_t));
-        if (!contacts[i]) return -1;
+        contacts[i] = xmalloc(sizeof(contact_t));
 
         fgets(line, 128, fp);
         contacts[i]->name = strndup(line, sizeof(char) * (strlen(line) - 1));
@@ -225,14 +221,14 @@ int export_contacts_vcard()
 
     for (int i = 0; i < contacts_size; ++i) {
         fprintf(fp, "BEGIN:VCARD\nVERSION:3.0");
-        
+
         name = strdup(contacts[i]->name);
         fname = strtok(name, " ");
         lname = strtok(NULL, " ");
         while ((tmp = strtok(NULL, " "))) {
             lname = tmp;
         }
-        fprintf(fp, "\nN:%s;%s;", lname, fname); 
+        fprintf(fp, "\nN:%s;%s;", lname, fname);
         free(name);
 
         fprintf(fp, "\nFN:%s\nTEL;TYPE=VOICE:%s\nEMAIL:%s\nEND:VCARD\n",

@@ -33,7 +33,9 @@ corgan_SOURCES = corgan.c \
                  schedule.c \
                  schedule.h \
                  signals.c \
-                 signals.h
+                 signals.h \
+                 util.c \
+                 util.h
 
 nodist_corgan_SOURCES = $(BUILT_SOURCES)
 BUILT_SOURCES = resources.c

@@ -24,16 +24,16 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include "util.h"
 #include "paths.h"
 
 int init_paths()
 {
     if (!getenv("XDG_DATA_HOME") || !strlen(getenv("XDG_DATA_HOME"))) {
-        DATA_DIR = realloc(strdup(getenv("HOME")),
+        DATA_DIR = xrealloc(strdup(getenv("HOME")),
                            sizeof(char) * (strlen(getenv("HOME"))
                                            + strlen("/.local/share/corgan/")
                                            + 1));
-        if (!DATA_DIR) return -1;
 
         DATA_DIR = strcat(DATA_DIR, "/.local/");
         mkdir(DATA_DIR, 0700);
@@ -44,25 +44,23 @@ int init_paths()
         DATA_DIR = strcat(DATA_DIR, "corgan/");
         mkdir(DATA_DIR, 0700);
     } else {
-        DATA_DIR = realloc(strdup(getenv("XDG_DATA_HOME")),
+        DATA_DIR = xrealloc(strdup(getenv("XDG_DATA_HOME")),
                            sizeof(char) * (strlen(getenv("XDG_DATA_HOME"))
                                            + strlen("/corgan/") + 1));
-        if (!DATA_DIR) return -1;
 
         DATA_DIR = strcat(DATA_DIR, "/corgan/");
         mkdir(DATA_DIR, 0700);
     }
 
-    CONTACTS_PATH = realloc(strdup(DATA_DIR),
+    CONTACTS_PATH = xrealloc(strdup(DATA_DIR),
                             sizeof(char) * (strlen(DATA_DIR)
                                             + strlen("contacts") + 1));
-    SCHEDULE_PATH = realloc(strdup(DATA_DIR),
+    SCHEDULE_PATH = xrealloc(strdup(DATA_DIR),
                             sizeof(char) * (strlen(DATA_DIR)
                                             + strlen("contacts") + 1));
-    EXPORT_PATH = realloc(strdup(DATA_DIR), 
+    EXPORT_PATH = xrealloc(strdup(DATA_DIR),
                           sizeof(char) * (strlen(DATA_DIR)
                                           + strlen("contacts.vcf") + 1));
-    if (!CONTACTS_PATH || !SCHEDULE_PATH || !EXPORT_PATH) return -1;
 
     CONTACTS_PATH = strcat(CONTACTS_PATH, "contacts");
     SCHEDULE_PATH = strcat(SCHEDULE_PATH, "schedule");

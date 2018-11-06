@@ -24,6 +24,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "util.h"
 #include "paths.h"
 #include "schedule.h"
 
@@ -62,8 +63,7 @@ int read_schedule_file()
 
     fseek(fp, 0, SEEK_END);
 
-    sched = malloc(ftell(fp) + sizeof(char));
-    if (!sched) return -1;
+    sched = xmalloc(ftell(fp) + sizeof(char));
 
     fseek(fp, 0, SEEK_SET);
     sched[0] = '\0';
