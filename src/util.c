@@ -30,7 +30,7 @@ void *xmalloc(size_t size)
 
     ret = malloc(size);
     if (!ret) {
-        fprintf(stderr, "%s:%d out of memory, aborting", __FILE__, __LINE__);
+        fprintf(stderr, "%s:%d out of memory, ", __FILE__, __LINE__);
         abort();
     }
 
@@ -42,8 +42,8 @@ void *xrealloc(void *ptr, size_t size)
     void *ret;
 
     ret = realloc(ptr, size);
-    if (!ret) {
-        fprintf(stderr, "%s:%d out of memory, aborting", __FILE__, __LINE__);
+    if (!ret && size) {
+        fprintf(stderr, "%s:%d out of memory, ", __FILE__, __LINE__);
         abort();
     }
 

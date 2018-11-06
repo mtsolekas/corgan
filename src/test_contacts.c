@@ -56,7 +56,7 @@ int main()
     assert(!del_contact(1));
 
     assert(contacts_size == 1);
-    assert(del_contact(0));
+    assert(!del_contact(0));
 
     assert(contacts_size == 0);
     assert(!new_contact());

@@ -11,17 +11,23 @@ TESTS = $(check_PROGRAMS) test_cleanup
 check_PROGRAMS = test_paths test_schedule test_contacts
 test_paths_SOURCES = test_paths.c \
                      paths.c \
-                     paths.h
+                     paths.h \
+                     util.c \
+                     util.h
 test_schedule_SOURCES = test_schedule.c \
                         schedule.c \
                         schedule.h \
                         paths.c \
-                        paths.h
+                        paths.h \
+                        util.c \
+                        util.h
 test_contacts_SOURCES = test_contacts.c \
                         contacts.c \
                         contacts.h \
                         paths.c \
-                        paths.h
+                        paths.h \
+                        util.c \
+                        util.h
 
 bin_PROGRAMS = corgan
 corgan_SOURCES = corgan.c \
