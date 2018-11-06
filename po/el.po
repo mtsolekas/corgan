@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: corgan 0.10\n"
 "Report-Msgid-Bugs-To: https://github.com/mtsolekas/corgan/issues\n"
-"POT-Creation-Date: 2018-09-22 18:33+0300\n"
+"POT-Creation-Date: 2018-11-06 04:43+0200\n"
 "PO-Revision-Date: 2017-09-24 16:30+0300\n"
 "Last-Translator: Marios <marios.tsolekas@gmail.com>\n"
 "Language-Team: Greek\n"
@@ -21,57 +21,41 @@ msgstr ""
 msgid "Corgan"
 msgstr "Corgan"
 
-#: src/window.ui:60
+#: src/window.ui:59
 msgid "Contacts"
 msgstr "Επαφές"
 
-#: src/window.ui:120
+#: src/window.ui:119
 msgid "Name"
 msgstr "Όνομα"
 
-#: src/window.ui:143
+#: src/window.ui:142
 msgid "Email Address"
 msgstr "Ηλεκτρονικό Ταχυδρομείο"
 
-#: src/window.ui:166
+#: src/window.ui:165
 msgid "Phone Number"
 msgstr "Αριθμός Τηλεφώνου"
 
-#: src/window.ui:200
+#: src/window.ui:199
 msgid "New Contact"
 msgstr "Νέα Επαφή"
 
-#: src/window.ui:214
+#: src/window.ui:213
 msgid "Delete Contact"
 msgstr "Διαγραφή Επαφής"
 
-#: src/window.ui:228
+#: src/window.ui:227
 msgid "Export Contacts"
 msgstr "Εξαγωγή Επαφών"
 
-#: src/window.ui:255
+#: src/window.ui:254
 msgid "Save Changes"
 msgstr "Αποθήκευση Αλλαγών"
 
-#: src/window.ui:283
+#: src/window.ui:282
 msgid "Schedule"
 msgstr "Πρόγραμμα"
-
-#: src/window.ui:340
-msgid "Close"
-msgstr "Κλείσιμο"
-
-#: src/window.ui:380
-msgid ""
-"\n"
-"    An error has occured.\n"
-"\n"
-"    The specified action could not be performed.    \n"
-msgstr ""
-"\n"
-"    Συνέβη ένα σφάλμα.\n"
-"\n"
-"    Η ζητούμενη δράση δεν μπόρεσε να εκτελεστεί.    \n"
 
 #: data/corgan.desktop.in:6
 msgid "Contacts & Schedule Organizer"

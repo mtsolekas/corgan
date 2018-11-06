@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: corgan master\n"
 "Report-Msgid-Bugs-To: https://github.com/mtsolekas/corgan/issues\n"
-"POT-Creation-Date: 2018-09-22 18:33+0300\n"
+"POT-Creation-Date: 2018-11-06 04:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,52 +21,40 @@ msgstr ""
 msgid "Corgan"
 msgstr ""
 
-#: src/window.ui:60
+#: src/window.ui:59
 msgid "Contacts"
 msgstr ""
 
-#: src/window.ui:120
+#: src/window.ui:119
 msgid "Name"
 msgstr ""
 
-#: src/window.ui:143
+#: src/window.ui:142
 msgid "Email Address"
 msgstr ""
 
-#: src/window.ui:166
+#: src/window.ui:165
 msgid "Phone Number"
 msgstr ""
 
-#: src/window.ui:200
+#: src/window.ui:199
 msgid "New Contact"
 msgstr ""
 
-#: src/window.ui:214
+#: src/window.ui:213
 msgid "Delete Contact"
 msgstr ""
 
-#: src/window.ui:228
+#: src/window.ui:227
 msgid "Export Contacts"
 msgstr ""
 
-#: src/window.ui:255
+#: src/window.ui:254
 msgid "Save Changes"
 msgstr ""
 
-#: src/window.ui:283
+#: src/window.ui:282
 msgid "Schedule"
-msgstr ""
-
-#: src/window.ui:340
-msgid "Close"
-msgstr ""
-
-#: src/window.ui:380
-msgid ""
-"\n"
-"    An error has occured.\n"
-"\n"
-"    The specified action could not be performed.    \n"
 msgstr ""
 
 #: data/corgan.desktop.in:6
