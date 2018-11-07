@@ -4,7 +4,7 @@ AM_LDFLAGS = $(CORGAN_LIBS) $(GTK_LIBS) @LIBINTL@ -rdynamic
 
 if DEBUG
 AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
-             -fno-omit-frame-pointer -g3
+             -fno-omit-frame-pointer -Og -g3
 endif
 
 TESTS = $(check_PROGRAMS) test_cleanup
