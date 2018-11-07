@@ -24,6 +24,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include "util.h"
 #include "paths.h"
 #include "contacts.h"
 
@@ -38,7 +39,7 @@ int main()
     assert(!init_contacts());
 
     free(contacts[0]->name);
-    contacts[0]->name = strdup("aaa");
+    contacts[0]->name = xstrdup("aaa");
 
     assert(!new_contact());
 

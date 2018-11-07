@@ -129,9 +129,9 @@ void save_button_clicked()
     idx = get_active_index();
     if (idx < 0) return;
 
-    new_name = strdup(gtk_entry_get_text(name_entry));
-    new_email = strdup(gtk_entry_get_text(email_entry));
-    new_phone = strdup(gtk_entry_get_text(phone_entry));
+    new_name = xstrdup(gtk_entry_get_text(name_entry));
+    new_email = xstrdup(gtk_entry_get_text(email_entry));
+    new_phone = xstrdup(gtk_entry_get_text(phone_entry));
 
     if (!strcmp(contacts[idx]->name, "NEW CONTACT")
         || strcmp(contacts[idx]->name, new_name)

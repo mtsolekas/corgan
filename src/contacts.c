@@ -71,9 +71,9 @@ int new_contact()
 
     contacts[contacts_size-1] = xmalloc(sizeof(contact_t));
 
-    contacts[contacts_size-1]->name = strdup("NEW CONTACT");
-    contacts[contacts_size-1]->email = strdup("\0");
-    contacts[contacts_size-1]->phone = strdup("\0");
+    contacts[contacts_size-1]->name = xstrdup("NEW CONTACT");
+    contacts[contacts_size-1]->email = xstrdup("\0");
+    contacts[contacts_size-1]->phone = xstrdup("\0");
 
     sort_contacts();
 
@@ -172,16 +172,13 @@ int read_contacts_file()
         contacts[i] = xmalloc(sizeof(contact_t));
 
         fgets(line, 128, fp);
-        contacts[i]->name = strndup(line, sizeof(char) * (strlen(line) - 1));
-        if (!contacts[i]->name) return -1;
+        contacts[i]->name = xstrndup(line, sizeof(char) * (strlen(line) - 1));
 
         fgets(line, 128, fp);
-        contacts[i]->email = strndup(line, sizeof(char) * (strlen(line) - 1));
-        if (!contacts[i]->email) return -1;
+        contacts[i]->email = xstrndup(line, sizeof(char) * (strlen(line) - 1));
 
         fgets(line, 128, fp);
-        contacts[i]->phone = strndup(line, sizeof(char) * (strlen(line) - 1));
-        if (!contacts[i]->email) return -1;
+        contacts[i]->phone = xstrndup(line, sizeof(char) * (strlen(line) - 1));
     }
 
     fclose(fp);
@@ -222,7 +219,7 @@ int export_contacts_vcard()
     for (int i = 0; i < contacts_size; ++i) {
         fprintf(fp, "BEGIN:VCARD\nVERSION:3.0");
 
-        name = strdup(contacts[i]->name);
+        name = xstrdup(contacts[i]->name);
         fname = strtok(name, " ");
         lname = strtok(NULL, " ");
         while ((tmp = strtok(NULL, " "))) {

@@ -25,6 +25,8 @@ AC_SUBST(GTK_LIBS)
 
 AC_CHECK_HEADERS([stdlib.h string.h unistd.h locale.h libintl.h])
 
+AC_TYPE_SIZE_T
+
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_CHECK_FUNCS([atexit mkdir setenv setlocale strdup strndup])

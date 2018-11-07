@@ -21,6 +21,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "util.h"
 
@@ -43,6 +44,33 @@ void *xrealloc(void *ptr, size_t size)
 
     ret = realloc(ptr, size);
     if (!ret && size) {
+        fprintf(stderr, "%s:%d out of memory, ", __FILE__, __LINE__);
+        abort();
+    }
+
+    return ret;
+}
+
+
+char *xstrdup(const char *s)
+{
+    char *ret;
+
+    ret = strdup(s);
+    if (!ret) {
+        fprintf(stderr, "%s:%d out of memory, ", __FILE__, __LINE__);
+        abort();
+    }
+
+    return ret;
+}
+
+char *xstrndup(const char *s, size_t n)
+{
+    char *ret;
+
+    ret = strndup(s, n);
+    if (!ret) {
         fprintf(stderr, "%s:%d out of memory, ", __FILE__, __LINE__);
         abort();
     }
