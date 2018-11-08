@@ -18,6 +18,7 @@
  *
  * Author: Marios Tsolekas
  */
+
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
@@ -66,5 +67,5 @@ int main()
     assert(!free_paths());
     assert(!free_contacts());
 
-    return 0;
+    return EXIT_SUCCESS;
 }

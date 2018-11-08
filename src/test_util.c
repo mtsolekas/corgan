@@ -22,36 +22,40 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 
-#include "paths.h"
-#include "schedule.h"
+#include <util.h>
 
 int main()
 {
-    char *test_sched;
+    char *mem;
 
-    unsetenv("XDG_DATA_HOME");
-    setenv("HOME", "test_home", 1);
+    mem = xmalloc(10);
+    assert(mem);
+    free(mem);
 
-    mkdir("test_home", 0777);
-    assert(!init_paths());
+    mem = xmalloc(0);
+    if (mem)
+        free(mem);
 
-    assert(!init_schedule());
-    assert(!strcmp(sched, "\0"));
-    free(sched);
+    mem = xrealloc(NULL, 10);
+    assert(mem);
 
-    test_sched = "TEST\n";
-    sched = test_sched;
+    mem = xrealloc(mem, 20);
+    assert(mem);
 
-    assert(!write_schedule_file());
+    mem = xrealloc(mem, 0);
+    if (mem)
+        free(mem);
 
-    assert(!read_schedule_file());
-    assert(!strcmp(sched, test_sched));
+    mem = xstrdup("TEST_STRING");
+    assert(mem);
+    assert(!strcmp(mem, "TEST_STRING"));
+    free(mem);
 
-    assert(!free_paths());
-    assert(!free_schedule());
+    mem = xstrndup("TEST_STRING", 4);
+    assert(mem);
+    assert(!strcmp(mem, "TEST"));
+    free(mem);
 
     return EXIT_SUCCESS;
 }

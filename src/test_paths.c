@@ -18,6 +18,7 @@
  *
  * Author: Marios Tsolekas
  */
+
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
@@ -37,7 +38,7 @@ int main()
     mkdir("test_home/.local/data", 0777);
     assert(!test_init_xdg());
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 int test_init_noxdg()
