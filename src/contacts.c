@@ -38,14 +38,16 @@ int init_contacts()
 
     if (access(CONTACTS_PATH, F_OK | R_OK | W_OK)) {
         fp = fopen(CONTACTS_PATH, "w");
-        if (!fp) return -1;
+        if (!fp)
+            return -1;
 
         fprintf(fp, "1\nNEW CONTACT\n%s\n%s\n", "\0", "\0");
 
         fclose(fp);
     }
 
-    if (read_contacts_file()) return -1;
+    if (read_contacts_file())
+        return -1;
 
     return 0;
 }
@@ -67,13 +69,13 @@ int free_contacts()
 int new_contact()
 {
     ++contacts_size;
-    contacts = xrealloc(contacts, sizeof(contact_t*) * contacts_size);
+    contacts = xrealloc(contacts, sizeof(contact_t *) * contacts_size);
 
-    contacts[contacts_size-1] = xmalloc(sizeof(contact_t));
+    contacts[contacts_size - 1] = xmalloc(sizeof(contact_t));
 
-    contacts[contacts_size-1]->name = xstrdup("NEW CONTACT");
-    contacts[contacts_size-1]->email = xstrdup("\0");
-    contacts[contacts_size-1]->phone = xstrdup("\0");
+    contacts[contacts_size - 1]->name = xstrdup("NEW CONTACT");
+    contacts[contacts_size - 1]->email = xstrdup("\0");
+    contacts[contacts_size - 1]->phone = xstrdup("\0");
 
     sort_contacts();
 
@@ -91,7 +93,7 @@ int del_contact(int idx)
     contacts[idx] = contacts[contacts_size];
     contacts[contacts_size] = NULL;
 
-    contacts = xrealloc(contacts, sizeof(contact_t*) * contacts_size);
+    contacts = xrealloc(contacts, sizeof(contact_t *) * contacts_size);
 
     sort_contacts();
 
@@ -103,8 +105,8 @@ static int compare_contacts(const void *p1, const void *p2)
     int res;
     char *s1, *s2;
 
-    s1 = g_utf8_casefold((*(contact_t**) p1)->name, -1);
-    s2 = g_utf8_casefold((*(contact_t**) p2)->name, -1);
+    s1 = g_utf8_casefold((*(contact_t **) p1)->name, -1);
+    s2 = g_utf8_casefold((*(contact_t **) p2)->name, -1);
     res = strcmp(s1, s2);
 
     free(s1);
@@ -116,9 +118,10 @@ static int compare_contacts(const void *p1, const void *p2)
 static int sort_contacts()
 {
 
-    if (!contacts_size) return 0;
+    if (!contacts_size)
+        return 0;
 
-    qsort(contacts, contacts_size, sizeof(contact_t*), compare_contacts);
+    qsort(contacts, contacts_size, sizeof(contact_t *), compare_contacts);
 
     return 0;
 }
@@ -162,10 +165,11 @@ int read_contacts_file()
     char line[128];
 
     fp = fopen(CONTACTS_PATH, "r");
-    if (!fp) return -1;
+    if (!fp)
+        return -1;
 
     fscanf(fp, "%d\n", &contacts_size);
-    contacts = xmalloc(sizeof(contact_t*) * contacts_size);
+    contacts = xmalloc(sizeof(contact_t *) * contacts_size);
 
     for (int i = 0; i < contacts_size; ++i) {
 
@@ -193,7 +197,8 @@ int write_contacts_file()
     FILE *fp;
 
     fp = fopen(CONTACTS_PATH, "w");
-    if (!fp) return -1;
+    if (!fp)
+        return -1;
 
     sort_contacts();
 
@@ -214,7 +219,8 @@ int export_contacts_vcard()
     char *name, *fname, *lname, *tmp;
 
     fp = fopen(EXPORT_PATH, "w");
-    if (!fp) return -1;
+    if (!fp)
+        return -1;
 
     for (int i = 0; i < contacts_size; ++i) {
         fprintf(fp, "BEGIN:VCARD\nVERSION:3.0");

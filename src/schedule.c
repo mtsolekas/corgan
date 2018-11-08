@@ -34,14 +34,16 @@ int init_schedule()
 
     if (access(SCHEDULE_PATH, F_OK | R_OK | W_OK)) {
         fp = fopen(SCHEDULE_PATH, "w");
-        if (!fp) return -1;
+        if (!fp)
+            return -1;
 
         fprintf(fp, "%s", "\0");
 
         fclose(fp);
     }
 
-    if (read_schedule_file()) return -1;
+    if (read_schedule_file())
+        return -1;
 
     return 0;
 }
@@ -59,7 +61,8 @@ int read_schedule_file()
     char line[128];
 
     fp = fopen(SCHEDULE_PATH, "r");
-    if (!fp) return -1;
+    if (!fp)
+        return -1;
 
     fseek(fp, 0, SEEK_END);
 
@@ -68,7 +71,7 @@ int read_schedule_file()
     fseek(fp, 0, SEEK_SET);
     sched[0] = '\0';
 
-    while (fgets(line,128,fp)) {
+    while (fgets(line, 128, fp)) {
         sched = strcat(sched, line);
     }
 
@@ -82,7 +85,8 @@ int write_schedule_file()
     FILE *fp;
 
     fp = fopen(SCHEDULE_PATH, "w");
-    if (!fp) return -1;
+    if (!fp)
+        return -1;
 
     fputs(sched, fp);
     fclose(fp);

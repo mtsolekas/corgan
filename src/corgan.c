@@ -31,7 +31,7 @@
 #include "contacts.h"
 #include "schedule.h"
 
-static void activate(GtkApplication *app)
+static void activate(GtkApplication * app)
 {
     GList *list;
     GObject *gobj;
@@ -52,9 +52,12 @@ static void activate(GtkApplication *app)
     bind_textdomain_codeset(PACKAGE, "UTF-8");
     textdomain(PACKAGE);
 
-    if (init_paths()) exit(EXIT_FAILURE);
-    if (init_contacts()) exit(EXIT_FAILURE);
-    if (init_schedule()) exit(EXIT_FAILURE);
+    if (init_paths())
+        exit(EXIT_FAILURE);
+    if (init_contacts())
+        exit(EXIT_FAILURE);
+    if (init_schedule())
+        exit(EXIT_FAILURE);
 
     builder = gtk_builder_new_from_resource("/org/corgan/window.ui");
     gtk_builder_connect_signals(builder, NULL);
@@ -107,14 +110,18 @@ int main(int argc, char **argv)
     GtkApplication *app;
 
     app = gtk_application_new("org.corgan", G_APPLICATION_FLAGS_NONE);
-    g_signal_connect (app, "activate", G_CALLBACK(activate), NULL);
+    g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
     g_application_run(G_APPLICATION(app), argc, argv);
-    if (builder) g_object_unref(builder);
+    if (builder)
+        g_object_unref(builder);
     g_object_unref(app);
 
-    if (free_paths()) exit(EXIT_FAILURE);
-    if (free_contacts()) exit(EXIT_FAILURE);
-    if (free_schedule()) exit(EXIT_FAILURE);
+    if (free_paths())
+        exit(EXIT_FAILURE);
+    if (free_contacts())
+        exit(EXIT_FAILURE);
+    if (free_schedule())
+        exit(EXIT_FAILURE);
 
     return EXIT_SUCCESS;
 }

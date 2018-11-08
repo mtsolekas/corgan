@@ -35,7 +35,8 @@ static int get_active_index()
     char *name;
     int idx;
 
-    if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return -1;
+    if (!gtk_tree_selection_get_selected(selection, &model, &iter))
+        return -1;
     gtk_tree_model_get(model, &iter, 0, &name, -1);
 
     idx = search_contacts(name);
@@ -71,7 +72,7 @@ void new_button_clicked()
     int idx;
 
     idx = 0;
-    if (!contacts_size ||(idx = search_contacts("NEW CONTACT")) < 0) {
+    if (!contacts_size || (idx = search_contacts("NEW CONTACT")) < 0) {
         new_contact();
         gtk_list_store_append(names_list, &iter);
         gtk_list_store_set(names_list, &iter, 0, "NEW CONTACT", -1);
@@ -127,7 +128,8 @@ void save_button_clicked()
     }
 
     idx = get_active_index();
-    if (idx < 0) return;
+    if (idx < 0)
+        return;
 
     new_name = xstrdup(gtk_entry_get_text(name_entry));
     new_email = xstrdup(gtk_entry_get_text(email_entry));

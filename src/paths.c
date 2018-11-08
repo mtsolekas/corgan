@@ -30,8 +30,7 @@
 int init_paths()
 {
     if (!getenv("XDG_DATA_HOME") || !strlen(getenv("XDG_DATA_HOME"))) {
-        DATA_DIR = xrealloc(xstrdup(getenv("HOME")),
-                            strlen(getenv("HOME"))
+        DATA_DIR = xrealloc(xstrdup(getenv("HOME")), strlen(getenv("HOME"))
                             + strlen("/.local/share/corgan/") + 1);
 
         DATA_DIR = strcat(DATA_DIR, "/.local/");

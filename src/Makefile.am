@@ -10,8 +10,8 @@ endif
 TESTS = $(check_PROGRAMS) test_cleanup
 check_PROGRAMS = test_util test_paths test_schedule test_contacts
 test_util_SOURCES = test_util.c \
-                     util.c \
-                     util.h
+                    util.c \
+                    util.h
 test_paths_SOURCES = test_paths.c \
                      paths.c \
                      paths.h \
