@@ -63,7 +63,7 @@ int read_schedule_file()
 
     fseek(fp, 0, SEEK_END);
 
-    sched = xmalloc(ftell(fp) + sizeof(char));
+    sched = xmalloc(ftell(fp) + 1);
 
     fseek(fp, 0, SEEK_SET);
     sched[0] = '\0';

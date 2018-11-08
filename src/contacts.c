@@ -172,13 +172,13 @@ int read_contacts_file()
         contacts[i] = xmalloc(sizeof(contact_t));
 
         fgets(line, 128, fp);
-        contacts[i]->name = xstrndup(line, sizeof(char) * (strlen(line) - 1));
+        contacts[i]->name = xstrndup(line, strlen(line) - 1);
 
         fgets(line, 128, fp);
-        contacts[i]->email = xstrndup(line, sizeof(char) * (strlen(line) - 1));
+        contacts[i]->email = xstrndup(line, strlen(line) - 1);
 
         fgets(line, 128, fp);
-        contacts[i]->phone = xstrndup(line, sizeof(char) * (strlen(line) - 1));
+        contacts[i]->phone = xstrndup(line, strlen(line) - 1);
     }
 
     fclose(fp);

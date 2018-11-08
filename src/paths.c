@@ -31,9 +31,8 @@ int init_paths()
 {
     if (!getenv("XDG_DATA_HOME") || !strlen(getenv("XDG_DATA_HOME"))) {
         DATA_DIR = xrealloc(xstrdup(getenv("HOME")),
-                           sizeof(char) * (strlen(getenv("HOME"))
-                                           + strlen("/.local/share/corgan/")
-                                           + 1));
+                            strlen(getenv("HOME"))
+                            + strlen("/.local/share/corgan/") + 1);
 
         DATA_DIR = strcat(DATA_DIR, "/.local/");
         mkdir(DATA_DIR, 0700);
@@ -45,22 +44,19 @@ int init_paths()
         mkdir(DATA_DIR, 0700);
     } else {
         DATA_DIR = xrealloc(xstrdup(getenv("XDG_DATA_HOME")),
-                           sizeof(char) * (strlen(getenv("XDG_DATA_HOME"))
-                                           + strlen("/corgan/") + 1));
+                            strlen(getenv("XDG_DATA_HOME"))
+                            + strlen("/corgan/") + 1);
 
         DATA_DIR = strcat(DATA_DIR, "/corgan/");
         mkdir(DATA_DIR, 0700);
     }
 
     CONTACTS_PATH = xrealloc(xstrdup(DATA_DIR),
-                            sizeof(char) * (strlen(DATA_DIR)
-                                            + strlen("contacts") + 1));
+                             strlen(DATA_DIR) + strlen("contacts") + 1);
     SCHEDULE_PATH = xrealloc(xstrdup(DATA_DIR),
-                            sizeof(char) * (strlen(DATA_DIR)
-                                            + strlen("contacts") + 1));
+                             strlen(DATA_DIR) + strlen("contacts") + 1);
     EXPORT_PATH = xrealloc(xstrdup(DATA_DIR),
-                          sizeof(char) * (strlen(DATA_DIR)
-                                          + strlen("contacts.vcf") + 1));
+                           strlen(DATA_DIR) + strlen("contacts.vcf") + 1);
 
     CONTACTS_PATH = strcat(CONTACTS_PATH, "contacts");
     SCHEDULE_PATH = strcat(SCHEDULE_PATH, "schedule");

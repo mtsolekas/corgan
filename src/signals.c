@@ -140,7 +140,7 @@ void save_button_clicked()
 
         while (strcmp(contacts[idx]->name, new_name)
                && search_contacts(new_name) >= 0) {
-            new_name = xrealloc(new_name, sizeof(char) * (strlen(new_name) + 5));
+            new_name = xrealloc(new_name, strlen(new_name) + 5);
             new_name = strcat(new_name, " Alt");
             gtk_entry_set_text(name_entry, new_name);
         }
