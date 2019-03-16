@@ -235,7 +235,9 @@ int export_contacts_vcard()
         free(name);
 
         fprintf(fp, "\nFN:%s\nTEL;TYPE=VOICE:%s\nEMAIL:%s\nEND:VCARD\n",
-                contacts[i]->name, contacts[i]->phone, contacts[i]->email);
+                contacts[i]->name,
+                contacts[i]->phone[0] != '\0' ? contacts[i]->phone : "Unknown",
+                contacts[i]->email[0] != '\0' ? contacts[i]->email : "Unknown");
     }
 
     fclose(fp);
