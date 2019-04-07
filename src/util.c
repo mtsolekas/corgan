@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2018, 2019 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -76,4 +76,27 @@ char *xstrndup(const char *s, size_t n)
     }
 
     return ret;
+}
+
+char *freadline(FILE *fp)
+{
+    char c;
+    size_t lsize, i;
+    char *line;
+
+    lsize = 32;
+    line = xmalloc(lsize);
+
+    for (i = 0; (c = fgetc(fp)) != EOF && c != '\n'; ++i) {
+        if (i >= lsize - 1) {
+            lsize += 32;
+            line = xrealloc(line, lsize);
+        }
+        line[i] = c;
+    }
+
+    line = xrealloc(line, i + 1);
+    line[i] = '\0';
+
+    return line;
 }

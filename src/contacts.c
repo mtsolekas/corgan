@@ -162,7 +162,6 @@ int search_contacts(const char *name)
 int read_contacts_file()
 {
     FILE *fp;
-    char line[128];
 
     fp = fopen(CONTACTS_PATH, "r");
     if (!fp)
@@ -175,14 +174,9 @@ int read_contacts_file()
 
         contacts[i] = xmalloc(sizeof(contact_t));
 
-        fgets(line, 128, fp);
-        contacts[i]->name = xstrndup(line, strlen(line) - 1);
-
-        fgets(line, 128, fp);
-        contacts[i]->email = xstrndup(line, strlen(line) - 1);
-
-        fgets(line, 128, fp);
-        contacts[i]->phone = xstrndup(line, strlen(line) - 1);
+        contacts[i]->name = freadline(fp);
+        contacts[i]->email = freadline(fp);
+        contacts[i]->phone = freadline(fp);
     }
 
     fclose(fp);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2018, 2019 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -22,10 +22,14 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#include<stdio.h>
+
 void *xmalloc(size_t);
 void *xrealloc(void *, size_t);
 
 char *xstrdup(const char *);
 char *xstrndup(const char *, size_t);
+
+char *freadline(FILE *);
 
 #endif
