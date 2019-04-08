@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017-2019 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -28,6 +28,12 @@
 #include "contacts.h"
 #include "schedule.h"
 
+int schedule_changed  = 0,
+    contacts_changed = 0,
+    name_changed = 0,
+    email_changed = 0,
+    phone_changed = 0;
+
 static int get_active_index()
 {
     GtkTreeIter iter;
@@ -43,6 +49,29 @@ static int get_active_index()
     free(name);
 
     return idx;
+}
+
+void schedule_buffer_changed()
+{
+    schedule_changed = 1;
+}
+
+void name_entry_changed()
+{
+    contacts_changed = 1;
+    name_changed = 1;
+}
+
+void email_entry_changed()
+{
+    contacts_changed = 1;
+    email_changed = 1;
+}
+
+void phone_entry_changed()
+{
+    contacts_changed = 1;
+    phone_changed = 1;
 }
 
 void selection_changed()
@@ -63,6 +92,11 @@ void selection_changed()
     gtk_entry_set_text(name_entry, contacts[idx]->name);
     gtk_entry_set_text(email_entry, contacts[idx]->email);
     gtk_entry_set_text(phone_entry, contacts[idx]->phone);
+
+    contacts_changed = 0;
+    name_changed = 0;
+    email_changed = 0;
+    phone_changed = 0;
 }
 
 void new_button_clicked()
@@ -112,49 +146,47 @@ void save_button_clicked()
     GtkTreeModel *model;
     GtkTreePath *path;
     GtkTreeIter tree_iter;
-    char *new_sched, *new_name, *new_email, *new_phone;
+    char *new_name;
     int idx;
 
-    gtk_text_buffer_get_start_iter(sched_buf, &start);
-    gtk_text_buffer_get_end_iter(sched_buf, &end);
-    new_sched = gtk_text_buffer_get_text(sched_buf, &start, &end, TRUE);
+    if (schedule_changed) {
+        gtk_text_buffer_get_start_iter(sched_buf, &start);
+        gtk_text_buffer_get_end_iter(sched_buf, &end);
 
-    if (strcmp(sched, new_sched)) {
         free(sched);
-        sched = new_sched;
+        sched = gtk_text_buffer_get_text(sched_buf, &start, &end, TRUE);
+
+        schedule_changed = 0;
+
         write_schedule_file();
-    } else {
-        free(new_sched);
     }
 
-    idx = get_active_index();
-    if (idx < 0)
-        return;
+    if (contacts_changed) {
+        if ((idx = get_active_index()) < 0)
+            return;
 
-    new_name = xstrdup(gtk_entry_get_text(name_entry));
-    new_email = xstrdup(gtk_entry_get_text(email_entry));
-    new_phone = xstrdup(gtk_entry_get_text(phone_entry));
+        if (name_changed) {
+            new_name = xstrdup(gtk_entry_get_text(name_entry));
+            while (strcmp(contacts[idx]->name, new_name)
+                   && search_contacts(new_name) >= 0) {
+                new_name = xrealloc(new_name, strlen(new_name) + 5);
+                new_name = strcat(new_name, " Alt");
+                gtk_entry_set_text(name_entry, new_name);
+            }
 
-    if (!strcmp(contacts[idx]->name, "NEW CONTACT")
-        || strcmp(contacts[idx]->name, new_name)
-        || strcmp(contacts[idx]->email, new_email)
-        || strcmp(contacts[idx]->phone, new_phone)) {
-
-        while (strcmp(contacts[idx]->name, new_name)
-               && search_contacts(new_name) >= 0) {
-            new_name = xrealloc(new_name, strlen(new_name) + 5);
-            new_name = strcat(new_name, " Alt");
-            gtk_entry_set_text(name_entry, new_name);
+            free(contacts[idx]->name);
+            contacts[idx]->name = new_name;
         }
 
-        free(contacts[idx]->name);
-        free(contacts[idx]->email);
-        free(contacts[idx]->phone);
+        if (email_changed) {
+            free(contacts[idx]->email);
+            contacts[idx]->email = xstrdup(gtk_entry_get_text(email_entry));
+        }
 
-        contacts[idx]->name = new_name;
-        contacts[idx]->email = new_email;
-        contacts[idx]->phone = new_phone;
-        contacts_changed = 1;
+        if (phone_changed) {
+            free(contacts[idx]->phone);
+            contacts[idx]->phone = xstrdup(gtk_entry_get_text(phone_entry));
+        }
 
         gtk_tree_selection_get_selected(selection, &model, &tree_iter);
         gtk_list_store_set(names_list, &tree_iter, 0, contacts[idx]->name, -1);
@@ -162,14 +194,12 @@ void save_button_clicked()
         path = gtk_tree_model_get_path(model, &tree_iter);
         gtk_tree_view_scroll_to_cell(contacts_view, path, NULL, 0, 0, 0);
         gtk_tree_path_free(path);
-    } else {
-        free(new_name);
-        free(new_email);
-        free(new_phone);
-    }
 
-    if (contacts_changed) {
-        write_contacts_file();
         contacts_changed = 0;
+        name_changed = 0;
+        email_changed = 0;
+        phone_changed = 0;
+
+        write_contacts_file();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017-2019 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -22,10 +22,14 @@
 #ifndef SIGNALS_H
 #define SIGNALS_H
 
-int contacts_changed;
+void schedule_buffer_changed();
 
-void close_error_button_clicked();
+void name_entry_changed();
+void email_entry_changed();
+void phone_entry_changed();
+
 void selection_changed();
+
 void new_button_clicked();
 void delete_button_clicked();
 void export_button_clicked();

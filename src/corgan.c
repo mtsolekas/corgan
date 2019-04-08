@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017-2019 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -98,8 +98,6 @@ static void activate(GtkApplication * app)
 
     gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
     gtk_tree_selection_select_iter(selection, &iter);
-
-    contacts_changed = 0;
 
     gobj = gtk_builder_get_object(builder, "window");
     gtk_application_add_window(app, GTK_WINDOW(gobj));
