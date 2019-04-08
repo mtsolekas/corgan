@@ -30,6 +30,7 @@ po/stamp-po
 *.log
 *.trs
 test-driver
+src/test_util
 src/test_paths
 src/test_schedule
 src/test_contacts
