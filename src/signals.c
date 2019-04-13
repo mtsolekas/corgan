@@ -28,11 +28,9 @@
 #include "contacts.h"
 #include "schedule.h"
 
-int schedule_changed  = 0,
+int schedule_changed = 0,
     contacts_changed = 0,
-    name_changed = 0,
-    email_changed = 0,
-    phone_changed = 0;
+    name_changed = 0, email_changed = 0, phone_changed = 0;
 
 static int get_active_index()
 {

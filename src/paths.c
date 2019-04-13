@@ -53,7 +53,7 @@ int init_paths()
     CONTACTS_PATH = xrealloc(xstrdup(DATA_DIR),
                              strlen(DATA_DIR) + strlen("contacts") + 1);
     SCHEDULE_PATH = xrealloc(xstrdup(DATA_DIR),
-                             strlen(DATA_DIR) + strlen("contacts") + 1);
+                             strlen(DATA_DIR) + strlen("schedule") + 1);
     EXPORT_PATH = xrealloc(xstrdup(DATA_DIR),
                            strlen(DATA_DIR) + strlen("contacts.vcf") + 1);
 

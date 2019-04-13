@@ -78,7 +78,7 @@ char *xstrndup(const char *s, size_t n)
     return ret;
 }
 
-char *freadline(FILE *fp)
+char *freadline(FILE * fp)
 {
     char c;
     size_t lsize, i;

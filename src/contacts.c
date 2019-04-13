@@ -37,8 +37,7 @@ int init_contacts()
     FILE *fp;
 
     if (access(CONTACTS_PATH, F_OK | R_OK | W_OK)) {
-        fp = fopen(CONTACTS_PATH, "w");
-        if (!fp)
+        if (!(fp = fopen(CONTACTS_PATH, "w")))
             return -1;
 
         fprintf(fp, "1\nNEW CONTACT\n%s\n%s\n", "\0", "\0");
@@ -117,7 +116,6 @@ static int compare_contacts(const void *p1, const void *p2)
 
 static int sort_contacts()
 {
-
     if (!contacts_size)
         return 0;
 
@@ -163,8 +161,7 @@ int read_contacts_file()
 {
     FILE *fp;
 
-    fp = fopen(CONTACTS_PATH, "r");
-    if (!fp)
+    if (!(fp = fopen(CONTACTS_PATH, "r")))
         return -1;
 
     fscanf(fp, "%d\n", &contacts_size);
@@ -190,17 +187,15 @@ int write_contacts_file()
 {
     FILE *fp;
 
-    fp = fopen(CONTACTS_PATH, "w");
-    if (!fp)
+    if (!(fp = fopen(CONTACTS_PATH, "w")))
         return -1;
 
     sort_contacts();
 
     fprintf(fp, "%d\n", contacts_size);
-    for (int i = 0; i < contacts_size; ++i) {
+    for (int i = 0; i < contacts_size; ++i)
         fprintf(fp, "%s\n%s\n%s\n", contacts[i]->name, contacts[i]->email,
                 contacts[i]->phone);
-    }
 
     fclose(fp);
 
@@ -212,8 +207,7 @@ int export_contacts_vcard()
     FILE *fp;
     char *name, *fname, *lname, *tmp;
 
-    fp = fopen(EXPORT_PATH, "w");
-    if (!fp)
+    if (!(fp = fopen(EXPORT_PATH, "w")))
         return -1;
 
     for (int i = 0; i < contacts_size; ++i) {
@@ -222,9 +216,9 @@ int export_contacts_vcard()
         name = xstrdup(contacts[i]->name);
         fname = strtok(name, " ");
         lname = strtok(NULL, " ");
-        while ((tmp = strtok(NULL, " "))) {
+        while ((tmp = strtok(NULL, " ")))
             lname = tmp;
-        }
+
         fprintf(fp, "\nN:%s;%s;", lname, fname);
         free(name);
 
