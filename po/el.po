@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: corgan 0.10\n"
 "Report-Msgid-Bugs-To: https://github.com/mtsolekas/corgan/issues\n"
-"POT-Creation-Date: 2018-11-06 04:43+0200\n"
+"POT-Creation-Date: 2019-04-13 19:13+0300\n"
 "PO-Revision-Date: 2017-09-24 16:30+0300\n"
 "Last-Translator: Marios <marios.tsolekas@gmail.com>\n"
 "Language-Team: Greek\n"
@@ -17,43 +17,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/window.ui:40 data/corgan.desktop.in:5
+#: src/window.ui:42 data/corgan.desktop.in:5
 msgid "Corgan"
 msgstr "Corgan"
 
-#: src/window.ui:59
+#: src/window.ui:61
 msgid "Contacts"
 msgstr "Επαφές"
 
-#: src/window.ui:119
+#: src/window.ui:121
 msgid "Name"
 msgstr "Όνομα"
 
-#: src/window.ui:142
+#: src/window.ui:145
 msgid "Email Address"
 msgstr "Ηλεκτρονικό Ταχυδρομείο"
 
-#: src/window.ui:165
+#: src/window.ui:169
 msgid "Phone Number"
 msgstr "Αριθμός Τηλεφώνου"
 
-#: src/window.ui:199
+#: src/window.ui:204
 msgid "New Contact"
 msgstr "Νέα Επαφή"
 
-#: src/window.ui:213
+#: src/window.ui:218
 msgid "Delete Contact"
 msgstr "Διαγραφή Επαφής"
 
-#: src/window.ui:227
+#: src/window.ui:232
 msgid "Export Contacts"
 msgstr "Εξαγωγή Επαφών"
 
-#: src/window.ui:254
+#: src/window.ui:259
 msgid "Save Changes"
 msgstr "Αποθήκευση Αλλαγών"
 
-#: src/window.ui:282
+#: src/window.ui:287
 msgid "Schedule"
 msgstr "Πρόγραμμα"
 
