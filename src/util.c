@@ -105,7 +105,7 @@ char *freadline(FILE * fp)
 
 int mkpath(const char *path, mode_t mode)
 {
-    int retcode;
+    int retcode, ret;
     char *pathincr, *token, *tmp;
 
     retcode = 0;
@@ -124,7 +124,8 @@ int mkpath(const char *path, mode_t mode)
     while ((token = strtok(NULL, "/"))) {
         pathincr = strcat(pathincr, "/");
         pathincr = strcat(pathincr, token);
-        retcode = mkdir(pathincr, mode);
+        ret = mkdir(pathincr, mode);
+        retcode = !retcode ? ret : -1;
     }
 
     free(tmp);
