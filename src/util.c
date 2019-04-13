@@ -125,7 +125,7 @@ int mkpath(const char *path, mode_t mode)
         pathincr = strcat(pathincr, "/");
         pathincr = strcat(pathincr, token);
         ret = mkdir(pathincr, mode);
-        retcode = !retcode ? ret : -1;
+        retcode = !retcode ? ret : retcode;
     }
 
     free(tmp);
