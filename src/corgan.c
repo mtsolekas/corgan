@@ -31,7 +31,7 @@
 #include "contacts.h"
 #include "schedule.h"
 
-static void activate(GtkApplication * app)
+static void activate(GtkApplication *app)
 {
     GList *list;
     GObject *gobj;
