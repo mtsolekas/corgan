@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2018, 2019 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -34,7 +34,6 @@ int main()
     unsetenv("XDG_DATA_HOME");
     setenv("HOME", "test_home", 1);
 
-    mkdir("test_home", 0777);
     assert(!init_paths());
 
     assert(!init_contacts());

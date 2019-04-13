@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2018, 2019 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -32,10 +32,8 @@ int test_init_xdg();
 
 int main()
 {
-    mkdir("test_home", 0777);
     assert(!test_init_noxdg());
 
-    mkdir("test_home/.local/data", 0777);
     assert(!test_init_xdg());
 
     return EXIT_SUCCESS;
