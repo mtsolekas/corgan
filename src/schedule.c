@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017-2019 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
