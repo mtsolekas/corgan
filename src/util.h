@@ -22,7 +22,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include<stdio.h>
+#include <stdio.h>
 
 void *xmalloc(size_t);
 void *xrealloc(void *, size_t);
@@ -31,5 +31,7 @@ char *xstrdup(const char *);
 char *xstrndup(const char *, size_t);
 
 char *freadline(FILE *);
+
+int mkpath(const char *, mode_t);
 
 #endif

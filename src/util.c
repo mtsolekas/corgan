@@ -22,6 +22,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "util.h"
 
@@ -99,4 +101,34 @@ char *freadline(FILE * fp)
     line[i] = '\0';
 
     return line;
+}
+
+int mkpath(const char *path, mode_t mode)
+{
+    int retcode;
+    char *pathincr, *token, *tmp;
+
+    retcode = 0;
+
+    pathincr = xmalloc(strlen(path) + 1);
+    pathincr[0] = '\0';
+    if (path[0] == '/')
+        pathincr = strcat(pathincr, "/");
+
+    tmp = xstrdup(path);
+    token = strtok(tmp, "/");
+
+    pathincr = strcat(pathincr, token);
+    retcode = mkdir(pathincr, mode);
+
+    while ((token = strtok(NULL, "/"))) {
+        pathincr = strcat(pathincr, "/");
+        pathincr = strcat(pathincr, token);
+        retcode = mkdir(pathincr, mode);
+    }
+
+    free(tmp);
+    free(pathincr);
+
+    return retcode;
 }

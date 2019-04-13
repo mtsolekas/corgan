@@ -33,22 +33,17 @@ int init_paths()
         DATA_DIR = xrealloc(xstrdup(getenv("HOME")), strlen(getenv("HOME"))
                             + strlen("/.local/share/corgan/") + 1);
 
-        DATA_DIR = strcat(DATA_DIR, "/.local/");
-        mkdir(DATA_DIR, 0700);
+        DATA_DIR = strcat(DATA_DIR, "/.local/share/corgan/");
 
-        DATA_DIR = strcat(DATA_DIR, "share/");
-        mkdir(DATA_DIR, 0700);
-
-        DATA_DIR = strcat(DATA_DIR, "corgan/");
-        mkdir(DATA_DIR, 0700);
     } else {
         DATA_DIR = xrealloc(xstrdup(getenv("XDG_DATA_HOME")),
                             strlen(getenv("XDG_DATA_HOME"))
                             + strlen("/corgan/") + 1);
 
         DATA_DIR = strcat(DATA_DIR, "/corgan/");
-        mkdir(DATA_DIR, 0700);
     }
+
+    mkpath(DATA_DIR, 0700);
 
     CONTACTS_PATH = xrealloc(xstrdup(DATA_DIR),
                              strlen(DATA_DIR) + strlen("contacts") + 1);
