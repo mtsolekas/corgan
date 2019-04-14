@@ -1,4 +1,4 @@
-AC_INIT([corgan], [master], [https://github.com/mtsolekas/corgan/issues])
+AC_INIT([corgan], [0.1], [https://github.com/mtsolekas/corgan/issues])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign serial-tests])
 AC_CONFIG_SRCDIR([src/corgan.c])
 AC_CONFIG_HEADERS([config.h])
