@@ -32,6 +32,14 @@ int schedule_changed = 0,
     contacts_changed = 0,
     name_changed = 0, email_changed = 0, phone_changed = 0;
 
+int delflag = 0, newflag = 0;
+
+int idx_save;
+GtkTreeIter iter_save;
+
+static int get_active_index();
+static int save_contact();
+
 static int get_active_index()
 {
     GtkTreeIter iter;
@@ -46,7 +54,50 @@ static int get_active_index()
     idx = search_contacts(name);
     free(name);
 
+    idx_save = idx;
+    iter_save = iter;
+
     return idx;
+}
+
+static int save_contact()
+{
+    char *new_name;
+
+    if (contacts_changed) {
+
+        if (name_changed) {
+            new_name = xstrdup(gtk_entry_get_text(name_entry));
+            while (strcmp(contacts[idx_save]->name, new_name)
+                   && search_contacts(new_name) >= 0) {
+                new_name = xrealloc(new_name, strlen(new_name) + 5);
+                new_name = strcat(new_name, " Alt");
+                gtk_entry_set_text(name_entry, new_name);
+            }
+
+            free(contacts[idx_save]->name);
+            contacts[idx_save]->name = new_name;
+        }
+
+        if (email_changed) {
+            free(contacts[idx_save]->email);
+            contacts[idx_save]->email =
+                xstrdup(gtk_entry_get_text(email_entry));
+        }
+
+        if (phone_changed) {
+            free(contacts[idx_save]->phone);
+            contacts[idx_save]->phone =
+                xstrdup(gtk_entry_get_text(phone_entry));
+        }
+
+        gtk_list_store_set(names_list, &iter_save, 0,
+                           contacts[idx_save]->name, -1);
+
+        sort_contacts();
+    }
+
+    return 0;
 }
 
 void schedule_buffer_changed()
@@ -77,6 +128,9 @@ void selection_changed()
     GtkTreeIter iter;
     int idx;
 
+    if (!newflag && !delflag)
+        save_contact();
+
     idx = get_active_index();
     if (idx < 0 && contacts_size > 0) {
         gtk_tree_model_get_iter_first(GTK_TREE_MODEL(names_list), &iter);
@@ -91,7 +145,6 @@ void selection_changed()
     gtk_entry_set_text(email_entry, contacts[idx]->email);
     gtk_entry_set_text(phone_entry, contacts[idx]->phone);
 
-    contacts_changed = 0;
     name_changed = 0;
     email_changed = 0;
     phone_changed = 0;
@@ -102,6 +155,11 @@ void new_button_clicked()
     GtkTreeIter iter;
     GtkTreePath *path;
     int idx;
+
+    if (!delflag && !newflag)
+        save_contact();
+
+    newflag = 1;
 
     idx = 0;
     if (!contacts_size || (idx = search_contacts("NEW CONTACT")) < 0) {
@@ -115,22 +173,25 @@ void new_button_clicked()
     gtk_tree_selection_select_path(selection, path);
     gtk_tree_view_scroll_to_cell(contacts_view, path, NULL, 0, 0, 0);
     gtk_tree_path_free(path);
+
+    newflag = 0;
 }
 
 void delete_button_clicked()
 {
     GtkTreeIter iter;
     GtkTreeModel *model;
-    int idx;
 
-    idx = get_active_index();
+    del_contact(idx_save);
 
-    del_contact(idx);
+    delflag = 1;
 
     gtk_tree_selection_get_selected(selection, &model, &iter);
     gtk_list_store_remove(names_list, &iter);
 
     contacts_changed = 1;
+
+    delflag = 0;
 }
 
 void export_button_clicked()
@@ -144,8 +205,6 @@ void save_button_clicked()
     GtkTreeModel *model;
     GtkTreePath *path;
     GtkTreeIter tree_iter;
-    char *new_name;
-    int idx;
 
     if (schedule_changed) {
         gtk_text_buffer_get_start_iter(sched_buf, &start);
@@ -160,36 +219,11 @@ void save_button_clicked()
     }
 
     if (contacts_changed) {
-        if ((idx = get_active_index()) < 0)
-            return;
 
-        if (name_changed) {
-            new_name = xstrdup(gtk_entry_get_text(name_entry));
-            while (strcmp(contacts[idx]->name, new_name)
-                   && search_contacts(new_name) >= 0) {
-                new_name = xrealloc(new_name, strlen(new_name) + 5);
-                new_name = strcat(new_name, " Alt");
-                gtk_entry_set_text(name_entry, new_name);
-            }
-
-            free(contacts[idx]->name);
-            contacts[idx]->name = new_name;
-        }
-
-        if (email_changed) {
-            free(contacts[idx]->email);
-            contacts[idx]->email = xstrdup(gtk_entry_get_text(email_entry));
-        }
-
-        if (phone_changed) {
-            free(contacts[idx]->phone);
-            contacts[idx]->phone = xstrdup(gtk_entry_get_text(phone_entry));
-        }
+        save_contact();
 
         gtk_tree_selection_get_selected(selection, &model, &tree_iter);
-        gtk_list_store_set(names_list, &tree_iter, 0, contacts[idx]->name, -1);
-
-        path = gtk_tree_model_get_path(model, &tree_iter);
+        path = gtk_tree_model_get_path(model, &iter_save);
         gtk_tree_view_scroll_to_cell(contacts_view, path, NULL, 0, 0, 0);
         gtk_tree_path_free(path);
 

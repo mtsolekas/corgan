@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017-2019 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -38,6 +38,7 @@ int new_contact();
 int del_contact(int);
 
 int search_contacts(const char *);
+int sort_contacts();
 
 int read_contacts_file();
 int write_contacts_file();
