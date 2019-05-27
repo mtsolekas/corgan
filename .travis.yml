@@ -1,5 +1,6 @@
 language: c
 compiler: gcc
+dist: xenial
 
 before_install:
     - sudo apt-get update
