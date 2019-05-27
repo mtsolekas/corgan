@@ -4,7 +4,7 @@ dist: xenial
 
 before_install:
     - sudo apt-get update
-    - sudo apt-get upgrade -y build-essential libgtk-3.0 autoconf automake
+    - sudo apt-get upgrade -y build-essential libgtk-3-0 autoconf automake
     - sudo apt-get install -y libgtk-3-dev autopoint
 
 script:
