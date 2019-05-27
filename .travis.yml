@@ -6,4 +6,4 @@ before_install:
     - sudo apt-get install -y libgtk-3-dev
 
 script:
-    - ./configure && make && make check && make distcheck
+    - autoreconf -ivf && ./configure && make && make check && make distcheck
