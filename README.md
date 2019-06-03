@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mtsolekas/corgan.svg?branch=master)](https://travis-ci.com/mtsolekas/corgan)
+
 # Corgan
 
 Corgan is a simple contacts and schedule organizer written in C
@@ -29,7 +31,7 @@ To execute tests run  **make check**.
 
 This will install the corgan binary, its desktop file and i18n
 files to their respective locations. Your contacts and schedule
-data are saved at $XDG\_DATA\_HOME/corgan/ which 
+data are saved at $XDG\_DATA\_HOME/corgan/ which
 is by default ~/.local/share/corgan/.
 
 ## Uninstall Instructions:
