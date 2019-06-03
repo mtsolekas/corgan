@@ -163,7 +163,9 @@ int read_contacts_file()
     if (!(fp = fopen(CONTACTS_PATH, "r")))
         return -1;
 
-    fscanf(fp, "%d\n", &contacts_size);
+    if ((fscanf(fp, "%d\n", &contacts_size)) <= 0)
+        return -1;
+
     contacts = xmalloc(sizeof(contact_t *) * contacts_size);
 
     for (int i = 0; i < contacts_size; ++i) {
