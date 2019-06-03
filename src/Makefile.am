@@ -1,6 +1,9 @@
 AM_CPPFLAGS = $(GTK_CFLAGS) -DLOCALEDIR=\"$(localedir)\"
 AM_CFLAGS = -Wall -Wextra -std=gnu99 -O2
-AM_LDFLAGS = $(CORGAN_LIBS) $(GTK_LIBS) @LIBINTL@ -rdynamic
+AM_LDFLAGS = -rdynamic
+
+test_contacts_LDADD = $(GTK_LIBS)
+corgan_LDADD = $(CORGAN_LIBS) $(GTK_LIBS) @LIBINTL@
 
 if DEBUG
 AM_CFLAGS += -fsanitize=address -fsanitize=undefined \
