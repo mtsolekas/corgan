@@ -1,4 +1,4 @@
-![](https://github.com/mtsolekas/corgan/workflows/.github/workflows/main.yml/badge.svg)
+![Build Status](https://github.com/mtsolekas/corgan/workflows/main/badge.svg)
 # Corgan
 
 Corgan is a simple contacts and schedule organizer written in C
