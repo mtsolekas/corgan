@@ -212,7 +212,7 @@ int export_contacts_vcard()
         return -1;
 
     for (int i = 0; i < contacts_size; ++i) {
-        fprintf(fp, "BEGIN:VCARD\nVERSION:3.0");
+        fprintf(fp, "BEGIN:VCARD\nVERSION:2.1\n");
 
         name = xstrdup(contacts[i]->name);
         fname = strtok(name, " ");
@@ -220,13 +220,16 @@ int export_contacts_vcard()
         while ((tmp = strtok(NULL, " ")))
             lname = tmp;
 
-        fprintf(fp, "\nN:%s;%s;", lname, fname);
-        free(name);
+        fprintf(fp, "FN:%s\nN:%s;%s\n",
+                contacts[i]->name, lname, fname);
 
-        fprintf(fp, "\nFN:%s\nTEL;TYPE=VOICE:%s\nEMAIL:%s\nEND:VCARD\n",
-                contacts[i]->name,
-                contacts[i]->phone[0] != '\0' ? contacts[i]->phone : "Unknown",
-                contacts[i]->email[0] != '\0' ? contacts[i]->email : "Unknown");
+        if (contacts[i]->email[0] != '\0')
+            fprintf(fp, "EMAIL:%s\n", contacts[i]->email);
+        if (contacts[i]->phone[0] != '\0')
+            fprintf(fp, "TEL;CELL;VOICE:%s\n", contacts[i]->phone);
+
+        fprintf(fp, "END:VCARD\n");
+        free(name);
     }
 
     fclose(fp);
