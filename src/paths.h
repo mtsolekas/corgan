@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017,2018,2021 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -22,8 +22,8 @@
 #ifndef PATHS_H
 #define PATHS_H
 
-char *DATA_DIR;
-char *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
+extern char *DATA_DIR;
+extern char *CONTACTS_PATH, *SCHEDULE_PATH, *EXPORT_PATH;
 
 int init_paths();
 int free_paths();

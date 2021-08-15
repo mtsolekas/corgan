@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017-2019,2021 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -30,6 +30,15 @@
 #include "paths.h"
 #include "contacts.h"
 #include "schedule.h"
+
+GtkBuilder *builder;
+
+GtkTextBuffer *sched_buf;
+
+GtkListStore *names_list;
+GtkTreeView *contacts_view;
+GtkTreeSelection *selection;
+GtkEntry *name_entry, *email_entry, *phone_entry;
 
 static void activate(GtkApplication *app)
 {

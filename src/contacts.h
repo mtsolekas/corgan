@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017-2019,2021 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -28,8 +28,8 @@ typedef struct contact_type {
     char *phone;
 } contact_t;
 
-contact_t **contacts;
-int contacts_size;
+extern contact_t **contacts;
+extern int contacts_size;
 
 int init_contacts();
 int free_contacts();

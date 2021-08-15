@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017-2019,2021 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -27,6 +27,8 @@
 #include "util.h"
 #include "paths.h"
 #include "schedule.h"
+
+char *sched;
 
 int init_schedule()
 {

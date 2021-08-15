@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2018 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017,2018,2021 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -22,7 +22,7 @@
 #ifndef SCHEDULE_H
 #define SCHEDULE_H
 
-char *sched;
+extern char *sched;
 
 int init_schedule();
 int free_schedule();

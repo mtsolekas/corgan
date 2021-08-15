@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017-2019,2021 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -28,6 +28,9 @@
 #include "util.h"
 #include "paths.h"
 #include "contacts.h"
+
+contact_t **contacts;
+int contacts_size;
 
 static int compare_contacts(const void *, const void *);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Marios Tsolekas <marios.tsolekas@gmail.com>
+ * Copyright (C) 2017,2021 Marios Tsolekas <marios.tsolekas@gmail.com>
  *
  * This file is part of Corgan.
  *
@@ -24,13 +24,13 @@
 
 #include <gtk/gtk.h>
 
-GtkBuilder *builder;
+extern GtkBuilder *builder;
 
-GtkTextBuffer *sched_buf;
+extern GtkTextBuffer *sched_buf;
 
-GtkListStore *names_list;
-GtkTreeView *contacts_view;
-GtkTreeSelection *selection;
-GtkEntry *name_entry, *email_entry, *phone_entry;
+extern GtkListStore *names_list;
+extern GtkTreeView *contacts_view;
+extern GtkTreeSelection *selection;
+extern GtkEntry *name_entry, *email_entry, *phone_entry;
 
 #endif
